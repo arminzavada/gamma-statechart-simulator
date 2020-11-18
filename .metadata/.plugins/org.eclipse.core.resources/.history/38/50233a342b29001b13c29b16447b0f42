@@ -1,0 +1,68 @@
+package com.triad.school.gamma.simulator.query
+
+import org.eclipse.viatra.query.runtime.api.ViatraQueryEngine
+import org.eclipse.viatra.query.runtime.emf.EMFScope
+import org.eclipse.viatra.transformation.runtime.emf.modelmanipulation.IModelManipulations
+import org.eclipse.viatra.transformation.runtime.emf.modelmanipulation.SimpleModelManipulations
+import org.eclipse.viatra.transformation.runtime.emf.rules.batch.BatchTransformationRuleFactory
+import org.eclipse.viatra.transformation.runtime.emf.rules.batch.BatchTransformationRule
+import org.eclipse.viatra.transformation.runtime.emf.transformation.batch.BatchTransformation
+import org.eclipse.viatra.transformation.runtime.emf.transformation.batch.BatchTransformationStatements
+import org.eclipse.emf.ecore.resource.Resource
+
+class GammaStatechartSimulator {
+
+    /* Transformation-related extensions */
+    extension BatchTransformation transformation
+    extension BatchTransformationStatements statements
+    
+    /* Transformation rule-related extensions */
+    extension BatchTransformationRuleFactory = new BatchTransformationRuleFactory
+    extension IModelManipulations manipulation
+
+    protected ViatraQueryEngine engine
+    protected Resource resource
+    //protected BatchTransformationRule<?,?> exampleRule
+
+    new(Resource resource) {
+        this.resource = resource
+        // Create EMF scope and EMF IncQuery engine based on the resource
+        val scope = new EMFScope(resource)
+        engine = ViatraQueryEngine.on(scope);
+        
+        createTransformation
+
+    }
+
+    public def execute() {
+//      Fire the defined rules here
+//      exampleRule.fireAllCurrent
+    }
+
+    private def createTransformation() {
+        //Create VIATRA model manipulations
+        this.manipulation = new SimpleModelManipulations(engine)
+        //Create VIATRA Batch transformation
+        transformation = BatchTransformation.forEngine(engine)
+        .build
+        //Initialize batch transformation statements
+        statements = transformation.transformationStatements
+    }
+    
+//  private def getExampleRule() {
+//      if(exampleRule == null){
+//          exampleRule = createRule.name("ExampleRule").precondition(ExampleMatcher.querySpecification).action [
+//              Do Rule Actions here
+//          ].build
+//      }
+//      return exampleRule
+//  }
+
+    def dispose() {
+        if (transformation != null) {
+            transformation.ruleEngine.dispose
+        }
+        transformation = null
+        return
+    }
+}

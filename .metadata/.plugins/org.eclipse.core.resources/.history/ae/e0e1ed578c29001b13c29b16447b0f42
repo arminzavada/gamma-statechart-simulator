@@ -1,0 +1,164 @@
+package com.triad.school.gamma.simulator.ui.views;
+
+
+import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Canvas;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Group;
+import org.eclipse.ui.part.*;
+import org.eclipse.viatra.query.runtime.api.ViatraQueryEngine;
+import org.eclipse.viatra.query.runtime.emf.EMFScope;
+import org.eclipse.viatra.query.runtime.exception.ViatraQueryException;
+import org.eclipse.viatra.transformation.runtime.emf.transformation.batch.BatchTransformation;
+import org.eclipse.xtext.resource.XtextResource;
+import org.eclipse.xtext.resource.XtextResourceSet;
+import org.eclipse.xtext.ui.editor.XtextEditor;
+import org.eclipse.xtext.ui.editor.model.IXtextDocument;
+import org.eclipse.xtext.ui.editor.utils.EditorUtils;
+import org.eclipse.xtext.util.concurrent.IUnitOfWork;
+
+import com.triad.school.gamma.simulator.query.FireableTransitions;
+import com.triad.school.gamma.simulator.query.GammaStatechartSimulatorTransformation;
+import com.triad.school.gamma.simulator.query.InitialNode;
+import hu.bme.mit.gamma.statechart.interface_.Event;
+import hu.bme.mit.gamma.statechart.interface_.Interface;
+import hu.bme.mit.gamma.statechart.interface_.Port;
+import hu.bme.mit.gamma.statechart.interface_.RealizationMode;
+
+import org.eclipse.jface.viewers.*;
+import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.layout.RowLayout;
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.jface.action.*;
+import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.ui.*;
+import org.eclipse.swt.widgets.Menu;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.MouseListener;
+import org.eclipse.swt.events.SelectionListener;
+
+import java.util.List;
+
+import javax.inject.Inject;
+
+
+/**
+ * This sample class demonstrates how to plug-in a new
+ * workbench view. The view shows data obtained from the
+ * model. The sample creates a dummy model on the fly,
+ * but a real implementation would connect to the model
+ * available either in this or another plug-in (e.g. the workspace).
+ * The view is connected to the model using a content provider.
+ * <p>
+ * The view uses a label provider to define how model
+ * objects should be presented in the view. Each
+ * view can present the same model objects using
+ * different labels and icons, if needed. Alternatively,
+ * a single label provider can be shared between views
+ * in order to ensure that objects of the same type are
+ * presented in the same way everywhere.
+ * <p>
+ */
+
+public class GammaStatechartSimulator extends ViewPart {
+
+	/**
+	 * The ID of the view as specified by the extension.
+	 */
+	public static final String ID = "com.triad.school.gamma.simulator.ui.views.GammaStatechartSimulator";
+
+    @Inject IWorkbench workbench;
+		 
+    GammaStatechartSimulatorTransformation transformation;
+
+    class SignalContainer {
+    	public final String interfaceName;
+    	public final List<Event> events;
+    	
+    	public SignalContainer(String name, List<Event> events) {
+    		interfaceName = name;
+    		this.events = events;
+    	}
+    }
+    
+    Composite parent;
+    Group signals;
+    private Event selectedEvent;
+
+	@Override
+	public void createPartControl(Composite parent) {
+		this.parent = parent;
+		
+		createTransformation();
+		
+		RowLayout rowLayout = new RowLayout();
+        rowLayout.marginLeft = 10;
+        rowLayout.marginTop = 10;
+        rowLayout.spacing = 15;
+        parent.setLayout(rowLayout);
+        
+        signals = new Group(parent, SWT.NONE);
+        signals.setLayout(new RowLayout(SWT.VERTICAL));
+        signals.setText("Select signal");
+		
+		Button button = new Button(parent, SWT.PUSH);
+		button.setText("Next state");
+		button.addMouseListener(MouseListener.mouseDownAdapter((event) -> transformation.execute()));
+
+		// Create the help context id for the viewer's control
+		//workbench.getHelpSystem().setHelp(parent.getControl(), "com.triad.school.gamma.simulator.ui.viewer");
+	}
+	
+	private void createTransformation() {
+		XtextEditor editor = EditorUtils.getActiveXtextEditor();
+		IXtextDocument document = editor.getDocument();
+		XtextResource xtextResource = document.readOnly((state) -> state);
+		
+		if (transformation != null) {
+			transformation.dispose();
+			transformation = null;
+        }
+		
+        transformation = new GammaStatechartSimulatorTransformation(xtextResource);
+        
+        redrawSignals(transformation.requiredInterfaces());
+    }
+
+	private void redrawSignals(List<Port> ports) {
+    	if (signals != null) {
+    		signals.dispose();
+    	}
+    	
+    	signals = new Group(parent, SWT.NONE);
+        signals.setLayout(new RowLayout(SWT.VERTICAL));
+        signals.setText("Select signal");
+		
+		ports.stream()
+			.filter(port -> port.getInterfaceRealization().getRealizationMode() == RealizationMode.REQUIRED)
+			.forEach(port -> {
+				Group ifGroup = new Group(signals, SWT.NONE);
+				ifGroup.setLayout(new RowLayout(SWT.VERTICAL));
+				
+				String name = port.getName();
+				if (name == null) name = "unknown interface";
+				ifGroup.setText(name);
+		        
+		        port.getInterfaceRealization().getInterface().getEvents().forEach(event -> {
+					Button button = new Button(ifGroup, SWT.RADIO);
+					button.setText(event.getEvent().getName());
+					button.addSelectionListener(SelectionListener.widgetSelectedAdapter((dsa) -> {
+						selectedEvent = event.getEvent();
+					}));
+		        });
+	        });
+	}
+	
+	@Override
+	public void setFocus() {
+		//viewer.getControl().setFocus();
+	}
+}

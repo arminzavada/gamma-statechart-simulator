@@ -1,0 +1,29 @@
+package com.triad.school.gamma.simulator.query
+
+import "http://www.mit.bme.hu/gamma/statechart/Model/Statechart"
+import "http://www.mit.bme.hu/gamma/statechart/Model/Interface"
+import "http://www.triad.com/school/gamma/simulator/active_state"
+
+pattern activeState(state: StateNode) {
+	ActiveStateContainer(container);
+	ActiveStateContainer.activeState(container, state);
+}
+
+pattern requiredInterfaces(interface: Interface) {
+	InterfaceRealization.interface(realization, interface);
+	InterfaceRealization.realizationMode(realization, ::REQUIRED);
+}
+
+pattern initialNode(state: InitialState) {
+	InitialState(state);
+}
+
+pattern fireableTransition(source: StateNode, transition: Transition, target: StateNode) {
+	Transition.sourceState(transition, source);
+	Transition.targetState(transition, target);
+	
+	find activeState(source);
+	
+	Transition.trigger(transition, trigger);
+	EventTrigger.eventReference(trigger, eventReference);
+}

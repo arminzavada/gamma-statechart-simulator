@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="org.eclipse.ui.IWorkbenchPage"/>
+    <fullyQualifiedTypeName name="org.eclipse.xtext.ui.editor.utils.EditorUtils"/>
+    <fullyQualifiedTypeName name="org.eclipse.xtext.ui.editor.XtextEditor"/>
+    <fullyQualifiedTypeName name="org.eclipse.xtext.ui.editor.model.IXtextDocument"/>
+    <fullyQualifiedTypeName name="org.eclipse.xtext.util.concurrent.IUnitOfWork"/>
+    <fullyQualifiedTypeName name="org.eclipse.xtext.resource.XtextResource"/>
+    <fullyQualifiedTypeName name="org.eclipse.xtext.util.concurrent.IUnitOfWork.Void"/>
+    <fullyQualifiedTypeName name="org.eclipse.emf.common.util.URI"/>
+    <fullyQualifiedTypeName name="org.eclipse.xtext.resource.XtextResourceSet"/>
+    <fullyQualifiedTypeName name="org.eclipse.emf.ecore.util.EcoreUtil"/>
+    <fullyQualifiedTypeName name="org.eclipse.emf.ecore.resource.Resource"/>
+    <fullyQualifiedTypeName name="com.triad.school.gamma.simulator.query.GammaStatechartSimulatorTransformation"/>
+    <fullyQualifiedTypeName name="org.eclipse.swt.widgets.Canvas"/>
+    <fullyQualifiedTypeName name="java.awt.Canvas"/>
+    <fullyQualifiedTypeName name="org.eclipse.swt.widgets.Button"/>
+    <fullyQualifiedTypeName name="java.awt.event.MouseListener"/>
+    <fullyQualifiedTypeName name="org.eclipse.swt.events.MouseListener"/>
+    <fullyQualifiedTypeName name="org.eclipse.jface.viewers.ListViewer"/>
+    <fullyQualifiedTypeName name="org.eclipse.emf.common.util.EList"/>
+    <fullyQualifiedTypeName name="org.eclipse.emf.ecore.EObject"/>
+    <fullyQualifiedTypeName name="org.eclipse.swt.layout.RowLayout"/>
+    <fullyQualifiedTypeName name="org.eclipse.viatra.query.runtime.emf.EMFScope"/>
+    <fullyQualifiedTypeName name="org.eclipse.viatra.query.runtime.api.ViatraQueryEngine"/>
+    <fullyQualifiedTypeName name="com.triad.school.gamma.simulator.query.FireableTransitions"/>
+    <fullyQualifiedTypeName name="com.triad.school.gamma.simulator.query.InitialNode"/>
+    <fullyQualifiedTypeName name="com.triad.school.gamma.simulator.query.InitialNode.Matcher"/>
+    <fullyQualifiedTypeName name="java.util.List"/>
+    <fullyQualifiedTypeName name="hu.bme.mit.gamma.statechart.interface_.Interface"/>
+    <fullyQualifiedTypeName name="org.eclipse.swt.widgets.Group"/>
+    <fullyQualifiedTypeName name="org.eclipse.swt.events.SelectionListener"/>
+    <fullyQualifiedTypeName name="hu.bme.mit.gamma.statechart.interface_.Port"/>
+    <fullyQualifiedTypeName name="com.triad.school.gamma.simulator.ui.views.GammaStatechartSimulator.SignalContainer"/>
+    <fullyQualifiedTypeName name="org.eclipse.swt.widgets.Label"/>
+    <fullyQualifiedTypeName name="org.eclipse.swt.SWT"/>
+    <fullyQualifiedTypeName name="hu.bme.mit.gamma.statechart.statechart.StateNode"/>
+    <fullyQualifiedTypeName name="org.eclipse.jface.layout.TableColumnLayout"/>
+    <fullyQualifiedTypeName name="javax.swing.BoxLayout"/>
+</qualifiedTypeNameHistroy>

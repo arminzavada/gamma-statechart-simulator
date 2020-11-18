@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?><plugin>
+  <extension id="com.triad.school.gamma.simulator.query.FireableTransitions" point="org.eclipse.viatra.query.runtime.queryspecification">
+    <group group="org.eclipse.viatra.query.runtime.extensibility.SingletonExtensionFactory:com.triad.school.gamma.simulator.query.FireableTransitions" id="com.triad.school.gamma.simulator.query.FireableTransitions">
+      <query-specification fqn="com.triad.school.gamma.simulator.query.activeState"/>
+      <query-specification fqn="com.triad.school.gamma.simulator.query.ports"/>
+      <query-specification fqn="com.triad.school.gamma.simulator.query.initialNode"/>
+      <query-specification fqn="com.triad.school.gamma.simulator.query.fireableTransition"/>
+    </group>
+  </extension>
+</plugin>
