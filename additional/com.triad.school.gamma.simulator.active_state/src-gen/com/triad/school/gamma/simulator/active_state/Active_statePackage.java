@@ -93,6 +93,43 @@ public interface Active_statePackage extends EPackage {
 	int ACTIVE_STATE_CONTAINER_OPERATION_COUNT = 0;
 
 	/**
+	 * The meta object id for the '{@link com.triad.school.gamma.simulator.active_state.impl.EventQueueImpl <em>Event Queue</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see com.triad.school.gamma.simulator.active_state.impl.EventQueueImpl
+	 * @see com.triad.school.gamma.simulator.active_state.impl.Active_statePackageImpl#getEventQueue()
+	 * @generated
+	 */
+	int EVENT_QUEUE = 1;
+
+	/**
+	 * The feature id for the '<em><b>Events</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_QUEUE__EVENTS = 0;
+
+	/**
+	 * The number of structural features of the '<em>Event Queue</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_QUEUE_FEATURE_COUNT = 1;
+
+	/**
+	 * The number of operations of the '<em>Event Queue</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_QUEUE_OPERATION_COUNT = 0;
+
+	/**
 	 * Returns the meta object for class '{@link com.triad.school.gamma.simulator.active_state.ActiveStateContainer <em>Active State Container</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -112,6 +149,27 @@ public interface Active_statePackage extends EPackage {
 	 * @generated
 	 */
 	EReference getActiveStateContainer_ActiveState();
+
+	/**
+	 * Returns the meta object for class '{@link com.triad.school.gamma.simulator.active_state.EventQueue <em>Event Queue</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Event Queue</em>'.
+	 * @see com.triad.school.gamma.simulator.active_state.EventQueue
+	 * @generated
+	 */
+	EClass getEventQueue();
+
+	/**
+	 * Returns the meta object for the reference list '{@link com.triad.school.gamma.simulator.active_state.EventQueue#getEvents <em>Events</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Events</em>'.
+	 * @see com.triad.school.gamma.simulator.active_state.EventQueue#getEvents()
+	 * @see #getEventQueue()
+	 * @generated
+	 */
+	EReference getEventQueue_Events();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -153,6 +211,24 @@ public interface Active_statePackage extends EPackage {
 		 * @generated
 		 */
 		EReference ACTIVE_STATE_CONTAINER__ACTIVE_STATE = eINSTANCE.getActiveStateContainer_ActiveState();
+
+		/**
+		 * The meta object literal for the '{@link com.triad.school.gamma.simulator.active_state.impl.EventQueueImpl <em>Event Queue</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see com.triad.school.gamma.simulator.active_state.impl.EventQueueImpl
+		 * @see com.triad.school.gamma.simulator.active_state.impl.Active_statePackageImpl#getEventQueue()
+		 * @generated
+		 */
+		EClass EVENT_QUEUE = eINSTANCE.getEventQueue();
+
+		/**
+		 * The meta object literal for the '<em><b>Events</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference EVENT_QUEUE__EVENTS = eINSTANCE.getEventQueue_Events();
 
 	}
 

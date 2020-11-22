@@ -58,6 +58,8 @@ public class Active_stateFactoryImpl extends EFactoryImpl implements Active_stat
 		switch (eClass.getClassifierID()) {
 		case Active_statePackage.ACTIVE_STATE_CONTAINER:
 			return createActiveStateContainer();
+		case Active_statePackage.EVENT_QUEUE:
+			return createEventQueue();
 		default:
 			throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -71,6 +73,16 @@ public class Active_stateFactoryImpl extends EFactoryImpl implements Active_stat
 	public ActiveStateContainer createActiveStateContainer() {
 		ActiveStateContainerImpl activeStateContainer = new ActiveStateContainerImpl();
 		return activeStateContainer;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EventQueue createEventQueue() {
+		EventQueueImpl eventQueue = new EventQueueImpl();
+		return eventQueue;
 	}
 
 	/**
