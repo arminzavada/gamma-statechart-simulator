@@ -96,8 +96,6 @@ public class GammaStatechartSimulator extends ViewPart {
 		
 		// Create the help context id for the viewer's control
 		//workbench.getHelpSystem().setHelp(parent.getControl(), "com.triad.school.gamma.simulator.ui.viewer");
-
-		createTransformation();
 	}
 	
 	private void activeStateChanged(StateNode node) {		
@@ -135,7 +133,7 @@ public class GammaStatechartSimulator extends ViewPart {
         
         parent.layout(true, true);
 		
-		ports.stream()
+		ports.stream() 
 			.filter(port -> port.getInterfaceRealization().getRealizationMode() == RealizationMode.REQUIRED)
 			.forEach(port -> {				
 				final String portName = port.getName();

@@ -15,6 +15,7 @@ import org.eclipse.viatra.transformation.runtime.emf.modelmanipulation.IModelMan
 import org.eclipse.viatra.transformation.runtime.emf.modelmanipulation.SimpleModelManipulations
 import org.eclipse.viatra.transformation.runtime.emf.rules.eventdriven.EventDrivenTransformationRuleFactory
 import org.eclipse.viatra.transformation.runtime.emf.transformation.eventdriven.EventDrivenTransformation
+import com.triad.school.gamma.simulator.active_state.Active_statePackage
 
 @FunctionalInterface
 interface ActiveStateListener {
@@ -50,9 +51,10 @@ class GammaStatechartSimulatorTransformation {
     val EventDrivenTransformationRuleFactory factory = new EventDrivenTransformationRuleFactory    
     EventDrivenTransformation transformation    
     
-    val ActiveStateContainer activeStateContainer = Active_stateFactory.eINSTANCE.createActiveStateContainer
+    val activeStateContainer = Active_stateFactory.eINSTANCE.createActiveStateContainer
+    val eventQueue = Active_stateFactory.eINSTANCE.createEventQueue
     
-    val IModelManipulations manipulation
+    IModelManipulations manipulation = null
     
     val ViatraQueryEngine engine
 
@@ -64,6 +66,7 @@ class GammaStatechartSimulatorTransformation {
 		
 		val active_stateResource = resourceSet.createResource(URI.createURI(""))
 		active_stateResource.contents.add(activeStateContainer)
+		active_stateResource.contents.add(eventQueue)
 		
         val scope = new EMFScope(resourceSet)
         engine = ViatraQueryEngine.on(scope);
@@ -74,6 +77,7 @@ class GammaStatechartSimulatorTransformation {
 	        .addRule(fireNonTriggerTransition)
 	        .addRule(fireTriggerTransition)
 	        .addRule(activeState)
+	        .addRule(swallowEvent)
 	        .build
     }
 
@@ -83,7 +87,7 @@ class GammaStatechartSimulatorTransformation {
     }
 
     public def sendEvent(Event event) {
-    	
+    	manipulation.add(eventQueue, Active_statePackage.eINSTANCE.eventQueue_Events, event)
     }
     
     public def requiredInterfaces() {
@@ -97,18 +101,24 @@ class GammaStatechartSimulatorTransformation {
     }
     
     val fireNonTriggerTransition = factory.createRule(FireableNonTriggerTransition.instance).action(CRUDActivationStateEnum.CREATED) [
-    	println('''Firing transition: «source.name» to «target.name»''')
+    	println('''Firing empty transition: «source.name» to «target.name»''')
     	activeStateContainer.activeState = target
     ].build
     
     val fireTriggerTransition = factory.createRule(FireableTriggerTransition.instance).action(CRUDActivationStateEnum.CREATED) [
-    	//println('''Firing transition: «source.name» to «target.name»''')
-    	//activeStateContainer.activeState = target    	
+    	println('''Firing event transition: «source.name» to «target.name»''')
+    	manipulation.remove(eventQueue, Active_statePackage.eINSTANCE.eventQueue_Events, event)
+    	activeStateContainer.activeState = target    	
     ].build
     
     val activeState = factory.createRule(ActiveState.instance).action(CRUDActivationStateEnum.CREATED) [
     	println('''Active state: «state.name»''')
     	activeStateListener.activeStateChanged(it.state)
+    ].build
+    
+    val swallowEvent = factory.createRule(SwallowableEvents.instance).action(CRUDActivationStateEnum.CREATED) [
+    	println('''Swallowed event: «event.name»''')
+    	manipulation.remove(eventQueue, Active_statePackage.eINSTANCE.eventQueue_Events, event)
     ].build
 
     def dispose() {

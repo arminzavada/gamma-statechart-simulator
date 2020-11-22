@@ -10,8 +10,8 @@ pattern activeState(state: StateNode) {
 }
 
 pattern ports(port: Port) {
+	StatechartDefinition.ports(_sc, port);
 	Port.interfaceRealization(port, interfaceRealization);
-	InterfaceRealization.interface(interfaceRealization, interface);
 	InterfaceRealization.realizationMode(interfaceRealization, ::REQUIRED);
 }
 
@@ -29,11 +29,26 @@ pattern fireableNonTriggerTransition(source: StateNode, transition: Transition, 
 }
 
 pattern fireableTriggerTransition(source: StateNode, transition: Transition, target: StateNode, event: Event) {
+	find activeState(source);
+	EventQueue.events(_eventQueue, event);
+	
+	find transitionBetween(source, transition, target);
+	find transitionTriggerEvent(transition, event);
+}
+
+pattern swallowableEvents(event: Event) {	
+	find activeState(source);
+	EventQueue.events(_eventQueue, event);
+	
+	0 == count find fireableTriggerTransition(source, _, _target, event);
+}
+
+pattern transitionBetween(source: StateNode, transition: Transition, target: StateNode) {
 	Transition.sourceState(transition, source);
 	Transition.targetState(transition, target);
-	
-	find activeState(source);
-	
+}
+
+pattern transitionTriggerEvent(transition: Transition, event: Event) {
 	Transition.trigger(transition, trigger);
 	EventTrigger.eventReference(trigger, eventReference);
 	PortEventReference.event(eventReference, event);

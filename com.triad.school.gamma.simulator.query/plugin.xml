@@ -6,6 +6,9 @@
       <query-specification fqn="com.triad.school.gamma.simulator.query.initialNode"/>
       <query-specification fqn="com.triad.school.gamma.simulator.query.fireableNonTriggerTransition"/>
       <query-specification fqn="com.triad.school.gamma.simulator.query.fireableTriggerTransition"/>
+      <query-specification fqn="com.triad.school.gamma.simulator.query.swallowableEvents"/>
+      <query-specification fqn="com.triad.school.gamma.simulator.query.transitionBetween"/>
+      <query-specification fqn="com.triad.school.gamma.simulator.query.transitionTriggerEvent"/>
     </group>
   </extension>
 </plugin>
