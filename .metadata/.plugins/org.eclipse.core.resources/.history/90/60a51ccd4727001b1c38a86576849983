@@ -1,9 +1,0 @@
-package com.triad.school.gamma.simulator.query
-
-import "http://www.mit.bme.hu/gamma/statechart/Model/Statechart"
-import "http://www.triad.com/school/gamma/simulator/active_state"
-
-pattern activeState(state: StateNode) {
-	ActiveStateContainer(container);
-	ActiveStateContainer.activeState(container, state);
-}

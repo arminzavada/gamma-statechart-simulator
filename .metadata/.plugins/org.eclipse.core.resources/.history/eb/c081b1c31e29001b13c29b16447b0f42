@@ -1,8 +1,0 @@
-Manifest-Version: 1.0
-Bundle-ManifestVersion: 2
-Bundle-Name: Ui
-Bundle-SymbolicName: com.triad.school.gamma.simulator.ui
-Bundle-Version: 1.0.0.qualifier
-Bundle-Vendor: TRIAD
-Automatic-Module-Name: com.triad.school.gamma.simulator.ui
-Bundle-RequiredExecutionEnvironment: JavaSE-11

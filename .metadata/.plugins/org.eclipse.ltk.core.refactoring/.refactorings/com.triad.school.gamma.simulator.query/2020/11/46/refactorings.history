@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Rename resource &apos;com.triad.school.gamma.simulator.query/src/com/triad/school/gamma/simulator/query/current_state.vql&apos; to &apos;fireableTransitions.vql&apos;" description="Rename resource &apos;current_state.vql&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="src/com/triad/school/gamma/simulator/query/current_state.vql" name="fireableTransitions.vql" stamp="1605447384204" updateReferences="true"/>
-</session>
