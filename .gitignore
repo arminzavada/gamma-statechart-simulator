@@ -58,3 +58,237 @@ local.properties
 # Uncomment this line if you wish to ignore the project description file.
 # Typically, this file would be tracked if it contains build/dependency configurations:
 #.project
+.metadata/.plugins/org.eclipse.core.resources/.projects/com.triad.school.gamma.simulator.query/org.eclipse.jdt.core/state.dat
+.metadata/.plugins/org.eclipse.core.resources/.projects/com.triad.school.gamma.simulator.ui/org.eclipse.jdt.core/state.dat
+.metadata/.plugins/org.eclipse.jdt.core/121342932.index
+.metadata/.plugins/org.eclipse.jdt.core/2624224011.index
+.metadata/.plugins/org.eclipse.jdt.core/javaLikeNames.txt
+.metadata/.plugins/org.eclipse.jdt.core/savedIndexNames.txt
+.metadata/.plugins/org.eclipse.m2e.core/nexus/05b0fe8524860bd73cbb07ef30fb34cc/segments.gen
+.metadata/.plugins/org.eclipse.m2e.core/nexus/05b0fe8524860bd73cbb07ef30fb34cc/segments_3
+.metadata/.plugins/org.eclipse.m2e.core/nexus/830bc118332e77292949ed1e6d2fabe0/segments.gen
+.metadata/.plugins/org.eclipse.m2e.core/nexus/830bc118332e77292949ed1e6d2fabe0/segments_3
+.metadata/.plugins/org.eclipse.m2e.core/nexus/a9506b5b38e96a46d8b988e5bcdaf682/segments.gen
+.metadata/.plugins/org.eclipse.m2e.core/nexus/a9506b5b38e96a46d8b988e5bcdaf682/segments_3
+.metadata/.plugins/org.eclipse.pde.core/.extensions/.contributions.1
+.metadata/.plugins/org.eclipse.pde.core/.extensions/.contributors.1
+.metadata/.plugins/org.eclipse.pde.core/.extensions/.extraData.2
+.metadata/.plugins/org.eclipse.pde.core/.extensions/.mainData.2
+.metadata/.plugins/org.eclipse.pde.core/.extensions/.manager/.fileTable.7
+.metadata/.plugins/org.eclipse.pde.core/.extensions/.manager/.fileTable.8
+.metadata/.plugins/org.eclipse.pde.core/.extensions/.namespaces.1
+.metadata/.plugins/org.eclipse.pde.core/.extensions/.orphans.1
+.metadata/.plugins/org.eclipse.pde.core/.extensions/.table.1
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/.settings/org.yakindu.sct.ui.intro.ReleaseNotes.prefs
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/config.ini
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/dev.properties
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.core.runtime/.contributions.1
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.core.runtime/.contributors.1
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.core.runtime/.extraData.1
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.core.runtime/.mainData.1
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.core.runtime/.manager/.fileTable.7
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.core.runtime/.manager/.fileTable.8
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.core.runtime/.manager/.fileTableLock
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.core.runtime/.namespaces.1
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.core.runtime/.orphans.1
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.core.runtime/.table.1
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.equinox.app/.manager/.fileTableLock
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.equinox.simpleconfigurator/bundles.info
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.oomph.setup/indices.xmi
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.oomph.setup/installation.setup
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/.manager/.fileTable.1
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/.manager/.fileTable.2
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/110/0/.cp/icons/link.gif
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/110/0/.cp/icons/p5.gif
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/110/0/.cp/icons/pin.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/110/0/.cp/icons/spawn.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/111/0/.cp/icons/ZoomFit16.gif
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/111/0/.cp/icons/ZoomIn16.gif
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/111/0/.cp/icons/ZoomOut16.gif
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/111/0/.cp/icons/ZoomReset16.gif
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/16/0/.cp/com/sun/jna/win32-x86-64/jnidispatch.dll
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/170/0/.cp/icons/full/eview16/ant_view.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/189/0/.cp/os/win32/x86_64/localfile_1_0_0.dll
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/192/0/.cp/jWinHttp-1.0.0.dll
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/198/0/.cp/icons/full/etool16/watch_exp.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/221/0/.cp/icons/full/elcl16/view_menu.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/221/0/.cp/icons/full/ovr16/pinned_ovr.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/246/0/.cp/icons/obj16/editconfig.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/286/0/.cp/icons/eview16/eclass_hi_nav.gif
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/286/0/.cp/icons/eview16/eref_nav.gif
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/287/0/.cp/icons/full/obj16/GenericValue.gif
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/322/0/.cp/icons/marketplace16.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/367/0/.cp/icons/obj/iu_obj.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/367/0/.cp/icons/obj/iu_update_obj.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/377/0/.cp/org/eclipse/gef/internal/icons/arrow24.gif
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/377/0/.cp/org/eclipse/gef/internal/icons/palette_view.gif
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/377/0/.cp/org/eclipse/gef/internal/icons/unpinned.gif
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/401/0/.cp/icons/dlcl16/italic.gif
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/401/0/.cp/icons/elcl16/italic.gif
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/401/0/.cp/icons/error.gif
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/401/0/.cp/icons/handle_incoming_east.gif
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/401/0/.cp/icons/handle_incoming_south.gif
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/401/0/.cp/icons/handle_outgoing_east.gif
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/401/0/.cp/icons/handle_outgoing_south.gif
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/401/0/.cp/icons/outline.gif
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/401/0/.cp/icons/overview.gif
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/401/0/.cp/icons/popupbar.gif
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/401/0/.cp/icons/popupbar_plus.gif
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/402/0/.cp/icons/aleft.gif
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/402/0/.cp/icons/dlcl16/arrangeall.gif
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/402/0/.cp/icons/dlcl16/autosize.gif
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/402/0/.cp/icons/dlcl16/bold.gif
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/402/0/.cp/icons/dlcl16/hideconnector.gif
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/402/0/.cp/icons/dlcl16/line_style_group.gif
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/402/0/.cp/icons/dlcl16/selectall.gif
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/402/0/.cp/icons/dlcl16/show_compartments_group.gif
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/402/0/.cp/icons/dlcl16/showconnector.gif
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/402/0/.cp/icons/elcl16/arrangeall.gif
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/402/0/.cp/icons/elcl16/autosize.gif
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/402/0/.cp/icons/elcl16/bold.gif
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/402/0/.cp/icons/elcl16/hideconnector.gif
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/402/0/.cp/icons/elcl16/line_style_group.gif
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/402/0/.cp/icons/elcl16/selectall.gif
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/402/0/.cp/icons/elcl16/show_compartments_group.gif
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/402/0/.cp/icons/elcl16/showconnector.gif
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/408/0/.cp/icons/note_24x24.gif
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/408/0/.cp/icons/noteattachment_24x24.gif
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/408/0/.cp/icons/text_24x24.gif
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/408/0/.cp/icons/zoomminus_24x24.gif
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/408/0/.cp/icons/zoomplus_24x24.gif
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/452/0/.cp/dictionaries/en_GB.dictionary
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/452/0/.cp/dictionaries/en_US.dictionary
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/461/0/.cp/icons/full/message_info.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/461/0/.cp/org/eclipse/jface/action/images/stop.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/464/0/.cp/org/eclipse/jface/text/source/projection/images/collapsed.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/464/0/.cp/org/eclipse/jface/text/source/projection/images/expanded.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/473/0/.cp/icons/full/elcl16/link_to_editor.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/48/0/.cp/icons/gamma-genmodel-icon-16.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/507/0/.cp/icons/binary_project.gif
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/507/0/.cp/icons/open_pom.gif
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/528/0/.cp/icons/obj16/repository.gif
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/528/0/.cp/icons/tool16/search_repository.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/528/0/.cp/icons/tool16/search_requirement.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/538/0/.cp/icons/BrowseType.gif
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/538/0/.cp/icons/full/obj16/SetupModelFile.gif
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/538/0/.cp/icons/heart.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/538/0/.cp/icons/Log.gif
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/538/0/.cp/icons/update_gear.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/569/0/.cp/icons/etool16/imp_extplug.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/569/0/.cp/icons/obj16/open_artifact_obj.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/576/0/.cp/icons/full/elcl16/tsearch_obj.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/576/0/.cp/icons/full/etool16/search.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/592/0/.cp/icons/full/obj16/reload_vsm.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/624/0/.cp/icons/close.gif
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/630/0/.cp/swt-gdip-win32-4936r26.dll
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/630/0/.cp/swt-win32-4936r26.dll
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/64/0/.cp/icons/gamma-icon-16.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/640/0/.cp/icons/full/dlcl16/backward_nav.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/640/0/.cp/icons/full/dlcl16/forward_nav.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/640/0/.cp/icons/full/dtool16/new_wiz.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/640/0/.cp/icons/full/dtool16/pin_editor.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/640/0/.cp/icons/full/dtool16/save_edit.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/640/0/.cp/icons/full/dtool16/saveall_edit.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/640/0/.cp/icons/full/elcl16/backward_nav.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/640/0/.cp/icons/full/elcl16/forward_nav.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/640/0/.cp/icons/full/elcl16/linkto_help.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/640/0/.cp/icons/full/elcl16/refresh_nav.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/640/0/.cp/icons/full/elcl16/up_nav.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/640/0/.cp/icons/full/etool16/copy_edit.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/640/0/.cp/icons/full/etool16/cut_edit.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/640/0/.cp/icons/full/etool16/delete_edit.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/640/0/.cp/icons/full/etool16/export_wiz.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/640/0/.cp/icons/full/etool16/help_contents.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/640/0/.cp/icons/full/etool16/help_search.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/640/0/.cp/icons/full/etool16/import_wiz.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/640/0/.cp/icons/full/etool16/new_wiz.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/640/0/.cp/icons/full/etool16/paste_edit.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/640/0/.cp/icons/full/etool16/pin_editor.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/640/0/.cp/icons/full/etool16/print_edit.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/640/0/.cp/icons/full/etool16/redo_edit.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/640/0/.cp/icons/full/etool16/save_edit.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/640/0/.cp/icons/full/etool16/saveall_edit.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/640/0/.cp/icons/full/etool16/saveas_edit.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/640/0/.cp/icons/full/etool16/search.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/640/0/.cp/icons/full/etool16/tricks.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/640/0/.cp/icons/full/etool16/undo_edit.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/640/0/.cp/icons/full/eview16/new_persp.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/640/0/.cp/icons/full/obj16/fldr_obj.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/640/0/.cp/icons/full/obj16/workingsets.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/640/0/.cp/icons/full/progress/progress_error.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/640/0/.cp/icons/full/progress/progress_none.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/640/0/.cp/icons/full/progress/progress_ok.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/641/0/.cp/icons/obj16/internal_browser.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/644/0/.cp/icons/full/dtool16/last_edit_pos.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/644/0/.cp/icons/full/dtool16/next_edit_pos.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/644/0/.cp/icons/full/dtool16/next_nav.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/644/0/.cp/icons/full/dtool16/prev_nav.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/644/0/.cp/icons/full/etool16/last_edit_pos.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/644/0/.cp/icons/full/etool16/next_edit_pos.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/644/0/.cp/icons/full/etool16/next_nav.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/644/0/.cp/icons/full/etool16/prev_nav.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/645/0/.cp/icons/full/obj16/external_tools.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/648/0/.cp/icons/full/elcl16/gotoobj_tsk.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/648/0/.cp/icons/full/etool16/importdir_wiz.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/648/0/.cp/icons/full/etool16/next_nav.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/648/0/.cp/icons/full/etool16/prev_nav.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/648/0/.cp/icons/full/eview16/bkmrk_nav.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/648/0/.cp/icons/full/eview16/problems_view.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/648/0/.cp/icons/full/eview16/pview.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/648/0/.cp/icons/full/eview16/tasks_tsk.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/649/0/.cp/icons/full/elcl16/split_horizontal.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/649/0/.cp/icons/full/elcl16/split_vertical.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/649/0/.cp/icons/full/eview16/resource_persp.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/652/0/.cp/icons/welcome16.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/655/0/.cp/icons/full/elcl16/collapseall.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/655/0/.cp/icons/full/elcl16/filter_ps.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/655/0/.cp/icons/full/elcl16/synced.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/655/0/.cp/icons/full/eview16/resource_persp.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/659/0/.cp/icons/full/eview16/outline_co.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/659/0/.cp/icons/full/eview16/prop_ps.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/660/0/.cp/icons/eview16/error_log.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/664/0/.cp/icons/full/etool16/block_selection_mode.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/664/0/.cp/icons/full/etool16/show_whitespace_chars.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/664/0/.cp/icons/full/etool16/zoomIn.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/664/0/.cp/icons/full/etool16/zoomOut.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/668/0/.cp/icons/UserAccount.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/739/0/.cp/icons/full/elcl16/filter_ps.gif
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/744/0/.cp/icons/ok_tbl.gif
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/746/0/.cp/icons/full/etool16/collapse_all.gif
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/746/0/.cp/icons/full/etool16/expand_all.gif
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/746/0/.cp/icons/full/etool16/rldgrmr.gif
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/789/0/.cp/icons/dlcl16/alphab_sort_co.gif
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/789/0/.cp/icons/dlcl16/mark_occurrences.gif
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/789/0/.cp/icons/dlcl16/synced.gif
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/789/0/.cp/icons/elcl16/alphab_sort_co.gif
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/789/0/.cp/icons/elcl16/mark_occurrences.gif
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/789/0/.cp/icons/elcl16/synced.gif
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/864/0/.cp/icons/GenModel-16.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/886/0/.cp/icons/obj16/arrow_left.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/886/0/.cp/icons/obj16/logo-16.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/886/0/.cp/icons/obj16/Menu-16.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/886/0/.cp/icons/obj16/pin-view.gif
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/886/0/.cp/icons/obj16/Region-16.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/886/0/.cp/icons/obj16/Statechart-Pictogram-16.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/886/0/.cp/icons/obj32/Choice-32.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/886/0/.cp/icons/obj32/Composite-State-32.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/886/0/.cp/icons/obj32/Deep-History-32.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/886/0/.cp/icons/obj32/Exit-Point-32.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/886/0/.cp/icons/obj32/Final-State-32.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/886/0/.cp/icons/obj32/Initial-State-32.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/886/0/.cp/icons/obj32/Orthogonal-State-32.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/886/0/.cp/icons/obj32/Region-32.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/886/0/.cp/icons/obj32/Shallow-History-32.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/886/0/.cp/icons/obj32/State-32.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/886/0/.cp/icons/obj32/Synchronization-32.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/886/0/.cp/icons/obj32/transition-32.png
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.osgi/framework.info.1
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.ui.intro.universal/extensionCount.xml
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.ui.intro.universal/extensionNames.xml
+.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/org.eclipse.update/platform.xml
+.metadata/.plugins/org.eclipse.pde.core/SavedExternalPluginList.txt
+.metadata/.plugins/org.eclipse.wst.sse.core/task-tags.properties
+.metadata/.plugins/org.eclipse.xtext.builder/builder.state
+.metadata/version.ini
+com.triad.school.gamma.simulator.query/bin/com/triad/school/gamma/simulator/query/.GammaStatechartSimulatorTransformation.xtendbin
+com.triad.school.gamma.simulator.query/xtend-gen/com/triad/school/gamma/simulator/query/.GammaStatechartSimulatorTransformation.xtendbin
