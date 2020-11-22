@@ -69,3 +69,5 @@ bin
 *.java_trace
 *.smap
 com.triad.school.gamma.simulator.query/xtend-gen/com/triad/school/gamma/simulator/query/.ActiveStateListener.java._trace
+com.triad.school.gamma.simulator.query/src-gen
+xtend-gen
