@@ -1,6 +1,5 @@
 package com.triad.school.gamma.simulator.ui.views;
 
-
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Composite;

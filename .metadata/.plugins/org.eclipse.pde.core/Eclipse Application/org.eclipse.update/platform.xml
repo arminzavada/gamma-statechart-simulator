@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<config date="1605712074089" transient="false" version="3.0">
+<config date="1606039350703" transient="false" version="3.0">
 <site enabled="true" policy="USER-EXCLUDE" updateable="true" url="platform:/base/">
 <feature id="org.eclipse.help" plugin-identifier="org.eclipse.help.base" url="features/org.eclipse.help_2.3.300.v20200902-1800/" version="2.3.300.v20200902-1800">
 </feature>
@@ -7,7 +7,9 @@
 </feature>
 <feature id="org.eclipse.gef.zest.fx" url="features/org.eclipse.gef.zest.fx_5.1.2.202009090201/" version="5.1.2.202009090201">
 </feature>
-<feature id="org.eclipse.sirius.runtime.aql" plugin-identifier="org.eclipse.sirius.common.acceleo.aql" url="features/org.eclipse.sirius.runtime.aql_6.0.0.201806111309/" version="6.0.0.201806111309">
+<feature id="org.eclipse.contribution.weaving" url="features/org.eclipse.contribution.weaving_2.2.4.202007241909/" version="2.2.4.202007241909">
+</feature>
+<feature id="org.eclipse.sirius.runtime.aql" plugin-identifier="org.eclipse.sirius.common.acceleo.aql" url="features/org.eclipse.sirius.runtime.aql_6.3.4.202009070953/" version="6.3.4.202009070953">
 </feature>
 <feature id="org.yakindu.sct.generator.c" plugin-identifier="org.yakindu.sct.branding" url="features/org.yakindu.sct.generator.c_3.5.13.202009041227/" version="3.5.13.202009041227">
 </feature>
@@ -15,7 +17,7 @@
 </feature>
 <feature id="org.eclipse.help.source" url="features/org.eclipse.help.source_2.3.300.v20200902-1800/" version="2.3.300.v20200902-1800">
 </feature>
-<feature id="org.eclipse.sirius.runtime.ide.ui" plugin-identifier="org.eclipse.sirius.common.ui" url="features/org.eclipse.sirius.runtime.ide.ui_6.0.0.201806111309/" version="6.0.0.201806111309">
+<feature id="org.eclipse.sirius.runtime.ide.ui" plugin-identifier="org.eclipse.sirius.common.ui" url="features/org.eclipse.sirius.runtime.ide.ui_6.3.4.202009070953/" version="6.3.4.202009070953">
 </feature>
 <feature id="org.eclipse.viatra.addon.viewers.runtime.feature.source" url="features/org.eclipse.viatra.addon.viewers.runtime.feature.source_2.4.1.202008261234/" version="2.4.1.202008261234">
 </feature>
@@ -23,7 +25,7 @@
 </feature>
 <feature id="org.eclipse.xtext.xbase.lib" url="features/org.eclipse.xtext.xbase.lib_2.23.0.v20200831-0726/" version="2.23.0.v20200831-0726">
 </feature>
-<feature id="org.eclipse.gmf" url="features/org.eclipse.gmf_1.12.0.201806010809/" version="1.12.0.201806010809">
+<feature id="org.eclipse.gmf" url="features/org.eclipse.gmf_1.13.0.202004160913/" version="1.13.0.202004160913">
 </feature>
 <feature id="org.eclipse.buildship" plugin-identifier="org.eclipse.buildship.branding" url="features/org.eclipse.buildship_3.1.4.v20200326-1743/" version="3.1.4.v20200326-1743">
 </feature>
@@ -31,7 +33,9 @@
 </feature>
 <feature id="org.eclipse.egit" url="features/org.eclipse.egit_5.9.0.202009080501-r/" version="5.9.0.202009080501-r">
 </feature>
-<feature id="org.eclipse.emf.ecoretools.design" url="features/org.eclipse.emf.ecoretools.design_3.3.0.201706121316/" version="3.3.0.201706121316">
+<feature id="org.eclipse.emf.ecoretools.design" url="features/org.eclipse.emf.ecoretools.design_3.3.2.201909230743/" version="3.3.2.201909230743">
+</feature>
+<feature id="org.jetbrains.kotlin.feature" url="features/org.jetbrains.kotlin.feature_0.8.21.v20200816-2059/" version="0.8.21.v20200816-2059">
 </feature>
 <feature id="org.eclipse.wst.common_core.feature" url="features/org.eclipse.wst.common_core.feature_3.19.0.v202007161535/" version="3.19.0.v202007161535">
 </feature>
@@ -163,7 +167,7 @@
 </feature>
 <feature id="org.eclipse.emf.ecore.edit" url="features/org.eclipse.emf.ecore.edit_2.14.0.v20190822-1451/" version="2.14.0.v20190822-1451">
 </feature>
-<feature id="org.eclipse.emf.validation" url="features/org.eclipse.emf.validation_1.12.0.201805030717/" version="1.12.0.201805030717">
+<feature id="org.eclipse.emf.validation" url="features/org.eclipse.emf.validation_1.12.2.202008210805/" version="1.12.2.202008210805">
 </feature>
 <feature id="org.eclipse.e4.rcp.source" url="features/org.eclipse.e4.rcp.source_4.17.0.v20200831-1002/" version="4.17.0.v20200831-1002">
 </feature>
@@ -173,7 +177,7 @@
 </feature>
 <feature id="org.eclipse.emf.common.ui.source" url="features/org.eclipse.emf.common.ui.source_2.17.0.v20190507-0402/" version="2.17.0.v20190507-0402">
 </feature>
-<feature id="org.eclipse.gmf.runtime.thirdparty" url="features/org.eclipse.gmf.runtime.thirdparty_1.12.0.201806010809/" version="1.12.0.201806010809">
+<feature id="org.eclipse.gmf.runtime.thirdparty" url="features/org.eclipse.gmf.runtime.thirdparty_1.13.0.202004160913/" version="1.13.0.202004160913">
 </feature>
 <feature id="org.yakindu.sct" plugin-identifier="org.yakindu.sct.branding" url="features/org.yakindu.sct_3.5.13.202009041227/" version="3.5.13.202009041227">
 </feature>
@@ -229,7 +233,7 @@
 </feature>
 <feature id="org.eclipse.emf.edit" url="features/org.eclipse.emf.edit_2.16.0.v20190920-0401/" version="2.16.0.v20190920-0401">
 </feature>
-<feature id="org.eclipse.sirius.properties.feature" url="features/org.eclipse.sirius.properties.feature_6.0.0.201806111309/" version="6.0.0.201806111309">
+<feature id="org.eclipse.sirius.properties.feature" plugin-identifier="org.eclipse.sirius.properties" url="features/org.eclipse.sirius.properties.feature_6.3.4.202009070953/" version="6.3.4.202009070953">
 </feature>
 <feature id="org.eclipse.xtext.runtime" url="features/org.eclipse.xtext.runtime_2.23.0.v20200831-0926/" version="2.23.0.v20200831-0926">
 </feature>
@@ -279,6 +283,8 @@
 </feature>
 <feature id="org.eclipse.viatra.query.runtime.feature.source" url="features/org.eclipse.viatra.query.runtime.feature.source_2.4.1.202008261234/" version="2.4.1.202008261234">
 </feature>
+<feature id="org.aspectj" plugin-identifier="org.eclipse.aspectj" url="features/org.aspectj_1.9.6.202007241909/" version="1.9.6.202007241909">
+</feature>
 <feature id="org.eclipse.emf.ecore.xcore" url="features/org.eclipse.emf.ecore.xcore_1.15.0.v20200701-0840/" version="1.15.0.v20200701-0840">
 </feature>
 <feature id="org.eclipse.viatra.addon.databinding.runtime.feature" url="features/org.eclipse.viatra.addon.databinding.runtime.feature_2.4.1.202008261234/" version="2.4.1.202008261234">
@@ -315,6 +321,8 @@
 </feature>
 <feature id="org.eclipse.emf.converter.source" url="features/org.eclipse.emf.converter.source_2.15.0.v20200324-0723/" version="2.15.0.v20200324-0723">
 </feature>
+<feature id="org.eclipse.equinox.weaving.sdk" url="features/org.eclipse.equinox.weaving.sdk_1.2.0.202007241909/" version="1.2.0.202007241909">
+</feature>
 <feature id="org.eclipse.gef.layout" url="features/org.eclipse.gef.layout_5.0.0.202009090201/" version="5.0.0.202009090201">
 </feature>
 <feature id="com.yakindu.licmgmt.ui.feature" url="features/com.yakindu.licmgmt.ui.feature_3.1.0.202004270548/" version="3.1.0.202004270548">
@@ -329,9 +337,11 @@
 </feature>
 <feature id="org.eclipse.emf.mwe2.launcher" url="features/org.eclipse.emf.mwe2.launcher_2.11.3.v20200520-0756/" version="2.11.3.v20200520-0756">
 </feature>
-<feature id="org.eclipse.sirius.runtime" plugin-identifier="org.eclipse.sirius" url="features/org.eclipse.sirius.runtime_6.0.0.201806111309/" version="6.0.0.201806111309">
+<feature id="org.eclipse.sirius.runtime" plugin-identifier="org.eclipse.sirius" url="features/org.eclipse.sirius.runtime_6.3.4.202009070953/" version="6.3.4.202009070953">
 </feature>
 <feature id="org.eclipse.emf.mwe2.launcher.source" url="features/org.eclipse.emf.mwe2.launcher.source_2.11.3.v20200520-0756/" version="2.11.3.v20200520-0756">
+</feature>
+<feature id="org.eclipse.ajdt" plugin-identifier="org.eclipse.aspectj" url="features/org.eclipse.ajdt_2.2.4.202007241909/" version="2.2.4.202007241909">
 </feature>
 <feature id="org.eclipse.xtext.sdk" plugin-identifier="org.eclipse.xtext" url="features/org.eclipse.xtext.sdk_2.23.0.v20200831-0926/" version="2.23.0.v20200831-0926">
 </feature>
@@ -353,13 +363,17 @@
 </feature>
 <feature id="org.eclipse.emf.codegen.ecore.ui" url="features/org.eclipse.emf.codegen.ecore.ui_2.23.0.v20200703-0737/" version="2.23.0.v20200703-0737">
 </feature>
-<feature id="org.eclipse.gmf.runtime.notation" url="features/org.eclipse.gmf.runtime.notation_1.12.0.201805221301/" version="1.12.0.201805221301">
+<feature id="org.eclipse.gmf.runtime.notation" url="features/org.eclipse.gmf.runtime.notation_1.13.0.202004160913/" version="1.13.0.202004160913">
 </feature>
 <feature id="org.eclipse.emf.ecore.editor" url="features/org.eclipse.emf.ecore.editor_2.17.0.v20190528-0725/" version="2.17.0.v20190528-0725">
 </feature>
 <feature id="org.eclipse.emf.source" url="features/org.eclipse.emf.source_2.23.0.v20200822-0801/" version="2.23.0.v20200822-0801">
 </feature>
+<feature id="org.scala-ide.equinox-weaving-launcher.feature" url="features/org.scala-ide.equinox-weaving-launcher.feature_1.1.0.201602261118/" version="1.1.0.201602261118">
+</feature>
 <feature id="org.eclipse.emf.databinding" url="features/org.eclipse.emf.databinding_1.7.0.v20190323-1059/" version="1.7.0.v20190323-1059">
+</feature>
+<feature id="org.jetbrains.kotlin.policy" url="features/org.jetbrains.kotlin.policy_0.8.21.v20200812-1103/" version="0.8.21.v20200812-1103">
 </feature>
 <feature id="org.eclipse.gef.zest.fx.jface" url="features/org.eclipse.gef.zest.fx.jface_5.1.1.202009090201/" version="5.1.1.202009090201">
 </feature>

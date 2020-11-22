@@ -1,4 +1,3 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Delete resource &apos;com.triad.school.gamma.simulator.ui&apos;" deleteContents="true" description="Delete resource &apos;com.triad.school.gamma.simulator.ui&apos;" element1="/com.triad.school.gamma.simulator.ui" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1605649511807"/>
+<session version="1.0">&#x0A;<refactoring comment="Delete resource &apos;com.triad.school.gamma.simulator.ui&apos;" deleteContents="true" description="Delete resource &apos;com.triad.school.gamma.simulator.ui&apos;" element1="/com.triad.school.gamma.simulator.ui" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1605649511807"/>&#x0A;<refactoring comment="Delete resource &apos;asdf&apos;" deleteContents="true" description="Delete resource &apos;asdf&apos;" element1="/asdf" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1606038670728"/>
 </session>
