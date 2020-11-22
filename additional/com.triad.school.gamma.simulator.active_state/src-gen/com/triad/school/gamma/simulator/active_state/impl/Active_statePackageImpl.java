@@ -6,6 +6,7 @@ import com.triad.school.gamma.simulator.active_state.ActiveStateContainer;
 import com.triad.school.gamma.simulator.active_state.Active_stateFactory;
 import com.triad.school.gamma.simulator.active_state.Active_statePackage;
 
+import com.triad.school.gamma.simulator.active_state.EventQueue;
 import hu.bme.mit.gamma.action.model.ActionModelPackage;
 
 import hu.bme.mit.gamma.expression.model.ExpressionModelPackage;
@@ -35,6 +36,13 @@ public class Active_statePackageImpl extends EPackageImpl implements Active_stat
 	 * @generated
 	 */
 	private EClass activeStateContainerEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass eventQueueEClass = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -130,6 +138,24 @@ public class Active_statePackageImpl extends EPackageImpl implements Active_stat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getEventQueue() {
+		return eventQueueEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getEventQueue_Events() {
+		return (EReference) eventQueueEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public Active_stateFactory getActive_stateFactory() {
 		return (Active_stateFactory) getEFactoryInstance();
 	}
@@ -156,6 +182,9 @@ public class Active_statePackageImpl extends EPackageImpl implements Active_stat
 		// Create classes and their features
 		activeStateContainerEClass = createEClass(ACTIVE_STATE_CONTAINER);
 		createEReference(activeStateContainerEClass, ACTIVE_STATE_CONTAINER__ACTIVE_STATE);
+
+		eventQueueEClass = createEClass(EVENT_QUEUE);
+		createEReference(eventQueueEClass, EVENT_QUEUE__EVENTS);
 	}
 
 	/**
@@ -185,6 +214,8 @@ public class Active_statePackageImpl extends EPackageImpl implements Active_stat
 		// Obtain other dependent packages
 		StatechartModelPackage theStatechartModelPackage = (StatechartModelPackage) EPackage.Registry.INSTANCE
 				.getEPackage(StatechartModelPackage.eNS_URI);
+		InterfaceModelPackage theInterfaceModelPackage = (InterfaceModelPackage) EPackage.Registry.INSTANCE
+				.getEPackage(InterfaceModelPackage.eNS_URI);
 
 		// Create type parameters
 
@@ -198,6 +229,12 @@ public class Active_statePackageImpl extends EPackageImpl implements Active_stat
 		initEReference(getActiveStateContainer_ActiveState(), theStatechartModelPackage.getStateNode(), null,
 				"activeState", null, 0, 1, ActiveStateContainer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
 				!IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(eventQueueEClass, EventQueue.class, "EventQueue", !IS_ABSTRACT, !IS_INTERFACE,
+				IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getEventQueue_Events(), theInterfaceModelPackage.getEvent(), null, "events", null, 0, -1,
+				EventQueue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
+				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Create resource
 		createResource(eNS_URI);

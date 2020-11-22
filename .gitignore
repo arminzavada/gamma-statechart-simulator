@@ -58,3 +58,16 @@ local.properties
 # Uncomment this line if you wish to ignore the project description file.
 # Typically, this file would be tracked if it contains build/dependency configurations:
 #.project
+
+.metadata/**/
+*.xtendbin
+
+.DS_Store
+target
+bin
+*.java._trace
+*.java_trace
+*.smap
+com.triad.school.gamma.simulator.query/xtend-gen/com/triad/school/gamma/simulator/query/.ActiveStateListener.java._trace
+com.triad.school.gamma.simulator.query/src-gen
+xtend-gen

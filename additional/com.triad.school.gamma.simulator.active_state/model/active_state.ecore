@@ -5,4 +5,8 @@
   <eClassifiers xsi:type="ecore:EClass" name="ActiveStateContainer">
     <eStructuralFeatures xsi:type="ecore:EReference" name="activeState" eType="ecore:EClass ../../hu.bme.mit.gamma.statechart.model/model/statechart.ecore#//StateNode"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EventQueue">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="events" upperBound="-1"
+        eType="ecore:EClass ../../hu.bme.mit.gamma.statechart.model/model/interface.ecore#//Event"/>
+  </eClassifiers>
 </ecore:EPackage>

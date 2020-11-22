@@ -1,22 +1,26 @@
 package com.triad.school.gamma.simulator.query
 
-import com.triad.school.gamma.simulator.active_state.Active_statePackage
-import hu.bme.mit.gamma.statechart.statechart.StatechartModelPackage
-import org.apache.log4j.Logger
+import com.triad.school.gamma.simulator.active_state.ActiveStateContainer
+import com.triad.school.gamma.simulator.active_state.Active_stateFactory
+import hu.bme.mit.gamma.statechart.interface_.Event
+import hu.bme.mit.gamma.statechart.statechart.StateNode
+import java.util.Map.Entry
+import org.eclipse.emf.common.util.URI
 import org.eclipse.emf.ecore.resource.Resource
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl
 import org.eclipse.viatra.query.runtime.api.ViatraQueryEngine
 import org.eclipse.viatra.query.runtime.emf.EMFScope
+import org.eclipse.viatra.transformation.evm.specific.crud.CRUDActivationStateEnum
 import org.eclipse.viatra.transformation.runtime.emf.modelmanipulation.IModelManipulations
 import org.eclipse.viatra.transformation.runtime.emf.modelmanipulation.SimpleModelManipulations
-import org.eclipse.viatra.transformation.runtime.emf.rules.batch.BatchTransformationRuleFactory
-import org.eclipse.viatra.transformation.runtime.emf.transformation.batch.BatchTransformation
-import org.eclipse.viatra.transformation.runtime.emf.transformation.batch.BatchTransformationStatements
-import com.triad.school.gamma.simulator.active_state.Active_stateFactory
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl
-import org.eclipse.emf.common.util.URI
-import hu.bme.mit.gamma.statechart.interface_.Event
-import java.util.Map.Entry
-import com.triad.school.gamma.simulator.active_state.ActiveStateContainer
+import org.eclipse.viatra.transformation.runtime.emf.rules.eventdriven.EventDrivenTransformationRuleFactory
+import org.eclipse.viatra.transformation.runtime.emf.transformation.eventdriven.EventDrivenTransformation
+import com.triad.school.gamma.simulator.active_state.Active_statePackage
+
+@FunctionalInterface
+interface ActiveStateListener {
+	def void activeStateChanged(StateNode node);
+}
 
 class DummyEntry<T> implements Entry<String, T> {
 	
@@ -42,24 +46,19 @@ class DummyEntry<T> implements Entry<String, T> {
 }
 
 class GammaStatechartSimulatorTransformation {
-	val FireableTransitions queries = FireableTransitions.instance	
+	val FireableTransitions queries = FireableTransitions.instance
 	
-    extension Logger logger = Logger.getLogger(GammaStatechartSimulatorTransformation)
+    val EventDrivenTransformationRuleFactory factory = new EventDrivenTransformationRuleFactory    
+    EventDrivenTransformation transformation    
+    
+    val activeStateContainer = Active_stateFactory.eINSTANCE.createActiveStateContainer
+    val eventQueue = Active_stateFactory.eINSTANCE.createEventQueue
+    
+    IModelManipulations manipulation = null
+    
+    val ViatraQueryEngine engine
 
-    /* Transformation-related extensions */
-    extension BatchTransformation transformation
-    extension BatchTransformationStatements statements
-    
-    /* Transformation rule-related extensions */
-    extension BatchTransformationRuleFactory = new BatchTransformationRuleFactory
-    extension IModelManipulations manipulation
-    
-	val extension StatechartModelPackage statePackage = StatechartModelPackage.eINSTANCE
-	val extension Active_statePackage activePackage = Active_statePackage.eINSTANCE
-
-    protected ViatraQueryEngine engine
-    
-    private val ActiveStateContainer activeStateContainer = Active_stateFactory.eINSTANCE.createActiveStateContainer
+	ActiveStateListener activeStateListener = []
 
     new(Resource resource) {    	
 		val resourceSet = new ResourceSetImpl
@@ -67,50 +66,63 @@ class GammaStatechartSimulatorTransformation {
 		
 		val active_stateResource = resourceSet.createResource(URI.createURI(""))
 		active_stateResource.contents.add(activeStateContainer)
+		active_stateResource.contents.add(eventQueue)
 		
         val scope = new EMFScope(resourceSet)
         engine = ViatraQueryEngine.on(scope);
         queries.prepare(engine)
-        
         manipulation = new SimpleModelManipulations(engine)
-        transformation = BatchTransformation.forEngine(engine).build
-        statements = transformation.transformationStatements
         
-        activeStateContainer.activeState = InitialNode.Matcher.on(engine).oneArbitraryMatch.get.state
+        transformation = EventDrivenTransformation.forEngine(engine)
+	        .addRule(fireNonTriggerTransition)
+	        .addRule(fireTriggerTransition)
+	        .addRule(activeState)
+	        .addRule(swallowEvent)
+	        .build
     }
-    
-    public def tick() {
-    	fireNonTriggerTransition.fireOne
+
+    public def execute() { 
+        activeStateContainer.activeState = InitialNode.Matcher.on(engine).oneArbitraryMatch.get.state
+        transformation.executionSchema.startUnscheduledExecution
     }
 
     public def sendEvent(Event event) {
-        debug('''Executing transformation on:�resource.URI�''')
-    	fireOne(fireTriggerTransition, new DummyEntry("event", event))     
+    	manipulation.add(eventQueue, Active_statePackage.eINSTANCE.eventQueue_Events, event)
     }
     
     public def requiredInterfaces() {
     	return Ports.Matcher.on(engine).allMatches.map[
     		it.port
     	].toList
-    }    
-    public def activeState() {
-    	return ActiveState.Matcher.on(engine).allMatches.map[
-    		it.state
-    	].toList
     }
     
-    val fireNonTriggerTransition = createRule(FireableNonTriggerTransition.instance).action[
-    	println('''Firing transition: «source.name» to «target.name»''')
+    def setActiveStateListener(ActiveStateListener listener) {
+    	activeStateListener = listener
+    }
+    
+    val fireNonTriggerTransition = factory.createRule(FireableNonTriggerTransition.instance).action(CRUDActivationStateEnum.CREATED) [
+    	println('''Firing empty transition: «source.name» to «target.name»''')
     	activeStateContainer.activeState = target
     ].build
     
-    val fireTriggerTransition = createRule(FireableTriggerTransition.instance).action[
-    	println('''Firing transition: «source.name» to «target.name»''')
+    val fireTriggerTransition = factory.createRule(FireableTriggerTransition.instance).action(CRUDActivationStateEnum.CREATED) [
+    	println('''Firing event transition: «source.name» to «target.name»''')
+    	manipulation.remove(eventQueue, Active_statePackage.eINSTANCE.eventQueue_Events, event)
     	activeStateContainer.activeState = target    	
+    ].build
+    
+    val activeState = factory.createRule(ActiveState.instance).action(CRUDActivationStateEnum.CREATED) [
+    	println('''Active state: «state.name»''')
+    	activeStateListener.activeStateChanged(it.state)
+    ].build
+    
+    val swallowEvent = factory.createRule(SwallowableEvents.instance).action(CRUDActivationStateEnum.CREATED) [
+    	println('''Swallowed event: «event.name»''')
+    	manipulation.remove(eventQueue, Active_statePackage.eINSTANCE.eventQueue_Events, event)
     ].build
 
     def dispose() {
-        if (transformation != null) {
+        if (transformation !== null) {
             transformation.dispose
         }
         

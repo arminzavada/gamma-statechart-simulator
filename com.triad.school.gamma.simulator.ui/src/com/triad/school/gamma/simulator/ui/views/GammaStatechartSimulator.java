@@ -18,6 +18,7 @@ import org.eclipse.xtext.ui.editor.model.IXtextDocument;
 import org.eclipse.xtext.ui.editor.utils.EditorUtils;
 import org.eclipse.xtext.util.concurrent.IUnitOfWork;
 
+import com.triad.school.gamma.simulator.query.ActiveStateListener;
 import com.triad.school.gamma.simulator.query.FireableTransitions;
 import com.triad.school.gamma.simulator.query.GammaStatechartSimulatorTransformation;
 import com.triad.school.gamma.simulator.query.InitialNode;
@@ -86,15 +87,7 @@ public class GammaStatechartSimulator extends ViewPart {
 		sendButton.addMouseListener(MouseListener.mouseDownAdapter((event) -> {
 			if (selectedEvent != null) {
 				transformation.sendEvent(selectedEvent);
-				updateActiveState();	
 			}
-		}));
-
-		Button tickButton = new Button(parent, SWT.PUSH);
-		tickButton.setText("Tick");
-		tickButton.addMouseListener(MouseListener.mouseDownAdapter((event) -> {
-			transformation.tick();
-			updateActiveState();	
 		}));
 
 		Button refreshButton = new Button(parent, SWT.PUSH);
@@ -103,14 +96,10 @@ public class GammaStatechartSimulator extends ViewPart {
 		
 		// Create the help context id for the viewer's control
 		//workbench.getHelpSystem().setHelp(parent.getControl(), "com.triad.school.gamma.simulator.ui.viewer");
-
-		createTransformation();
 	}
 	
-	private void updateActiveState() {
-		StateNode active = transformation.activeState().get(0);
-		
-		activeStateLabel.setText(active.getName());
+	private void activeStateChanged(StateNode node) {		
+		activeStateLabel.setText(node.getName());
 	}
 	
 	private void createTransformation() {
@@ -124,10 +113,13 @@ public class GammaStatechartSimulator extends ViewPart {
         }
 		
         transformation = new GammaStatechartSimulatorTransformation(xtextResource);
+        transformation.setActiveStateListener((node) -> {
+        	activeStateChanged(node);
+        });
+        transformation.execute();
         
         selectedEvent = null;
         redrawEvents(transformation.requiredInterfaces());
-		updateActiveState();
     }
 
 	private void redrawEvents(List<Port> ports) {
@@ -141,7 +133,7 @@ public class GammaStatechartSimulator extends ViewPart {
         
         parent.layout(true, true);
 		
-		ports.stream()
+		ports.stream() 
 			.filter(port -> port.getInterfaceRealization().getRealizationMode() == RealizationMode.REQUIRED)
 			.forEach(port -> {				
 				final String portName = port.getName();

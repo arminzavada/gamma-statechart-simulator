@@ -31,6 +31,15 @@ public interface Active_stateFactory extends EFactory {
 	ActiveStateContainer createActiveStateContainer();
 
 	/**
+	 * Returns a new object of class '<em>Event Queue</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Event Queue</em>'.
+	 * @generated
+	 */
+	EventQueue createEventQueue();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
