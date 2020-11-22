@@ -66,9 +66,9 @@ public class ModelSwitch<T> extends Switch<T> {
 	@Override
 	protected T doSwitch(int classifierID, EObject theEObject) {
 		switch (classifierID) {
-		case ModelPackage.ACTIVE_STATE_CONTAINER: {
-			ActiveStateContainer activeStateContainer = (ActiveStateContainer) theEObject;
-			T result = caseActiveStateContainer(activeStateContainer);
+		case ModelPackage.ACTIVE_STATE: {
+			ActiveState activeState = (ActiveState) theEObject;
+			T result = caseActiveState(activeState);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
@@ -80,9 +80,31 @@ public class ModelSwitch<T> extends Switch<T> {
 				result = defaultCase(theEObject);
 			return result;
 		}
+		case ModelPackage.ACTIVE_STATE_CONTAINER: {
+			ActiveStateContainer activeStateContainer = (ActiveStateContainer) theEObject;
+			T result = caseActiveStateContainer(activeStateContainer);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
 		default:
 			return defaultCase(theEObject);
 		}
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Active State</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Active State</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseActiveState(ActiveState object) {
+		return null;
 	}
 
 	/**

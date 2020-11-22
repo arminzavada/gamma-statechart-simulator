@@ -16,6 +16,8 @@ import org.eclipse.viatra.transformation.runtime.emf.transformation.eventdriven.
 import com.triad.school.gamma.simulator.model.ModelPackage
 import com.triad.school.gamma.simulator.model.ModelFactory
 
+
+
 @FunctionalInterface
 interface ActiveStateListener {
 	def void activeStateChanged(StateNode node);

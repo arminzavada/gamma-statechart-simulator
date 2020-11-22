@@ -22,6 +22,15 @@ public interface ModelFactory extends EFactory {
 	ModelFactory eINSTANCE = com.triad.school.gamma.simulator.model.impl.ModelFactoryImpl.init();
 
 	/**
+	 * Returns a new object of class '<em>Active State</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Active State</em>'.
+	 * @generated
+	 */
+	ActiveState createActiveState();
+
+	/**
 	 * Returns a new object of class '<em>Active State Container</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

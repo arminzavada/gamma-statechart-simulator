@@ -67,13 +67,18 @@ public class ModelAdapterFactory extends AdapterFactoryImpl {
 	 */
 	protected ModelSwitch<Adapter> modelSwitch = new ModelSwitch<Adapter>() {
 		@Override
-		public Adapter caseActiveStateContainer(ActiveStateContainer object) {
-			return createActiveStateContainerAdapter();
+		public Adapter caseActiveState(ActiveState object) {
+			return createActiveStateAdapter();
 		}
 
 		@Override
 		public Adapter caseEventQueue(EventQueue object) {
 			return createEventQueueAdapter();
+		}
+
+		@Override
+		public Adapter caseActiveStateContainer(ActiveStateContainer object) {
+			return createActiveStateContainerAdapter();
 		}
 
 		@Override
@@ -93,6 +98,20 @@ public class ModelAdapterFactory extends AdapterFactoryImpl {
 	@Override
 	public Adapter createAdapter(Notifier target) {
 		return modelSwitch.doSwitch((EObject) target);
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link com.triad.school.gamma.simulator.model.ActiveState <em>Active State</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see com.triad.school.gamma.simulator.model.ActiveState
+	 * @generated
+	 */
+	public Adapter createActiveStateAdapter() {
+		return null;
 	}
 
 	/**

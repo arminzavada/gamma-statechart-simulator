@@ -12,12 +12,15 @@
   <testsDirectory xsi:nil="true"/>
   <genPackages prefix="Model" basePackage="com.triad.school.gamma.simulator" disposableProviderFactory="true"
       ecorePackage="model.ecore#/">
-    <genClasses ecoreClass="model.ecore#//ActiveStateContainer">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference model.ecore#//ActiveStateContainer/activeState"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference model.ecore#//ActiveStateContainer/containingRegion"/>
+    <genClasses ecoreClass="model.ecore#//ActiveState">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference model.ecore#//ActiveState/state"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference model.ecore#//ActiveState/containingRegion"/>
     </genClasses>
     <genClasses ecoreClass="model.ecore#//EventQueue">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference model.ecore#//EventQueue/events"/>
+    </genClasses>
+    <genClasses ecoreClass="model.ecore#//ActiveStateContainer">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference model.ecore#//ActiveStateContainer/activestates"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>
