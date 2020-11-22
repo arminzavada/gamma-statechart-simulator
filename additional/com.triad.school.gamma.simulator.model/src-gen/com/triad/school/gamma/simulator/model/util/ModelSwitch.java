@@ -1,8 +1,8 @@
 /**
  */
-package com.triad.school.gamma.simulator.active_state.util;
+package com.triad.school.gamma.simulator.model.util;
 
-import com.triad.school.gamma.simulator.active_state.*;
+import com.triad.school.gamma.simulator.model.*;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
@@ -19,17 +19,17 @@ import org.eclipse.emf.ecore.util.Switch;
  * until a non-null result is returned,
  * which is the result of the switch.
  * <!-- end-user-doc -->
- * @see com.triad.school.gamma.simulator.active_state.Active_statePackage
+ * @see com.triad.school.gamma.simulator.model.ModelPackage
  * @generated
  */
-public class Active_stateSwitch<T> extends Switch<T> {
+public class ModelSwitch<T> extends Switch<T> {
 	/**
 	 * The cached model package
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected static Active_statePackage modelPackage;
+	protected static ModelPackage modelPackage;
 
 	/**
 	 * Creates an instance of the switch.
@@ -37,9 +37,9 @@ public class Active_stateSwitch<T> extends Switch<T> {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Active_stateSwitch() {
+	public ModelSwitch() {
 		if (modelPackage == null) {
-			modelPackage = Active_statePackage.eINSTANCE;
+			modelPackage = ModelPackage.eINSTANCE;
 		}
 	}
 
@@ -66,14 +66,14 @@ public class Active_stateSwitch<T> extends Switch<T> {
 	@Override
 	protected T doSwitch(int classifierID, EObject theEObject) {
 		switch (classifierID) {
-		case Active_statePackage.ACTIVE_STATE_CONTAINER: {
+		case ModelPackage.ACTIVE_STATE_CONTAINER: {
 			ActiveStateContainer activeStateContainer = (ActiveStateContainer) theEObject;
 			T result = caseActiveStateContainer(activeStateContainer);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
 		}
-		case Active_statePackage.EVENT_QUEUE: {
+		case ModelPackage.EVENT_QUEUE: {
 			EventQueue eventQueue = (EventQueue) theEObject;
 			T result = caseEventQueue(eventQueue);
 			if (result == null)
@@ -131,4 +131,4 @@ public class Active_stateSwitch<T> extends Switch<T> {
 		return null;
 	}
 
-} //Active_stateSwitch
+} //ModelSwitch

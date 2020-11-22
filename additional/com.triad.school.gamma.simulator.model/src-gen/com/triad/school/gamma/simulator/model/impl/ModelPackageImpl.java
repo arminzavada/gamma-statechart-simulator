@@ -1,12 +1,12 @@
 /**
  */
-package com.triad.school.gamma.simulator.active_state.impl;
+package com.triad.school.gamma.simulator.model.impl;
 
-import com.triad.school.gamma.simulator.active_state.ActiveStateContainer;
-import com.triad.school.gamma.simulator.active_state.Active_stateFactory;
-import com.triad.school.gamma.simulator.active_state.Active_statePackage;
+import com.triad.school.gamma.simulator.model.ActiveStateContainer;
+import com.triad.school.gamma.simulator.model.EventQueue;
+import com.triad.school.gamma.simulator.model.ModelFactory;
+import com.triad.school.gamma.simulator.model.ModelPackage;
 
-import com.triad.school.gamma.simulator.active_state.EventQueue;
 import hu.bme.mit.gamma.action.model.ActionModelPackage;
 
 import hu.bme.mit.gamma.expression.model.ExpressionModelPackage;
@@ -29,7 +29,7 @@ import org.eclipse.emf.ecore.impl.EPackageImpl;
  * <!-- end-user-doc -->
  * @generated
  */
-public class Active_statePackageImpl extends EPackageImpl implements Active_statePackage {
+public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -55,12 +55,12 @@ public class Active_statePackageImpl extends EPackageImpl implements Active_stat
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see org.eclipse.emf.ecore.EPackage.Registry
-	 * @see com.triad.school.gamma.simulator.active_state.Active_statePackage#eNS_URI
+	 * @see com.triad.school.gamma.simulator.model.ModelPackage#eNS_URI
 	 * @see #init()
 	 * @generated
 	 */
-	private Active_statePackageImpl() {
-		super(eNS_URI, Active_stateFactory.eINSTANCE);
+	private ModelPackageImpl() {
+		super(eNS_URI, ModelFactory.eINSTANCE);
 	}
 
 	/**
@@ -73,7 +73,7 @@ public class Active_statePackageImpl extends EPackageImpl implements Active_stat
 	/**
 	 * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
 	 *
-	 * <p>This method is used to initialize {@link Active_statePackage#eINSTANCE} when that field is accessed.
+	 * <p>This method is used to initialize {@link ModelPackage#eINSTANCE} when that field is accessed.
 	 * Clients should not invoke it directly. Instead, they should simply access that field to obtain the package.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -82,15 +82,15 @@ public class Active_statePackageImpl extends EPackageImpl implements Active_stat
 	 * @see #initializePackageContents()
 	 * @generated
 	 */
-	public static Active_statePackage init() {
+	public static ModelPackage init() {
 		if (isInited)
-			return (Active_statePackage) EPackage.Registry.INSTANCE.getEPackage(Active_statePackage.eNS_URI);
+			return (ModelPackage) EPackage.Registry.INSTANCE.getEPackage(ModelPackage.eNS_URI);
 
 		// Obtain or create and register package
-		Object registeredActive_statePackage = EPackage.Registry.INSTANCE.get(eNS_URI);
-		Active_statePackageImpl theActive_statePackage = registeredActive_statePackage instanceof Active_statePackageImpl
-				? (Active_statePackageImpl) registeredActive_statePackage
-				: new Active_statePackageImpl();
+		Object registeredModelPackage = EPackage.Registry.INSTANCE.get(eNS_URI);
+		ModelPackageImpl theModelPackage = registeredModelPackage instanceof ModelPackageImpl
+				? (ModelPackageImpl) registeredModelPackage
+				: new ModelPackageImpl();
 
 		isInited = true;
 
@@ -102,17 +102,17 @@ public class Active_statePackageImpl extends EPackageImpl implements Active_stat
 		StatechartModelPackage.eINSTANCE.eClass();
 
 		// Create package meta-data objects
-		theActive_statePackage.createPackageContents();
+		theModelPackage.createPackageContents();
 
 		// Initialize created meta-data
-		theActive_statePackage.initializePackageContents();
+		theModelPackage.initializePackageContents();
 
 		// Mark meta-data to indicate it can't be changed
-		theActive_statePackage.freeze();
+		theModelPackage.freeze();
 
 		// Update the registry and return the package
-		EPackage.Registry.INSTANCE.put(Active_statePackage.eNS_URI, theActive_statePackage);
-		return theActive_statePackage;
+		EPackage.Registry.INSTANCE.put(ModelPackage.eNS_URI, theModelPackage);
+		return theModelPackage;
 	}
 
 	/**
@@ -138,6 +138,15 @@ public class Active_statePackageImpl extends EPackageImpl implements Active_stat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getActiveStateContainer_ContainingRegion() {
+		return (EReference) activeStateContainerEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getEventQueue() {
 		return eventQueueEClass;
 	}
@@ -156,8 +165,8 @@ public class Active_statePackageImpl extends EPackageImpl implements Active_stat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Active_stateFactory getActive_stateFactory() {
-		return (Active_stateFactory) getEFactoryInstance();
+	public ModelFactory getModelFactory() {
+		return (ModelFactory) getEFactoryInstance();
 	}
 
 	/**
@@ -182,6 +191,7 @@ public class Active_statePackageImpl extends EPackageImpl implements Active_stat
 		// Create classes and their features
 		activeStateContainerEClass = createEClass(ACTIVE_STATE_CONTAINER);
 		createEReference(activeStateContainerEClass, ACTIVE_STATE_CONTAINER__ACTIVE_STATE);
+		createEReference(activeStateContainerEClass, ACTIVE_STATE_CONTAINER__CONTAINING_REGION);
 
 		eventQueueEClass = createEClass(EVENT_QUEUE);
 		createEReference(eventQueueEClass, EVENT_QUEUE__EVENTS);
@@ -229,6 +239,9 @@ public class Active_statePackageImpl extends EPackageImpl implements Active_stat
 		initEReference(getActiveStateContainer_ActiveState(), theStatechartModelPackage.getStateNode(), null,
 				"activeState", null, 0, 1, ActiveStateContainer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
 				!IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getActiveStateContainer_ContainingRegion(), theStatechartModelPackage.getRegion(), null,
+				"containingRegion", null, 1, 1, ActiveStateContainer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
+				!IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(eventQueueEClass, EventQueue.class, "EventQueue", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
@@ -240,4 +253,4 @@ public class Active_statePackageImpl extends EPackageImpl implements Active_stat
 		createResource(eNS_URI);
 	}
 
-} //Active_statePackageImpl
+} //ModelPackageImpl

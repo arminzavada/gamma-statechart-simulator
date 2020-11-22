@@ -1,6 +1,6 @@
 /**
  */
-package com.triad.school.gamma.simulator.active_state;
+package com.triad.school.gamma.simulator.model;
 
 import hu.bme.mit.gamma.statechart.interface_.Event;
 
@@ -17,10 +17,10 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link com.triad.school.gamma.simulator.active_state.EventQueue#getEvents <em>Events</em>}</li>
+ *   <li>{@link com.triad.school.gamma.simulator.model.EventQueue#getEvents <em>Events</em>}</li>
  * </ul>
  *
- * @see com.triad.school.gamma.simulator.active_state.Active_statePackage#getEventQueue()
+ * @see com.triad.school.gamma.simulator.model.ModelPackage#getEventQueue()
  * @model
  * @generated
  */
@@ -31,7 +31,7 @@ public interface EventQueue extends EObject {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Events</em>' reference list.
-	 * @see com.triad.school.gamma.simulator.active_state.Active_statePackage#getEventQueue_Events()
+	 * @see com.triad.school.gamma.simulator.model.ModelPackage#getEventQueue_Events()
 	 * @model
 	 * @generated
 	 */

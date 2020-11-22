@@ -2,7 +2,7 @@ package com.triad.school.gamma.simulator.query
 
 import "http://www.mit.bme.hu/gamma/statechart/Model/Statechart"
 import "http://www.mit.bme.hu/gamma/statechart/Model/Interface"
-import "http://www.triad.com/school/gamma/simulator/active_state"
+import "http://www.triad.com/school/gamma/simulator/model"
 
 pattern activeState(state: StateNode) {
 	ActiveStateContainer(container);

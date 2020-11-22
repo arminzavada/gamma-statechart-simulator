@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="active_state" nsURI="http://www.triad.com/school/gamma/simulator/active_state"
-    nsPrefix="active_state">
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="model" nsURI="http://www.triad.com/school/gamma/simulator/model"
+    nsPrefix="model">
   <eClassifiers xsi:type="ecore:EClass" name="ActiveStateContainer">
     <eStructuralFeatures xsi:type="ecore:EReference" name="activeState" eType="ecore:EClass ../../hu.bme.mit.gamma.statechart.model/model/statechart.ecore#//StateNode"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="containingRegion" lowerBound="1"
+        eType="ecore:EClass ../../hu.bme.mit.gamma.statechart.model/model/statechart.ecore#//Region"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="EventQueue">
     <eStructuralFeatures xsi:type="ecore:EReference" name="events" upperBound="-1"

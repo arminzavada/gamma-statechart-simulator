@@ -1,8 +1,8 @@
 /**
  */
-package com.triad.school.gamma.simulator.active_state.util;
+package com.triad.school.gamma.simulator.model.util;
 
-import com.triad.school.gamma.simulator.active_state.*;
+import com.triad.school.gamma.simulator.model.*;
 
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
@@ -16,17 +16,17 @@ import org.eclipse.emf.ecore.EObject;
  * The <b>Adapter Factory</b> for the model.
  * It provides an adapter <code>createXXX</code> method for each class of the model.
  * <!-- end-user-doc -->
- * @see com.triad.school.gamma.simulator.active_state.Active_statePackage
+ * @see com.triad.school.gamma.simulator.model.ModelPackage
  * @generated
  */
-public class Active_stateAdapterFactory extends AdapterFactoryImpl {
+public class ModelAdapterFactory extends AdapterFactoryImpl {
 	/**
 	 * The cached model package.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected static Active_statePackage modelPackage;
+	protected static ModelPackage modelPackage;
 
 	/**
 	 * Creates an instance of the adapter factory.
@@ -34,9 +34,9 @@ public class Active_stateAdapterFactory extends AdapterFactoryImpl {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Active_stateAdapterFactory() {
+	public ModelAdapterFactory() {
 		if (modelPackage == null) {
-			modelPackage = Active_statePackage.eINSTANCE;
+			modelPackage = ModelPackage.eINSTANCE;
 		}
 	}
 
@@ -65,7 +65,7 @@ public class Active_stateAdapterFactory extends AdapterFactoryImpl {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected Active_stateSwitch<Adapter> modelSwitch = new Active_stateSwitch<Adapter>() {
+	protected ModelSwitch<Adapter> modelSwitch = new ModelSwitch<Adapter>() {
 		@Override
 		public Adapter caseActiveStateContainer(ActiveStateContainer object) {
 			return createActiveStateContainerAdapter();
@@ -96,13 +96,13 @@ public class Active_stateAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link com.triad.school.gamma.simulator.active_state.ActiveStateContainer <em>Active State Container</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.triad.school.gamma.simulator.model.ActiveStateContainer <em>Active State Container</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see com.triad.school.gamma.simulator.active_state.ActiveStateContainer
+	 * @see com.triad.school.gamma.simulator.model.ActiveStateContainer
 	 * @generated
 	 */
 	public Adapter createActiveStateContainerAdapter() {
@@ -110,13 +110,13 @@ public class Active_stateAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link com.triad.school.gamma.simulator.active_state.EventQueue <em>Event Queue</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.triad.school.gamma.simulator.model.EventQueue <em>Event Queue</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see com.triad.school.gamma.simulator.active_state.EventQueue
+	 * @see com.triad.school.gamma.simulator.model.EventQueue
 	 * @generated
 	 */
 	public Adapter createEventQueueAdapter() {
@@ -135,4 +135,4 @@ public class Active_stateAdapterFactory extends AdapterFactoryImpl {
 		return null;
 	}
 
-} //Active_stateAdapterFactory
+} //ModelAdapterFactory

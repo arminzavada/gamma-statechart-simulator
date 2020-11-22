@@ -1,9 +1,9 @@
 /**
  */
-package com.triad.school.gamma.simulator.active_state.impl;
+package com.triad.school.gamma.simulator.model.impl;
 
-import com.triad.school.gamma.simulator.active_state.Active_statePackage;
-import com.triad.school.gamma.simulator.active_state.EventQueue;
+import com.triad.school.gamma.simulator.model.EventQueue;
+import com.triad.school.gamma.simulator.model.ModelPackage;
 
 import hu.bme.mit.gamma.statechart.interface_.Event;
 
@@ -25,7 +25,7 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link com.triad.school.gamma.simulator.active_state.impl.EventQueueImpl#getEvents <em>Events</em>}</li>
+ *   <li>{@link com.triad.school.gamma.simulator.model.impl.EventQueueImpl#getEvents <em>Events</em>}</li>
  * </ul>
  *
  * @generated
@@ -57,7 +57,7 @@ public class EventQueueImpl extends MinimalEObjectImpl.Container implements Even
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return Active_statePackage.Literals.EVENT_QUEUE;
+		return ModelPackage.Literals.EVENT_QUEUE;
 	}
 
 	/**
@@ -67,7 +67,7 @@ public class EventQueueImpl extends MinimalEObjectImpl.Container implements Even
 	 */
 	public EList<Event> getEvents() {
 		if (events == null) {
-			events = new EObjectResolvingEList<Event>(Event.class, this, Active_statePackage.EVENT_QUEUE__EVENTS);
+			events = new EObjectResolvingEList<Event>(Event.class, this, ModelPackage.EVENT_QUEUE__EVENTS);
 		}
 		return events;
 	}
@@ -80,7 +80,7 @@ public class EventQueueImpl extends MinimalEObjectImpl.Container implements Even
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case Active_statePackage.EVENT_QUEUE__EVENTS:
+		case ModelPackage.EVENT_QUEUE__EVENTS:
 			return getEvents();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -95,7 +95,7 @@ public class EventQueueImpl extends MinimalEObjectImpl.Container implements Even
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case Active_statePackage.EVENT_QUEUE__EVENTS:
+		case ModelPackage.EVENT_QUEUE__EVENTS:
 			getEvents().clear();
 			getEvents().addAll((Collection<? extends Event>) newValue);
 			return;
@@ -111,7 +111,7 @@ public class EventQueueImpl extends MinimalEObjectImpl.Container implements Even
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case Active_statePackage.EVENT_QUEUE__EVENTS:
+		case ModelPackage.EVENT_QUEUE__EVENTS:
 			getEvents().clear();
 			return;
 		}
@@ -126,7 +126,7 @@ public class EventQueueImpl extends MinimalEObjectImpl.Container implements Even
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case Active_statePackage.EVENT_QUEUE__EVENTS:
+		case ModelPackage.EVENT_QUEUE__EVENTS:
 			return events != null && !events.isEmpty();
 		}
 		return super.eIsSet(featureID);

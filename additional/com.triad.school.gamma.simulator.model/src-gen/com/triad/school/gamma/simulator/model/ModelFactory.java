@@ -1,6 +1,6 @@
 /**
  */
-package com.triad.school.gamma.simulator.active_state;
+package com.triad.school.gamma.simulator.model;
 
 import org.eclipse.emf.ecore.EFactory;
 
@@ -9,17 +9,17 @@ import org.eclipse.emf.ecore.EFactory;
  * The <b>Factory</b> for the model.
  * It provides a create method for each non-abstract class of the model.
  * <!-- end-user-doc -->
- * @see com.triad.school.gamma.simulator.active_state.Active_statePackage
+ * @see com.triad.school.gamma.simulator.model.ModelPackage
  * @generated
  */
-public interface Active_stateFactory extends EFactory {
+public interface ModelFactory extends EFactory {
 	/**
 	 * The singleton instance of the factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	Active_stateFactory eINSTANCE = com.triad.school.gamma.simulator.active_state.impl.Active_stateFactoryImpl.init();
+	ModelFactory eINSTANCE = com.triad.school.gamma.simulator.model.impl.ModelFactoryImpl.init();
 
 	/**
 	 * Returns a new object of class '<em>Active State Container</em>'.
@@ -46,6 +46,6 @@ public interface Active_stateFactory extends EFactory {
 	 * @return the package supported by this factory.
 	 * @generated
 	 */
-	Active_statePackage getActive_statePackage();
+	ModelPackage getModelPackage();
 
-} //Active_stateFactory
+} //ModelFactory
