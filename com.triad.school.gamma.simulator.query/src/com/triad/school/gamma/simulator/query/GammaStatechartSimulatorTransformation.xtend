@@ -1,8 +1,8 @@
 package com.triad.school.gamma.simulator.query
 
+import com.triad.school.gamma.simulator.model.ModelPackage
 import hu.bme.mit.gamma.statechart.interface_.Event
 import hu.bme.mit.gamma.statechart.statechart.StateNode
-import java.util.Map.Entry
 import org.eclipse.emf.common.util.URI
 import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl
@@ -21,29 +21,6 @@ import com.triad.school.gamma.simulator.model.ModelFactory
 @FunctionalInterface
 interface ActiveStateListener {
 	def void activeStateChanged(StateNode node);
-}
-
-class DummyEntry<T> implements Entry<String, T> {
-	
-	val extension String key
-	var extension T value
-	
-	new (String key, T value) {
-		this.key = key
-		this.value = value
-	}
-	
-	override getKey() {
-		key
-	}
-	
-	override getValue() {
-		value
-	}
-	
-	override setValue(T arg0) {
-		value = arg0
-	}
 }
 
 class GammaStatechartSimulatorTransformation {
