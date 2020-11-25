@@ -1,5 +1,6 @@
 package com.triad.school.gamma.simulator.query
 
+import com.triad.school.gamma.simulator.model.ModelFactory
 import com.triad.school.gamma.simulator.model.ModelPackage
 import hu.bme.mit.gamma.statechart.interface_.Event
 import hu.bme.mit.gamma.statechart.statechart.StateNode
@@ -13,10 +14,7 @@ import org.eclipse.viatra.transformation.runtime.emf.modelmanipulation.IModelMan
 import org.eclipse.viatra.transformation.runtime.emf.modelmanipulation.SimpleModelManipulations
 import org.eclipse.viatra.transformation.runtime.emf.rules.eventdriven.EventDrivenTransformationRuleFactory
 import org.eclipse.viatra.transformation.runtime.emf.transformation.eventdriven.EventDrivenTransformation
-import com.triad.school.gamma.simulator.model.ModelPackage
-import com.triad.school.gamma.simulator.model.ModelFactory
-
-
+import java.util.List
 
 @FunctionalInterface
 interface ActiveStateListener {
@@ -32,44 +30,52 @@ class GammaStatechartSimulatorTransformation {
     val activeStateContainer = ModelFactory.eINSTANCE.createActiveStateContainer
     val eventQueue = ModelFactory.eINSTANCE.createEventQueue
     
-    IModelManipulations manipulation = null
-    
     val ViatraQueryEngine engine
 
 	ActiveStateListener activeStateListener = []
+	
+	List<RegionVisitor> visitors = null
 
     new(Resource resource) {    	
 		val resourceSet = new ResourceSetImpl
 		resourceSet.resources.add(resource)
 		
-		val active_stateResource = resourceSet.createResource(URI.createURI(""))
-		active_stateResource.contents.add(activeStateContainer)
-		active_stateResource.contents.add(eventQueue)
+		val modelResource = resourceSet.createResource(URI.createURI(""))
+		modelResource.contents.add(activeStateContainer)
+		modelResource.contents.add(eventQueue)
 		
         val scope = new EMFScope(resourceSet)
         engine = ViatraQueryEngine.on(scope);
         queries.prepare(engine)
-        manipulation = new SimpleModelManipulations(engine)
+        
+		val RegionVisitorFactory visitorFactory = new SequentialTopToBottomRegionVisitorFactory(
+        	FireableTriggerTransition.Matcher.on(engine), 
+        	RootRegion.Matcher.on(engine),
+        	SubRegion.Matcher.on(engine),
+        	InitialNode.Matcher.on(engine),
+        	activeStateContainer
+        )
+        
+        visitors = visitorFactory.rootVisitors()
         
         transformation = EventDrivenTransformation.forEngine(engine)
 	        .addRule(fireNonTriggerTransition)
-	        .addRule(fireTriggerTransition)
 	        .addRule(activeState)
-	        .addRule(swallowEvent)
 	        .build
     }
 
-    public def execute() { 
-        activeStateContainer.activeState = InitialNode.Matcher.on(engine).oneArbitraryMatch.get.state
+    public def execute() {
         transformation.executionSchema.startUnscheduledExecution
     }
 
     public def sendEvent(Event event) {
-    	manipulation.add(eventQueue, ModelPackage.eINSTANCE.eventQueue_Events, event)
+		visitors.forEach[
+			it.visit(event)
+		] 
     }
     
     public def requiredInterfaces() {
-    	return Ports.Matcher.on(engine).allMatches.map[
+    	return StatechartInputPort.Matcher.on(engine).allMatches.map[
     		it.port
     	].toList
     }
@@ -78,25 +84,14 @@ class GammaStatechartSimulatorTransformation {
     	activeStateListener = listener
     }
     
-    val fireNonTriggerTransition = factory.createRule(FireableNonTriggerTransition.instance).action(CRUDActivationStateEnum.CREATED) [
-    	println('''Firing empty transition: «source.name» to «target.name»''')
-    	activeStateContainer.activeState = target
+    val fireNonTriggerTransition = factory.createRule(FireableEmptyTransition.instance).action(CRUDActivationStateEnum.CREATED) [
+    	println('''Firing empty transition: «transition.sourceState.name» to «transition.targetState.name»''')
+    	it.activeState.state = transition.targetState
     ].build
     
-    val fireTriggerTransition = factory.createRule(FireableTriggerTransition.instance).action(CRUDActivationStateEnum.CREATED) [
-    	println('''Firing event transition: «source.name» to «target.name»''')
-    	manipulation.remove(eventQueue, ModelPackage.eINSTANCE.eventQueue_Events, event)
-    	activeStateContainer.activeState = target    	
-    ].build
-    
-    val activeState = factory.createRule(ActiveState.instance).action(CRUDActivationStateEnum.CREATED) [
+    val activeState = factory.createRule(ActiveStateNode.instance).action(CRUDActivationStateEnum.CREATED) [
     	println('''Active state: «state.name»''')
     	activeStateListener.activeStateChanged(it.state)
-    ].build
-    
-    val swallowEvent = factory.createRule(SwallowableEvents.instance).action(CRUDActivationStateEnum.CREATED) [
-    	println('''Swallowed event: «event.name»''')
-    	manipulation.remove(eventQueue, ModelPackage.eINSTANCE.eventQueue_Events, event)
     ].build
 
     def dispose() {
