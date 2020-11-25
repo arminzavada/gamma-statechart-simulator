@@ -6,6 +6,7 @@
       <query-specification fqn="com.triad.school.gamma.simulator.query.activeRegion"/>
       <query-specification fqn="com.triad.school.gamma.simulator.query.activeStateNode"/>
       <query-specification fqn="com.triad.school.gamma.simulator.query.statechartInputPort"/>
+      <query-specification fqn="com.triad.school.gamma.simulator.query.allStates"/>
       <query-specification fqn="com.triad.school.gamma.simulator.query.initialNode"/>
       <query-specification fqn="com.triad.school.gamma.simulator.query.fireableEmptyTransition"/>
       <query-specification fqn="com.triad.school.gamma.simulator.query.fireableTriggerTransition"/>

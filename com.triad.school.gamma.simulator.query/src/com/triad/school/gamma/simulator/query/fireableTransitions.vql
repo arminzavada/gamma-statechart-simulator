@@ -31,6 +31,10 @@ pattern statechartInputPort(port: Port) {
 	InterfaceRealization.realizationMode(interfaceRealization, ::REQUIRED);
 }
 
+pattern allStates(node: StateNode) {
+	Region.stateNodes(_, node);
+}
+
 pattern initialNode(region: Region, state: InitialState) {
 	Region.stateNodes(region, state);
 }

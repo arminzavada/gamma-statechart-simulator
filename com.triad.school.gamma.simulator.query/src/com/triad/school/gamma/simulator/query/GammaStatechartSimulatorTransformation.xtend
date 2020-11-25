@@ -1,24 +1,21 @@
 package com.triad.school.gamma.simulator.query
 
 import com.triad.school.gamma.simulator.model.ModelFactory
-import com.triad.school.gamma.simulator.model.ModelPackage
 import hu.bme.mit.gamma.statechart.interface_.Event
 import hu.bme.mit.gamma.statechart.statechart.StateNode
+import java.util.List
 import org.eclipse.emf.common.util.URI
 import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl
 import org.eclipse.viatra.query.runtime.api.ViatraQueryEngine
 import org.eclipse.viatra.query.runtime.emf.EMFScope
 import org.eclipse.viatra.transformation.evm.specific.crud.CRUDActivationStateEnum
-import org.eclipse.viatra.transformation.runtime.emf.modelmanipulation.IModelManipulations
-import org.eclipse.viatra.transformation.runtime.emf.modelmanipulation.SimpleModelManipulations
 import org.eclipse.viatra.transformation.runtime.emf.rules.eventdriven.EventDrivenTransformationRuleFactory
 import org.eclipse.viatra.transformation.runtime.emf.transformation.eventdriven.EventDrivenTransformation
-import java.util.List
 
-@FunctionalInterface
 interface ActiveStateListener {
-	def void activeStateChanged(StateNode node);
+	def void activeStateAdded(StateNode node);
+	def void activeStateRemoved(StateNode node);
 }
 
 class GammaStatechartSimulatorTransformation {
@@ -32,7 +29,10 @@ class GammaStatechartSimulatorTransformation {
     
     val ViatraQueryEngine engine
 
-	ActiveStateListener activeStateListener = []
+	ActiveStateListener activeStateListener = new ActiveStateListener() {
+		override activeStateAdded(StateNode node) {}
+		override activeStateRemoved(StateNode node) {}
+	}
 	
 	List<RegionVisitor> visitors = null
 
@@ -80,6 +80,12 @@ class GammaStatechartSimulatorTransformation {
     	].toList
     }
     
+    public def everyState() {
+    	return AllStates.Matcher.on(engine).allMatches.map[
+    		it.node
+    	].toList
+    }
+    
     def setActiveStateListener(ActiveStateListener listener) {
     	activeStateListener = listener
     }
@@ -90,8 +96,11 @@ class GammaStatechartSimulatorTransformation {
     ].build
     
     val activeState = factory.createRule(ActiveStateNode.instance).action(CRUDActivationStateEnum.CREATED) [
-    	println('''Active state: «state.name»''')
-    	activeStateListener.activeStateChanged(it.state)
+    	println('''Add active state: «state.name»''')
+    	activeStateListener.activeStateAdded(it.state)
+    ].action(CRUDActivationStateEnum.DELETED) [
+    	println('''Remove active state: «state.name»''')
+    	activeStateListener.activeStateRemoved(it.state)
     ].build
 
     def dispose() {
