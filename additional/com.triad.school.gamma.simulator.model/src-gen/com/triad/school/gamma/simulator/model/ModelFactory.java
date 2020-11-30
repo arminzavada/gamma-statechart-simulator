@@ -22,15 +22,6 @@ public interface ModelFactory extends EFactory {
 	ModelFactory eINSTANCE = com.triad.school.gamma.simulator.model.impl.ModelFactoryImpl.init();
 
 	/**
-	 * Returns a new object of class '<em>Active State</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Active State</em>'.
-	 * @generated
-	 */
-	ActiveState createActiveState();
-
-	/**
 	 * Returns a new object of class '<em>Active State Container</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -40,13 +31,13 @@ public interface ModelFactory extends EFactory {
 	ActiveStateContainer createActiveStateContainer();
 
 	/**
-	 * Returns a new object of class '<em>Event Queue</em>'.
+	 * Returns a new object of class '<em>Regional Active State</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Event Queue</em>'.
+	 * @return a new object of class '<em>Regional Active State</em>'.
 	 * @generated
 	 */
-	EventQueue createEventQueue();
+	RegionalActiveState createRegionalActiveState();
 
 	/**
 	 * Returns the package supported by this factory.

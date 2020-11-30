@@ -55,25 +55,13 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
-		case ModelPackage.ACTIVE_STATE:
-			return createActiveState();
-		case ModelPackage.EVENT_QUEUE:
-			return createEventQueue();
 		case ModelPackage.ACTIVE_STATE_CONTAINER:
 			return createActiveStateContainer();
+		case ModelPackage.REGIONAL_ACTIVE_STATE:
+			return createRegionalActiveState();
 		default:
 			throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public ActiveState createActiveState() {
-		ActiveStateImpl activeState = new ActiveStateImpl();
-		return activeState;
 	}
 
 	/**
@@ -91,9 +79,9 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EventQueue createEventQueue() {
-		EventQueueImpl eventQueue = new EventQueueImpl();
-		return eventQueue;
+	public RegionalActiveState createRegionalActiveState() {
+		RegionalActiveStateImpl regionalActiveState = new RegionalActiveStateImpl();
+		return regionalActiveState;
 	}
 
 	/**

@@ -67,18 +67,13 @@ public class ModelAdapterFactory extends AdapterFactoryImpl {
 	 */
 	protected ModelSwitch<Adapter> modelSwitch = new ModelSwitch<Adapter>() {
 		@Override
-		public Adapter caseActiveState(ActiveState object) {
-			return createActiveStateAdapter();
-		}
-
-		@Override
-		public Adapter caseEventQueue(EventQueue object) {
-			return createEventQueueAdapter();
-		}
-
-		@Override
 		public Adapter caseActiveStateContainer(ActiveStateContainer object) {
 			return createActiveStateContainerAdapter();
+		}
+
+		@Override
+		public Adapter caseRegionalActiveState(RegionalActiveState object) {
+			return createRegionalActiveStateAdapter();
 		}
 
 		@Override
@@ -101,20 +96,6 @@ public class ModelAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link com.triad.school.gamma.simulator.model.ActiveState <em>Active State</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see com.triad.school.gamma.simulator.model.ActiveState
-	 * @generated
-	 */
-	public Adapter createActiveStateAdapter() {
-		return null;
-	}
-
-	/**
 	 * Creates a new adapter for an object of class '{@link com.triad.school.gamma.simulator.model.ActiveStateContainer <em>Active State Container</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -129,16 +110,16 @@ public class ModelAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link com.triad.school.gamma.simulator.model.EventQueue <em>Event Queue</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.triad.school.gamma.simulator.model.RegionalActiveState <em>Regional Active State</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see com.triad.school.gamma.simulator.model.EventQueue
+	 * @see com.triad.school.gamma.simulator.model.RegionalActiveState
 	 * @generated
 	 */
-	public Adapter createEventQueueAdapter() {
+	public Adapter createRegionalActiveStateAdapter() {
 		return null;
 	}
 

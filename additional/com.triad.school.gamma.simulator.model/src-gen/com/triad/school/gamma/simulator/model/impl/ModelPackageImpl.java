@@ -2,11 +2,10 @@
  */
 package com.triad.school.gamma.simulator.model.impl;
 
-import com.triad.school.gamma.simulator.model.ActiveState;
 import com.triad.school.gamma.simulator.model.ActiveStateContainer;
-import com.triad.school.gamma.simulator.model.EventQueue;
 import com.triad.school.gamma.simulator.model.ModelFactory;
 import com.triad.school.gamma.simulator.model.ModelPackage;
+import com.triad.school.gamma.simulator.model.RegionalActiveState;
 
 import hu.bme.mit.gamma.action.model.ActionModelPackage;
 
@@ -36,13 +35,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass activeStateEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	private EClass activeStateContainerEClass = null;
 
 	/**
@@ -50,7 +42,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass eventQueueEClass = null;
+	private EClass regionalActiveStateEClass = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -128,33 +120,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getActiveState() {
-		return activeStateEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getActiveState_State() {
-		return (EReference) activeStateEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getActiveState_ContainingRegion() {
-		return (EReference) activeStateEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EClass getActiveStateContainer() {
 		return activeStateContainerEClass;
 	}
@@ -164,7 +129,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getActiveStateContainer_Activestates() {
+	public EReference getActiveStateContainer_ActiveStates() {
 		return (EReference) activeStateContainerEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -173,8 +138,8 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getEventQueue() {
-		return eventQueueEClass;
+	public EClass getRegionalActiveState() {
+		return regionalActiveStateEClass;
 	}
 
 	/**
@@ -182,8 +147,17 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getEventQueue_Events() {
-		return (EReference) eventQueueEClass.getEStructuralFeatures().get(0);
+	public EReference getRegionalActiveState_State() {
+		return (EReference) regionalActiveStateEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getRegionalActiveState_Region() {
+		return (EReference) regionalActiveStateEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -215,15 +189,12 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		isCreated = true;
 
 		// Create classes and their features
-		activeStateEClass = createEClass(ACTIVE_STATE);
-		createEReference(activeStateEClass, ACTIVE_STATE__STATE);
-		createEReference(activeStateEClass, ACTIVE_STATE__CONTAINING_REGION);
-
-		eventQueueEClass = createEClass(EVENT_QUEUE);
-		createEReference(eventQueueEClass, EVENT_QUEUE__EVENTS);
-
 		activeStateContainerEClass = createEClass(ACTIVE_STATE_CONTAINER);
-		createEReference(activeStateContainerEClass, ACTIVE_STATE_CONTAINER__ACTIVESTATES);
+		createEReference(activeStateContainerEClass, ACTIVE_STATE_CONTAINER__ACTIVE_STATES);
+
+		regionalActiveStateEClass = createEClass(REGIONAL_ACTIVE_STATE);
+		createEReference(regionalActiveStateEClass, REGIONAL_ACTIVE_STATE__STATE);
+		createEReference(regionalActiveStateEClass, REGIONAL_ACTIVE_STATE__REGION);
 	}
 
 	/**
@@ -253,8 +224,6 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		// Obtain other dependent packages
 		StatechartModelPackage theStatechartModelPackage = (StatechartModelPackage) EPackage.Registry.INSTANCE
 				.getEPackage(StatechartModelPackage.eNS_URI);
-		InterfaceModelPackage theInterfaceModelPackage = (InterfaceModelPackage) EPackage.Registry.INSTANCE
-				.getEPackage(InterfaceModelPackage.eNS_URI);
 
 		// Create type parameters
 
@@ -263,26 +232,20 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		// Add supertypes to classes
 
 		// Initialize classes, features, and operations; add parameters
-		initEClass(activeStateEClass, ActiveState.class, "ActiveState", !IS_ABSTRACT, !IS_INTERFACE,
-				IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getActiveState_State(), theStatechartModelPackage.getStateNode(), null, "state", null, 0, 1,
-				ActiveState.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
-				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getActiveState_ContainingRegion(), theStatechartModelPackage.getRegion(), null,
-				"containingRegion", null, 1, 1, ActiveState.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
-				!IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(eventQueueEClass, EventQueue.class, "EventQueue", !IS_ABSTRACT, !IS_INTERFACE,
-				IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getEventQueue_Events(), theInterfaceModelPackage.getEvent(), null, "events", null, 0, -1,
-				EventQueue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
-				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
 		initEClass(activeStateContainerEClass, ActiveStateContainer.class, "ActiveStateContainer", !IS_ABSTRACT,
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getActiveStateContainer_Activestates(), this.getActiveState(), null, "activestates", null, 0, -1,
-				ActiveStateContainer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
+		initEReference(getActiveStateContainer_ActiveStates(), this.getRegionalActiveState(), null, "activeStates",
+				null, 0, -1, ActiveStateContainer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
 				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(regionalActiveStateEClass, RegionalActiveState.class, "RegionalActiveState", !IS_ABSTRACT,
+				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getRegionalActiveState_State(), theStatechartModelPackage.getStateNode(), null, "state", null, 0,
+				1, RegionalActiveState.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
+				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getRegionalActiveState_Region(), theStatechartModelPackage.getRegion(), null, "region", null, 1,
+				1, RegionalActiveState.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
+				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Create resource
 		createResource(eNS_URI);

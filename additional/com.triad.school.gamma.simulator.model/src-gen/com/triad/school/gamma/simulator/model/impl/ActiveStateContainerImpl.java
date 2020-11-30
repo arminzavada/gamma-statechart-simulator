@@ -2,15 +2,21 @@
  */
 package com.triad.school.gamma.simulator.model.impl;
 
-import com.triad.school.gamma.simulator.model.ActiveState;
 import com.triad.school.gamma.simulator.model.ActiveStateContainer;
 import com.triad.school.gamma.simulator.model.ModelPackage;
+import com.triad.school.gamma.simulator.model.RegionalActiveState;
+
 import java.util.Collection;
+
 import org.eclipse.emf.common.notify.NotificationChain;
+
 import org.eclipse.emf.common.util.EList;
+
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
+
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
+
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
@@ -22,21 +28,21 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link com.triad.school.gamma.simulator.model.impl.ActiveStateContainerImpl#getActivestates <em>Activestates</em>}</li>
+ *   <li>{@link com.triad.school.gamma.simulator.model.impl.ActiveStateContainerImpl#getActiveStates <em>Active States</em>}</li>
  * </ul>
  *
  * @generated
  */
 public class ActiveStateContainerImpl extends MinimalEObjectImpl.Container implements ActiveStateContainer {
 	/**
-	 * The cached value of the '{@link #getActivestates() <em>Activestates</em>}' containment reference list.
+	 * The cached value of the '{@link #getActiveStates() <em>Active States</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getActivestates()
+	 * @see #getActiveStates()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<ActiveState> activestates;
+	protected EList<RegionalActiveState> activeStates;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -62,12 +68,12 @@ public class ActiveStateContainerImpl extends MinimalEObjectImpl.Container imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<ActiveState> getActivestates() {
-		if (activestates == null) {
-			activestates = new EObjectContainmentEList<ActiveState>(ActiveState.class, this,
-					ModelPackage.ACTIVE_STATE_CONTAINER__ACTIVESTATES);
+	public EList<RegionalActiveState> getActiveStates() {
+		if (activeStates == null) {
+			activeStates = new EObjectContainmentEList<RegionalActiveState>(RegionalActiveState.class, this,
+					ModelPackage.ACTIVE_STATE_CONTAINER__ACTIVE_STATES);
 		}
-		return activestates;
+		return activeStates;
 	}
 
 	/**
@@ -78,8 +84,8 @@ public class ActiveStateContainerImpl extends MinimalEObjectImpl.Container imple
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-		case ModelPackage.ACTIVE_STATE_CONTAINER__ACTIVESTATES:
-			return ((InternalEList<?>) getActivestates()).basicRemove(otherEnd, msgs);
+		case ModelPackage.ACTIVE_STATE_CONTAINER__ACTIVE_STATES:
+			return ((InternalEList<?>) getActiveStates()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -92,8 +98,8 @@ public class ActiveStateContainerImpl extends MinimalEObjectImpl.Container imple
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case ModelPackage.ACTIVE_STATE_CONTAINER__ACTIVESTATES:
-			return getActivestates();
+		case ModelPackage.ACTIVE_STATE_CONTAINER__ACTIVE_STATES:
+			return getActiveStates();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -107,9 +113,9 @@ public class ActiveStateContainerImpl extends MinimalEObjectImpl.Container imple
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case ModelPackage.ACTIVE_STATE_CONTAINER__ACTIVESTATES:
-			getActivestates().clear();
-			getActivestates().addAll((Collection<? extends ActiveState>) newValue);
+		case ModelPackage.ACTIVE_STATE_CONTAINER__ACTIVE_STATES:
+			getActiveStates().clear();
+			getActiveStates().addAll((Collection<? extends RegionalActiveState>) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -123,8 +129,8 @@ public class ActiveStateContainerImpl extends MinimalEObjectImpl.Container imple
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case ModelPackage.ACTIVE_STATE_CONTAINER__ACTIVESTATES:
-			getActivestates().clear();
+		case ModelPackage.ACTIVE_STATE_CONTAINER__ACTIVE_STATES:
+			getActiveStates().clear();
 			return;
 		}
 		super.eUnset(featureID);
@@ -138,8 +144,8 @@ public class ActiveStateContainerImpl extends MinimalEObjectImpl.Container imple
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case ModelPackage.ACTIVE_STATE_CONTAINER__ACTIVESTATES:
-			return activestates != null && !activestates.isEmpty();
+		case ModelPackage.ACTIVE_STATE_CONTAINER__ACTIVE_STATES:
+			return activeStates != null && !activeStates.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
