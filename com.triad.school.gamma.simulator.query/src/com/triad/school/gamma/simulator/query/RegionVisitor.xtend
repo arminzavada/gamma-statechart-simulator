@@ -1,12 +1,12 @@
 package com.triad.school.gamma.simulator.query
 
-import com.triad.school.gamma.simulator.model.ActiveStateContainer
-import com.triad.school.gamma.simulator.model.ModelFactory
 import hu.bme.mit.gamma.statechart.interface_.Event
 import hu.bme.mit.gamma.statechart.statechart.Region
 import hu.bme.mit.gamma.statechart.statechart.Transition
 import java.util.List
-import com.triad.school.gamma.simulator.model.ActiveState
+import com.triad.school.gamma.simulator.model.ActiveStateContainer
+import com.triad.school.gamma.simulator.model.ModelPackage
+import com.triad.school.gamma.simulator.model.ModelFactory
 
 @FunctionalInterface
 interface TransitionFireHandler {
@@ -17,67 +17,74 @@ abstract class RegionVisitorFactory {
 	val FireableTriggerTransition.Matcher fireableTriggerTransitionMatcher
 	val RootRegion.Matcher rootRegionMatcher
 	val SubRegion.Matcher subRegionMatcher
-	val InitialNode.Matcher initialNodeMatcher
-	val ActiveStateContainer container
+	val ActiveStateContainer activeStateContainer
+	val TransitionFireHandler transitionFireHandler
 	
 	new (
 		FireableTriggerTransition.Matcher fireableTriggerTransitionMatcher, 
 		RootRegion.Matcher rootRegionMatcher, 
-		SubRegion.Matcher subRegionMatcher, 
-		InitialNode.Matcher initialNodeMatcher, 
-		ActiveStateContainer container
+		SubRegion.Matcher subRegionMatcher,
+		ActiveStateContainer activeStateContainer,
+		TransitionFireHandler transitionFireHandler
 	) {
 		this.fireableTriggerTransitionMatcher = fireableTriggerTransitionMatcher
 		this.rootRegionMatcher = rootRegionMatcher
 		this.subRegionMatcher = subRegionMatcher
-		this.initialNodeMatcher = initialNodeMatcher
-		this.container = container
+		this.activeStateContainer = activeStateContainer
+		this.transitionFireHandler = transitionFireHandler
 	}
 	
 	final def List<RegionVisitor> rootVisitors() {
 		return rootRegionMatcher.allMatches.map [
-			createVisitor(createActiveState(it.region))
+			createRegionalActiveState(it.region)
+			createVisitor(it.region)
 		].toList
 	}
 	
 	final def List<RegionVisitor> childVisitors(Region region) {
 		return subRegionMatcher.getAllMatches(region, null).map [
-			createVisitor(createActiveState(it.region))
+			createRegionalActiveState(it.region)
+			createVisitor(it.region)
 		].toList
 	}
 	
-	def createActiveState(Region region) {
-		val state = initialNodeMatcher.getOneArbitraryMatch(region, null).get.state
-		val activeState = ModelFactory.eINSTANCE.createActiveState
-		activeState.containingRegion = region
-		activeState.state = state
-		container.activestates.add(activeState)
-		return activeState
+	final def createRegionalActiveState(Region region) {
+		val activeState = ModelFactory.eINSTANCE.createRegionalActiveState
+		activeState.region = region
+		activeState.state = null
+		activeStateContainer.activeStates.add(activeState)
 	}
 	
-	protected def RegionVisitor createVisitor(ActiveState activeState)
+	protected def RegionVisitor createVisitor(Region region)
 	
-	protected final def boolean fireEventInRegion(ActiveState activeState, Event event) {
-		val matches = fireableTriggerTransitionMatcher.getAllMatches(activeState, null, event)
+	protected final def boolean fireEventInRegion(Region region, Event event) {
+		val matches = fireableTriggerTransitionMatcher.getAllMatches(region, null, event)
 		
 		if (!matches.empty) {
-			activeState.state = matches.findFirst[true].transition.targetState // TODO: implement more robust logic for selecting fireable transitions.
+			transitionFireHandler.fire(matches.get(0).transition)
+			
+			return true
 		}
 		
-		return !matches.empty
+		return false
 	}
 }
 
 abstract class RegionVisitor {	
-	protected val ActiveState activeState
-	protected val RegionVisitorFactory factory
+	val Region region
+	val RegionVisitorFactory factory
+	
 	protected val List<RegionVisitor> childVisitors
 	
-	new (ActiveState activeState, RegionVisitorFactory factory) {
-		this.activeState = activeState
+	new (Region region, RegionVisitorFactory factory) {
+		this.region = region
 		this.factory = factory
 		
-		childVisitors = factory.childVisitors(activeState.containingRegion)
+		childVisitors = factory.childVisitors(region)
+	}
+	
+	protected def fire(Event event) {
+		factory.fireEventInRegion(region, event)
 	}
 	
 	def void visit(Event event)

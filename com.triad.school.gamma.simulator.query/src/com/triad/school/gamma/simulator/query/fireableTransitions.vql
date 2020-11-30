@@ -13,16 +13,17 @@ pattern subRegion(parentRegion: Region, region: Region) {
 	CompositeElement.regions(node, region);
 }
 
-pattern activeRegion(region: Region) {
-	StatechartDefinition.regions(_, region);
-} or {
-	find activeStateNode(_, _, state);
-	CompositeElement.regions(state, region);
+pattern associatedRegionalActiveState(regionalActiveState: RegionalActiveState, state: StateNode) {
+	RegionalActiveState.region(regionalActiveState, region);
+	Region.stateNodes(region, state);
 }
 
-pattern activeStateNode(activeState: ActiveState, region: Region, state: StateNode) {
-	ActiveState.containingRegion(activeState, region);
-	ActiveState.state(activeState, state);
+pattern activeState(state: StateNode) {
+	RegionalActiveState.state(_, state);
+}
+
+pattern regionalState(regionalActiveState: RegionalActiveState, region: Region) {
+	RegionalActiveState.region(regionalActiveState, region);
 }
 
 pattern statechartInputPort(port: Port) {
@@ -35,21 +36,31 @@ pattern allStates(node: StateNode) {
 	Region.stateNodes(_, node);
 }
 
-pattern initialNode(region: Region, state: InitialState) {
+pattern entryState(region: Region, state: EntryState) {
 	Region.stateNodes(region, state);
 }
 
-pattern fireableEmptyTransition(activeState: ActiveState, transition: Transition) {
-	find activeRegion(region);
-	find activeStateNode(activeState, region, source);
+pattern compositeState(parent: State, child: StateNode) {
+	State.regions(parent, region);
+	Region.stateNodes(region, child);
+}
+
+pattern descendantState(parent: State, descendant: StateNode) {
+	find compositeState+(parent, descendant);
+}
+
+pattern fireableEmptyTransition(transition: Transition) {
 	Transition.sourceState(transition, source);
+	find activeState(source);
 	
 	neg Transition.trigger(transition, _);
 }
 
-pattern fireableTriggerTransition(activeState: ActiveState, transition: Transition, event: Event) {
-	ActiveState.state(activeState, source);
+pattern fireableTriggerTransition(region: Region, transition: Transition, event: Event) {
 	Transition.sourceState(transition, source);
+	Region.stateNodes(region, source);
+	
+	find activeState(source);
 	
 	Transition.trigger(transition, trigger);
 	EventTrigger.eventReference(trigger, eventReference);

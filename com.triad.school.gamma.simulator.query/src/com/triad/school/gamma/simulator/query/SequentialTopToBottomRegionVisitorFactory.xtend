@@ -1,31 +1,31 @@
 package com.triad.school.gamma.simulator.query
 
-import com.triad.school.gamma.simulator.model.ActiveState
-import com.triad.school.gamma.simulator.model.ActiveStateContainer
 import hu.bme.mit.gamma.statechart.interface_.Event
+import hu.bme.mit.gamma.statechart.statechart.Region
+import com.triad.school.gamma.simulator.model.ActiveStateContainer
 
 class SequentialTopToBottomRegionVisitorFactory extends RegionVisitorFactory {
 	new(
 		FireableTriggerTransition.Matcher fireableTriggerTransitionMatcher, 
 		RootRegion.Matcher rootRegionMatcher, 
-		SubRegion.Matcher subRegionMatcher, 
-		InitialNode.Matcher initialNodeMatcher, 
-		ActiveStateContainer container
+		SubRegion.Matcher subRegionMatcher,
+		ActiveStateContainer activeStateContainer,
+		TransitionFireHandler transitionFireHandler
 	) {
-		super(fireableTriggerTransitionMatcher, rootRegionMatcher, subRegionMatcher, initialNodeMatcher, container)
+		super(fireableTriggerTransitionMatcher, rootRegionMatcher, subRegionMatcher, activeStateContainer, transitionFireHandler)
 	}
 	
-	override protected createVisitor(ActiveState activeState) {
-		return new SequentialTopToBottomRegionVisitor(activeState, this)
+	override protected createVisitor(Region region) {
+		return new SequentialTopToBottomRegionVisitor(region, this)
 	}
 
 	static class SequentialTopToBottomRegionVisitor extends RegionVisitor {
-		new (ActiveState activeState, RegionVisitorFactory factory) {
-			super(activeState, factory)
+		new (Region region, SequentialTopToBottomRegionVisitorFactory factory) {
+			super(region, factory)
 		}
 		
 		override visit(Event event) {
-			if (!factory.fireEventInRegion(activeState, event)) {
+			if (!fire(event)) {
 				for (RegionVisitor visitor : childVisitors) {
 					visitor.visit(event)
 				}
