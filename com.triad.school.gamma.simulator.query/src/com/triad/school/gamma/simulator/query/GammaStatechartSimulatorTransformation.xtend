@@ -1,8 +1,20 @@
 package com.triad.school.gamma.simulator.query
 
 import com.triad.school.gamma.simulator.model.ModelFactory
+import com.triad.school.gamma.simulator.query.util.QueryUtils
+import com.triad.school.gamma.simulator.query.util.SimulationExpressionEvaluator
+import com.triad.school.gamma.simulator.query.visitors.RegionVisitor
+import com.triad.school.gamma.simulator.query.visitors.SequentialTopToBottomRegionVisitorFactory
+import hu.bme.mit.gamma.expression.model.BooleanTypeDefinition
+import hu.bme.mit.gamma.expression.model.ExpressionModelFactory
+import hu.bme.mit.gamma.expression.model.ExpressionModelPackage
+import hu.bme.mit.gamma.expression.model.IntegerTypeDefinition
+import hu.bme.mit.gamma.expression.model.VariableDeclaration
 import hu.bme.mit.gamma.statechart.interface_.Event
+import hu.bme.mit.gamma.statechart.interface_.Port
 import hu.bme.mit.gamma.statechart.statechart.StateNode
+import hu.bme.mit.gamma.statechart.statechart.Transition
+import java.math.BigInteger
 import java.util.List
 import org.eclipse.emf.common.util.URI
 import org.eclipse.emf.ecore.resource.Resource
@@ -10,21 +22,10 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl
 import org.eclipse.viatra.query.runtime.api.ViatraQueryEngine
 import org.eclipse.viatra.query.runtime.emf.EMFScope
 import org.eclipse.viatra.transformation.evm.specific.crud.CRUDActivationStateEnum
-import org.eclipse.viatra.transformation.runtime.emf.rules.eventdriven.EventDrivenTransformationRuleFactory
-import org.eclipse.viatra.transformation.runtime.emf.transformation.eventdriven.EventDrivenTransformation
-import hu.bme.mit.gamma.statechart.statechart.Transition
 import org.eclipse.viatra.transformation.runtime.emf.modelmanipulation.IModelManipulations
 import org.eclipse.viatra.transformation.runtime.emf.modelmanipulation.SimpleModelManipulations
-import hu.bme.mit.gamma.statechart.statechart.Region
-import hu.bme.mit.gamma.statechart.statechart.State
-import com.triad.school.gamma.simulator.model.RegionalActiveState
-import hu.bme.mit.gamma.statechart.interface_.Port
-import hu.bme.mit.gamma.expression.model.ExpressionModelFactory
-import hu.bme.mit.gamma.expression.model.VariableDeclaration
-import hu.bme.mit.gamma.expression.model.IntegerTypeDefinition
-import java.math.BigInteger
-import hu.bme.mit.gamma.expression.model.ExpressionModelPackage
-import hu.bme.mit.gamma.expression.util.ExpressionEvaluator
+import org.eclipse.viatra.transformation.runtime.emf.rules.eventdriven.EventDrivenTransformationRuleFactory
+import org.eclipse.viatra.transformation.runtime.emf.transformation.eventdriven.EventDrivenTransformation
 
 interface ActiveStateListener {
 	def void activeStateAdded(StateNode node);
@@ -35,10 +36,6 @@ class GammaStatechartSimulatorTransformation {
     val EventDrivenTransformationRuleFactory factory = new EventDrivenTransformationRuleFactory    
     var EventDrivenTransformation transformation    
     var IModelManipulations manipulations
-    
-    val activeStateContainer = ModelFactory.eINSTANCE.createActiveStateContainer
-    
-    val ViatraQueryEngine engine
 
 	var activeStateListener = new ActiveStateListener() {
 		override activeStateAdded(StateNode node) {}
@@ -46,17 +43,21 @@ class GammaStatechartSimulatorTransformation {
 	}
 	
 	val List<RegionVisitor> visitors
+	val QueryUtils utils
 
     new(Resource resource) {    	
-		val resourceSet = new ResourceSetImpl
+    	val activeStateContainer = ModelFactory.eINSTANCE.createActiveStateContainer
+    	
+		val resourceSet = new ResourceSetImpl()
 		resourceSet.resources.add(resource)
 		
 		val modelResource = resourceSet.createResource(URI.createURI(""))
 		modelResource.contents.add(activeStateContainer)
 		
         val scope = new EMFScope(resourceSet)
-        engine = ViatraQueryEngine.on(scope);
-        TransformationQueries.instance.prepare(engine)
+        val engine = ViatraQueryEngine.on(scope);
+
+		utils = new QueryUtils(engine)
         
 		val visitorFactory = new SequentialTopToBottomRegionVisitorFactory(
         	FireableTriggerTransition.Matcher.on(engine), 
@@ -85,17 +86,15 @@ class GammaStatechartSimulatorTransformation {
         manipulations = new SimpleModelManipulations(engine)
     }
 
-    public def void execute() {
-    	RootRegion.Matcher.on(engine).streamAllMatches.forEach [
-    		initialiseRegion(it.region)
-    	]
+    def void execute() {
+    	utils.initialiseRootRegions()
     	    	
         transformation.executionSchema.startUnscheduledExecution
     	
     	fireEmptyTriggersContinously()
     }
 
-    public def void sendEvent(Event event) {
+    def void sendEvent(Event event) {
 		visitors.forEach[
 			it.visit(event)
 		] 
@@ -103,29 +102,38 @@ class GammaStatechartSimulatorTransformation {
     	fireEmptyTriggersContinously()
     }
     
-    public def List<Port> requiredInterfaces() {
-    	return StatechartInputPort.Matcher.on(engine).allMatches.map[
-    		it.port
-    	].toList
+    def List<Port> requiredInterfaces() {
+    	utils.requiredInterfaces()
     }
     
-    public def List<StateNode> everyState() {
-    	return AllStates.Matcher.on(engine).allMatches.map[
-    		it.node
-    	].toList
+    def List<StateNode> everyState() {
+    	utils.everyState()
     }
     
-    public def List<VariableDeclaration> everyVariable() {
-    	return Variables.Matcher.on(engine).allMatches.map [
-    		it.variable
-    	].toList    	
+    def List<VariableDeclaration> everyVariable() {
+    	utils.everyVariable()   	
     }
     
-    public def changeVariableValue(VariableDeclaration variable, String value) {
+    def getVariableValueString(VariableDeclaration variable) {
+    	if (variable.type instanceof IntegerTypeDefinition) {
+    		return SimulationExpressionEvaluator.INSTANCE.evaluateInteger(variable.expression).toString()
+    	}
+    	if (variable.type instanceof BooleanTypeDefinition) {
+    		return SimulationExpressionEvaluator.INSTANCE.evaluateBoolean(variable.expression).toString()
+    	}
+    }
+    
+    def changeVariableValue(VariableDeclaration variable, String value) {
     	try {
 	    	if (variable.type instanceof IntegerTypeDefinition) {
 	    		val expression = ExpressionModelFactory.eINSTANCE.createIntegerLiteralExpression
 	    		expression.value = BigInteger.valueOf(Integer.parseInt(value))
+	    		
+				manipulations.set(variable, ExpressionModelPackage.eINSTANCE.initializableElement_Expression, expression)
+	    	}
+	    	if (variable.type instanceof BooleanTypeDefinition) {
+	    		val boolValue = Boolean.parseBoolean(value)
+	    		val expression = boolValue ? ExpressionModelFactory.eINSTANCE.createTrueExpression : ExpressionModelFactory.eINSTANCE.createFalseExpression
 	    		
 				manipulations.set(variable, ExpressionModelPackage.eINSTANCE.initializableElement_Expression, expression)
 	    	}
@@ -157,79 +165,44 @@ class GammaStatechartSimulatorTransformation {
 
     var firedTransition = false
     def void fireTransition(List<Transition> transitions) {
-    	val transition = transitions.findFirst[
+    	val transition = transitions.stream.sorted[ a, b|
+    		if (a.guard === null) {
+    			-1
+    		} else {
+    			1
+    		} 
+    	].filter[
     		SimulationExpressionEvaluator.INSTANCE.evaluateGuard(it.guard)
-    	]
+    	].findFirst
     	
-    	if (transition !== null) {
+    	if (!transition.empty) {
 	    	firedTransition = true
 	    	
-	    	drillUp(transition.sourceState, transition.targetState)
+	    	drillUp(transition.get.sourceState, transition.get.targetState)
 	    	
-	    	println('''Firing transition: «transition.sourceState.name» - «transition.targetState.name»''')   
+	    	println('''Firing transition: «transition.get.sourceState.name» - «transition.get.targetState.name»''')   
 	    	
-	    	drillDown(transition.targetState, transition.sourceState)
+	    	drillDown(transition.get.targetState, transition.get.sourceState)
     	}
     }
     
     def void drillUp(StateNode state, StateNode target) {
-    	deactivateState(state)
+    	utils.deactivateState(state)
     	
-		val parent = parentState(state)
-		if (parent !== null && !isAncestorOf(parent, target)) {
+		val parent = utils.parentState(state)
+		if (parent !== null && !utils.isAncestorOf(parent, target)) {
 			drillUp(parent, target)
 		}
     }
     
     def void drillDown(StateNode state, StateNode target) {    	
-		val parent = parentState(state)
-		if (parent !== null && !isAncestorOf(parent, target)) {
+		val parent = utils.parentState(state)
+		if (parent !== null && !utils.isAncestorOf(parent, target)) {
 			drillDown(parent, target)
 		}
     	
-    	activateState(state)
+    	utils.activateState(state)
     }
     
-    def State parentState(StateNode state) {
-    	val parent = CompositeState.Matcher.on(engine).getOneArbitraryMatch(null, state)
-    	
-    	if (parent.empty) null
-    	else parent.get.parent
-    }
-    def boolean isAncestorOf(State ancestor, StateNode state) {
-    	!DescendantState.Matcher.on(engine).getAllMatches(ancestor, state).empty
-    }
-
-	def void activateState(StateNode state) {		
-		associatedRegionalActiveState(state).state = state
-		
-		if (state instanceof State) {
-			state.regions.forEach[
-				initialiseRegion(it)
-			]
-		}
-	}
-	def void deactivateState(StateNode state) {
-		if (state instanceof State) {
-			state.regions.forEach[
-				resetRegion(it)
-			]
-		}
-		
-		associatedRegionalActiveState(state).state = null
-	}
-	
-	def RegionalActiveState associatedRegionalActiveState(StateNode state) {
-		AssociatedRegionalActiveState.Matcher.on(engine).getOneArbitraryMatch(null, state).get.regionalActiveState
-	}
-	def RegionalActiveState regionalState(Region region) {
-		RegionalState.Matcher.on(engine).getOneArbitraryMatch(null, region).get.regionalActiveState
-	}
     
-    def void initialiseRegion(Region region) {
-    	activateState(EntryState.Matcher.on(engine).getOneArbitraryMatch(region, null).get.state)
-    }
-    def void resetRegion(Region region) {
-    	deactivateState(regionalState(region).state)
-    }
 }

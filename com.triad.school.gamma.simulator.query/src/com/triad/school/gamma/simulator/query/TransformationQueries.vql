@@ -41,7 +41,7 @@ pattern allStates(node: StateNode) {
 	Region.stateNodes(_, node);
 }
 
-pattern entryState(region: Region, state: EntryState) {
+pattern entryState(region: Region, state: InitialState) {
 	Region.stateNodes(region, state);
 }
 

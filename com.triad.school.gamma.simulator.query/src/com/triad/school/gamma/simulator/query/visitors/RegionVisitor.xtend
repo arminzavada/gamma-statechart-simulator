@@ -1,12 +1,15 @@
-package com.triad.school.gamma.simulator.query
+package com.triad.school.gamma.simulator.query.visitors
 
+import com.triad.school.gamma.simulator.model.ActiveStateContainer
+import com.triad.school.gamma.simulator.model.ModelFactory
+import com.triad.school.gamma.simulator.query.FireableEmptyTransition
+import com.triad.school.gamma.simulator.query.FireableTriggerTransition
+import com.triad.school.gamma.simulator.query.RootRegion
+import com.triad.school.gamma.simulator.query.SubRegion
 import hu.bme.mit.gamma.statechart.interface_.Event
 import hu.bme.mit.gamma.statechart.statechart.Region
 import hu.bme.mit.gamma.statechart.statechart.Transition
 import java.util.List
-import com.triad.school.gamma.simulator.model.ActiveStateContainer
-import com.triad.school.gamma.simulator.model.ModelPackage
-import com.triad.school.gamma.simulator.model.ModelFactory
 
 @FunctionalInterface
 interface TransitionFireHandler {
