@@ -7,7 +7,6 @@ import java.util.stream.Collectors;
 import javax.inject.Inject;
 
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.MouseListener;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
@@ -20,19 +19,15 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.part.ViewPart;
-import org.eclipse.viatra.query.runtime.matchers.psystem.basicdeferred.ExpressionEvaluation;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.ui.editor.XtextEditor;
 import org.eclipse.xtext.ui.editor.model.IXtextDocument;
 import org.eclipse.xtext.ui.editor.utils.EditorUtils;
+
 import com.triad.school.gamma.simulator.query.ActiveStateListener;
 import com.triad.school.gamma.simulator.query.GammaStatechartSimulatorTransformation;
-import com.triad.school.gamma.simulator.query.SimulationExpressionEvaluator;
 
-import hu.bme.mit.gamma.expression.model.IntegerTypeDefinition;
-import hu.bme.mit.gamma.expression.model.Type;
 import hu.bme.mit.gamma.expression.model.VariableDeclaration;
-import hu.bme.mit.gamma.expression.util.ExpressionEvaluator;
 import hu.bme.mit.gamma.statechart.interface_.Event;
 import hu.bme.mit.gamma.statechart.interface_.Port;
 import hu.bme.mit.gamma.statechart.interface_.RealizationMode;
@@ -107,9 +102,6 @@ public class GammaStatechartSimulator extends ViewPart {
 		Button refreshButton = new Button(parent, SWT.PUSH);
 		refreshButton.setText("Refresh");
 		refreshButton.addMouseListener(MouseListener.mouseDownAdapter((event) -> createTransformation()));
-		
-		// Create the help context id for the viewer's control
-		//workbench.getHelpSystem().setHelp(parent.getControl(), "com.triad.school.gamma.simulator.ui.viewer");
 	}
 	
 	private void createTransformation() {
@@ -201,6 +193,7 @@ public class GammaStatechartSimulator extends ViewPart {
     	variablesGroup = new Group(parent, SWT.NONE);
     	variablesGroup.setText("Variables");
     	variablesGroup.setLayout(new RowLayout(SWT.VERTICAL));
+    	variablesGroup.setSize(300, 100);
 		
     	variablesList = variables.stream().map(variable -> {	
     		Composite baseComposite = new Composite(variablesGroup, SWT.NONE);
@@ -210,11 +203,21 @@ public class GammaStatechartSimulator extends ViewPart {
             baseCompositeGridLayout.marginWidth = 0;
             baseComposite.setLayout(baseCompositeGridLayout);
     		
+            GridData labelData = new GridData();
+            labelData.horizontalAlignment = GridData.BEGINNING;
+            labelData.grabExcessHorizontalSpace = false;
+            labelData.widthHint = 50;
             Label label = new Label(baseComposite, SWT.NONE);
+            label.setLayoutData(labelData);
             label.setText(variable.getName());
-    		
+
+            GridData textData = new GridData();
+            textData.horizontalAlignment = GridData.FILL;
+            textData.grabExcessHorizontalSpace = true;
+            textData.widthHint = 150;
 			Text text = new Text(baseComposite, SWT.SINGLE | SWT.BORDER);
-			text.setText(Integer.toString(SimulationExpressionEvaluator.INSTANCE.evaluateInteger(variable.getExpression())));
+			text.setText(transformation.getVariableValueString(variable));
+			text.setLayoutData(textData);
 			text.addModifyListener(x -> {
 				transformation.changeVariableValue(variable, text.getText());
 			});
