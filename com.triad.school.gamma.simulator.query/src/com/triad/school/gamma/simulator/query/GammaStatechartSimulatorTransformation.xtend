@@ -55,6 +55,7 @@ class GammaStatechartSimulatorTransformation {
         
 		val visitorFactory = new SequentialTopToBottomRegionVisitorFactory(
         	FireableTriggerTransition.Matcher.on(engine), 
+        	FireableEmptyTransition.Matcher.on(engine),
         	RootRegion.Matcher.on(engine),
         	SubRegion.Matcher.on(engine),
         	activeStateContainer
@@ -63,10 +64,6 @@ class GammaStatechartSimulatorTransformation {
         ]
         
         visitors = visitorFactory.rootVisitors()
-        
-	    val fireNonTriggerTransition = factory.createRule(FireableEmptyTransition.instance).action(CRUDActivationStateEnum.CREATED) [
-	    	fireTransition(it.transition)
-	    ].build
 	    
 	    val activeState = factory.createRule(ActiveState.instance).action(CRUDActivationStateEnum.CREATED) [
 	    	println('''Entering state: «state.name»''')
@@ -77,7 +74,6 @@ class GammaStatechartSimulatorTransformation {
 	    ].build
         
         transformation = EventDrivenTransformation.forEngine(engine)
-	        .addRule(fireNonTriggerTransition)
 	        .addRule(activeState)
 	        .build
 	        
@@ -88,14 +84,18 @@ class GammaStatechartSimulatorTransformation {
     	RootRegion.Matcher.on(engine).streamAllMatches.forEach [
     		initialiseRegion(it.region)
     	]
-    	
+    	    	
         transformation.executionSchema.startUnscheduledExecution
+    	
+    	fireEmtyTriggersContinously()
     }
 
     public def void sendEvent(Event event) {
 		visitors.forEach[
 			it.visit(event)
 		] 
+    	
+    	fireEmtyTriggersContinously()
     }
     
     public def List<Port> requiredInterfaces() {
@@ -122,7 +122,20 @@ class GammaStatechartSimulatorTransformation {
         transformation = null
     }
     
+    def void fireEmtyTriggersContinously() {
+    	while (firedTransition) {
+    		firedTransition = false
+    	}
+    	
+    	visitors.forEach[
+			it.visit()
+		] 
+    }
+    
+    var firedTransition = false
     def void fireTransition(Transition transition) {
+    	firedTransition = true
+    	
     	drillUp(transition.sourceState, transition.targetState)
     	
     	println('''Firing transition: «transition.sourceState.name» - «transition.targetState.name»''')   

@@ -49,8 +49,10 @@ pattern descendantState(parent: State, descendant: StateNode) {
 	find compositeState+(parent, descendant);
 }
 
-pattern fireableEmptyTransition(transition: Transition) {
+pattern fireableEmptyTransition(region: Region, transition: Transition) {
 	Transition.sourceState(transition, source);
+	Region.stateNodes(region, source);
+	
 	find activeState(source);
 	
 	neg Transition.trigger(transition, _);

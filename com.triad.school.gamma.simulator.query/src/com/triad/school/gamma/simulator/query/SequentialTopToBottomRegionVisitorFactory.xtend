@@ -7,12 +7,13 @@ import com.triad.school.gamma.simulator.model.ActiveStateContainer
 class SequentialTopToBottomRegionVisitorFactory extends RegionVisitorFactory {
 	new(
 		FireableTriggerTransition.Matcher fireableTriggerTransitionMatcher, 
+		FireableEmptyTransition.Matcher fireableEmptyTransitionMatcher,
 		RootRegion.Matcher rootRegionMatcher, 
 		SubRegion.Matcher subRegionMatcher,
 		ActiveStateContainer activeStateContainer,
 		TransitionFireHandler transitionFireHandler
 	) {
-		super(fireableTriggerTransitionMatcher, rootRegionMatcher, subRegionMatcher, activeStateContainer, transitionFireHandler)
+		super(fireableTriggerTransitionMatcher, fireableEmptyTransitionMatcher, rootRegionMatcher, subRegionMatcher, activeStateContainer, transitionFireHandler)
 	}
 	
 	override protected createVisitor(Region region) {
@@ -28,6 +29,13 @@ class SequentialTopToBottomRegionVisitorFactory extends RegionVisitorFactory {
 			if (!fire(event)) {
 				for (RegionVisitor visitor : childVisitors) {
 					visitor.visit(event)
+				}
+			}
+		}
+		override visit() {
+			if (!fire()) {
+				for (RegionVisitor visitor : childVisitors) {
+					visitor.visit()
 				}
 			}
 		}

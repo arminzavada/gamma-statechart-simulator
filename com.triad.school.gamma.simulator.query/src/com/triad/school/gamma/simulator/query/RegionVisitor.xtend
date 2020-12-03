@@ -15,6 +15,7 @@ interface TransitionFireHandler {
 
 abstract class RegionVisitorFactory {
 	val FireableTriggerTransition.Matcher fireableTriggerTransitionMatcher
+	val FireableEmptyTransition.Matcher fireableEmptyTransitionMatcher
 	val RootRegion.Matcher rootRegionMatcher
 	val SubRegion.Matcher subRegionMatcher
 	val ActiveStateContainer activeStateContainer
@@ -22,12 +23,14 @@ abstract class RegionVisitorFactory {
 	
 	new (
 		FireableTriggerTransition.Matcher fireableTriggerTransitionMatcher, 
+		FireableEmptyTransition.Matcher fireableEmptyTransitionMatcher,
 		RootRegion.Matcher rootRegionMatcher, 
 		SubRegion.Matcher subRegionMatcher,
 		ActiveStateContainer activeStateContainer,
 		TransitionFireHandler transitionFireHandler
 	) {
 		this.fireableTriggerTransitionMatcher = fireableTriggerTransitionMatcher
+		this.fireableEmptyTransitionMatcher = fireableEmptyTransitionMatcher
 		this.rootRegionMatcher = rootRegionMatcher
 		this.subRegionMatcher = subRegionMatcher
 		this.activeStateContainer = activeStateContainer
@@ -68,6 +71,18 @@ abstract class RegionVisitorFactory {
 		
 		return false
 	}
+	
+	protected final def boolean fireInRegion(Region region) {
+		val matches = fireableEmptyTransitionMatcher.getAllMatches(region, null)
+		
+		if (!matches.empty) {
+			transitionFireHandler.fire(matches.get(0).transition)
+			
+			return true
+		}
+		
+		return false
+	}
 }
 
 abstract class RegionVisitor {	
@@ -86,6 +101,10 @@ abstract class RegionVisitor {
 	protected def fire(Event event) {
 		factory.fireEventInRegion(region, event)
 	}
+	protected def fire() {
+		factory.fireInRegion(region)
+	}
 	
 	def void visit(Event event)
+	def void visit()
 }
