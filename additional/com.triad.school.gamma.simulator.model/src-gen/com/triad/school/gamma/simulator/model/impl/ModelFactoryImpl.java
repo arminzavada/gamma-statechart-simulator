@@ -1,8 +1,8 @@
 /**
  */
-package com.triad.school.gamma.simulator.active_state.impl;
+package com.triad.school.gamma.simulator.model.impl;
 
-import com.triad.school.gamma.simulator.active_state.*;
+import com.triad.school.gamma.simulator.model.*;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
@@ -18,24 +18,23 @@ import org.eclipse.emf.ecore.plugin.EcorePlugin;
  * <!-- end-user-doc -->
  * @generated
  */
-public class Active_stateFactoryImpl extends EFactoryImpl implements Active_stateFactory {
+public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	/**
 	 * Creates the default factory implementation.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static Active_stateFactory init() {
+	public static ModelFactory init() {
 		try {
-			Active_stateFactory theActive_stateFactory = (Active_stateFactory) EPackage.Registry.INSTANCE
-					.getEFactory(Active_statePackage.eNS_URI);
-			if (theActive_stateFactory != null) {
-				return theActive_stateFactory;
+			ModelFactory theModelFactory = (ModelFactory) EPackage.Registry.INSTANCE.getEFactory(ModelPackage.eNS_URI);
+			if (theModelFactory != null) {
+				return theModelFactory;
 			}
 		} catch (Exception exception) {
 			EcorePlugin.INSTANCE.log(exception);
 		}
-		return new Active_stateFactoryImpl();
+		return new ModelFactoryImpl();
 	}
 
 	/**
@@ -44,7 +43,7 @@ public class Active_stateFactoryImpl extends EFactoryImpl implements Active_stat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Active_stateFactoryImpl() {
+	public ModelFactoryImpl() {
 		super();
 	}
 
@@ -56,10 +55,10 @@ public class Active_stateFactoryImpl extends EFactoryImpl implements Active_stat
 	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
-		case Active_statePackage.ACTIVE_STATE_CONTAINER:
+		case ModelPackage.ACTIVE_STATE_CONTAINER:
 			return createActiveStateContainer();
-		case Active_statePackage.EVENT_QUEUE:
-			return createEventQueue();
+		case ModelPackage.REGIONAL_ACTIVE_STATE:
+			return createRegionalActiveState();
 		default:
 			throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -80,9 +79,9 @@ public class Active_stateFactoryImpl extends EFactoryImpl implements Active_stat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EventQueue createEventQueue() {
-		EventQueueImpl eventQueue = new EventQueueImpl();
-		return eventQueue;
+	public RegionalActiveState createRegionalActiveState() {
+		RegionalActiveStateImpl regionalActiveState = new RegionalActiveStateImpl();
+		return regionalActiveState;
 	}
 
 	/**
@@ -90,8 +89,8 @@ public class Active_stateFactoryImpl extends EFactoryImpl implements Active_stat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Active_statePackage getActive_statePackage() {
-		return (Active_statePackage) getEPackage();
+	public ModelPackage getModelPackage() {
+		return (ModelPackage) getEPackage();
 	}
 
 	/**
@@ -101,8 +100,8 @@ public class Active_stateFactoryImpl extends EFactoryImpl implements Active_stat
 	 * @generated
 	 */
 	@Deprecated
-	public static Active_statePackage getPackage() {
-		return Active_statePackage.eINSTANCE;
+	public static ModelPackage getPackage() {
+		return ModelPackage.eINSTANCE;
 	}
 
-} //Active_stateFactoryImpl
+} //ModelFactoryImpl

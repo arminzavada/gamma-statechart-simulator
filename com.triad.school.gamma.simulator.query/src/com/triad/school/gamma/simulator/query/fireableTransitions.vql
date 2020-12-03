@@ -2,53 +2,66 @@ package com.triad.school.gamma.simulator.query
 
 import "http://www.mit.bme.hu/gamma/statechart/Model/Statechart"
 import "http://www.mit.bme.hu/gamma/statechart/Model/Interface"
-import "http://www.triad.com/school/gamma/simulator/active_state"
+import "http://www.triad.com/school/gamma/simulator/model"
 
-pattern activeState(state: StateNode) {
-	ActiveStateContainer(container);
-	ActiveStateContainer.activeState(container, state);
+pattern rootRegion(region: Region) {
+	StatechartDefinition.regions(_, region);	
 }
 
-pattern ports(port: Port) {
-	StatechartDefinition.ports(_sc, port);
+pattern subRegion(parentRegion: Region, region: Region) {
+	Region.stateNodes(parentRegion, node);
+	CompositeElement.regions(node, region);
+}
+
+pattern associatedRegionalActiveState(regionalActiveState: RegionalActiveState, state: StateNode) {
+	RegionalActiveState.region(regionalActiveState, region);
+	Region.stateNodes(region, state);
+}
+
+pattern activeState(state: StateNode) {
+	RegionalActiveState.state(_, state);
+}
+
+pattern regionalState(regionalActiveState: RegionalActiveState, region: Region) {
+	RegionalActiveState.region(regionalActiveState, region);
+}
+
+pattern statechartInputPort(port: Port) {
+	StatechartDefinition.ports(_, port);
 	Port.interfaceRealization(port, interfaceRealization);
 	InterfaceRealization.realizationMode(interfaceRealization, ::REQUIRED);
 }
 
-pattern initialNode(state: InitialState) {
-	InitialState(state);
+pattern allStates(node: StateNode) {
+	Region.stateNodes(_, node);
 }
 
-pattern fireableNonTriggerTransition(source: StateNode, transition: Transition, target: StateNode) {
+pattern entryState(region: Region, state: EntryState) {
+	Region.stateNodes(region, state);
+}
+
+pattern compositeState(parent: State, child: StateNode) {
+	State.regions(parent, region);
+	Region.stateNodes(region, child);
+}
+
+pattern descendantState(parent: State, descendant: StateNode) {
+	find compositeState+(parent, descendant);
+}
+
+pattern fireableEmptyTransition(transition: Transition) {
 	Transition.sourceState(transition, source);
-	Transition.targetState(transition, target);
-	
 	find activeState(source);
 	
-	neg Transition.trigger(transition, _trigger);
+	neg Transition.trigger(transition, _);
 }
 
-pattern fireableTriggerTransition(source: StateNode, transition: Transition, target: StateNode, event: Event) {
-	find activeState(source);
-	EventQueue.events(_eventQueue, event);
-	
-	find transitionBetween(source, transition, target);
-	find transitionTriggerEvent(transition, event);
-}
-
-pattern swallowableEvents(event: Event) {	
-	find activeState(source);
-	EventQueue.events(_eventQueue, event);
-	
-	0 == count find fireableTriggerTransition(source, _, _target, event);
-}
-
-pattern transitionBetween(source: StateNode, transition: Transition, target: StateNode) {
+pattern fireableTriggerTransition(region: Region, transition: Transition, event: Event) {
 	Transition.sourceState(transition, source);
-	Transition.targetState(transition, target);
-}
-
-pattern transitionTriggerEvent(transition: Transition, event: Event) {
+	Region.stateNodes(region, source);
+	
+	find activeState(source);
+	
 	Transition.trigger(transition, trigger);
 	EventTrigger.eventReference(trigger, eventReference);
 	PortEventReference.event(eventReference, event);

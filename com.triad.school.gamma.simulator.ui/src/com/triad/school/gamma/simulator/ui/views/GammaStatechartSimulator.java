@@ -1,52 +1,30 @@
 package com.triad.school.gamma.simulator.ui.views;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
-import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.Canvas;
-import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Group;
-import org.eclipse.swt.widgets.Label;
-import org.eclipse.ui.part.*;
-import org.eclipse.viatra.query.runtime.api.ViatraQueryEngine;
-import org.eclipse.viatra.query.runtime.emf.EMFScope;
-import org.eclipse.viatra.query.runtime.exception.ViatraQueryException;
-import org.eclipse.viatra.transformation.runtime.emf.transformation.batch.BatchTransformation;
-import org.eclipse.xtext.resource.XtextResource;
-import org.eclipse.xtext.resource.XtextResourceSet;
-import org.eclipse.xtext.ui.editor.XtextEditor;
-import org.eclipse.xtext.ui.editor.model.IXtextDocument;
-import org.eclipse.xtext.ui.editor.utils.EditorUtils;
-import org.eclipse.xtext.util.concurrent.IUnitOfWork;
+import javax.inject.Inject;
 
-import com.triad.school.gamma.simulator.query.ActiveStateListener;
-import com.triad.school.gamma.simulator.query.FireableTransitions;
-import com.triad.school.gamma.simulator.query.GammaStatechartSimulatorTransformation;
-import com.triad.school.gamma.simulator.query.InitialNode;
-import hu.bme.mit.gamma.statechart.interface_.Event;
-import hu.bme.mit.gamma.statechart.interface_.Interface;
-import hu.bme.mit.gamma.statechart.interface_.Port;
-import hu.bme.mit.gamma.statechart.interface_.RealizationMode;
-import hu.bme.mit.gamma.statechart.statechart.StateNode;
-
-import org.eclipse.jface.viewers.*;
-import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.layout.RowLayout;
-import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.jface.action.*;
-import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.ui.*;
-import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.MouseListener;
 import org.eclipse.swt.events.SelectionListener;
-
-import java.util.List;
-
-import javax.inject.Inject;
+import org.eclipse.swt.layout.RowLayout;
+import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Group;
+import org.eclipse.ui.IWorkbench;
+import org.eclipse.ui.part.ViewPart;
+import org.eclipse.xtext.resource.XtextResource;
+import org.eclipse.xtext.ui.editor.XtextEditor;
+import org.eclipse.xtext.ui.editor.model.IXtextDocument;
+import org.eclipse.xtext.ui.editor.utils.EditorUtils;
+import com.triad.school.gamma.simulator.query.ActiveStateListener;
+import com.triad.school.gamma.simulator.query.GammaStatechartSimulatorTransformation;
+import hu.bme.mit.gamma.statechart.interface_.Event;
+import hu.bme.mit.gamma.statechart.interface_.Port;
+import hu.bme.mit.gamma.statechart.interface_.RealizationMode;
+import hu.bme.mit.gamma.statechart.statechart.StateNode;
 
 public class GammaStatechartSimulator extends ViewPart {
 	public static final String ID = "com.triad.school.gamma.simulator.ui.views.GammaStatechartSimulator";
@@ -64,11 +42,24 @@ public class GammaStatechartSimulator extends ViewPart {
     		this.events = events;
     	}
     }
+
+    class StateContainer {
+    	public final StateNode stateNode;
+    	public final Button button;
+    	
+    	public StateContainer(StateNode stateNode, Button button) {
+    		this.stateNode = stateNode;
+    		this.button = button;
+    	}
+    }
     
     Composite parent;
+    
     Group eventButtons;
     private Event selectedEvent;
-    Label activeStateLabel;
+
+    Group activeStateGroup;
+    List<StateContainer> activeStateButtons = new ArrayList<>();
 
 	@Override
 	public void createPartControl(Composite parent) {
@@ -79,8 +70,6 @@ public class GammaStatechartSimulator extends ViewPart {
         rowLayout.marginTop = 10;
         rowLayout.spacing = 15;
         parent.setLayout(rowLayout);
-		
-        activeStateLabel = new Label(parent, SWT.NONE);
         
         Button sendButton = new Button(parent, SWT.PUSH);
 		sendButton.setText("Send event");
@@ -98,10 +87,6 @@ public class GammaStatechartSimulator extends ViewPart {
 		//workbench.getHelpSystem().setHelp(parent.getControl(), "com.triad.school.gamma.simulator.ui.viewer");
 	}
 	
-	private void activeStateChanged(StateNode node) {		
-		activeStateLabel.setText(node.getName());
-	}
-	
 	private void createTransformation() {
 		XtextEditor editor = EditorUtils.getActiveXtextEditor();
 		IXtextDocument document = editor.getDocument();
@@ -110,16 +95,28 @@ public class GammaStatechartSimulator extends ViewPart {
 		if (transformation != null) {
 			transformation.dispose();
 			transformation = null;
-        }
+		}
 		
         transformation = new GammaStatechartSimulatorTransformation(xtextResource);
-        transformation.setActiveStateListener((node) -> {
-        	activeStateChanged(node);
+        transformation.setActiveStateListener(new ActiveStateListener() {
+			@Override
+			public void activeStateAdded(StateNode node) {
+				Button button = activeStateButtons.stream().filter(x -> x.stateNode == node).findFirst().get().button;
+				button.setSelection(true);
+			}
+
+			@Override
+			public void activeStateRemoved(StateNode node) {
+				Button button = activeStateButtons.stream().filter(x -> x.stateNode == node).findFirst().get().button;
+				button.setSelection(false);
+			}
         });
-        transformation.execute();
-        
+     
         selectedEvent = null;
+        redrawStates(transformation.everyState());
         redrawEvents(transformation.requiredInterfaces());
+        
+        transformation.execute();
     }
 
 	private void redrawEvents(List<Port> ports) {
@@ -130,8 +127,6 @@ public class GammaStatechartSimulator extends ViewPart {
     	eventButtons = new Group(parent, SWT.NONE);
         eventButtons.setLayout(new RowLayout(SWT.VERTICAL));
         eventButtons.setText("Select event");
-        
-        parent.layout(true, true);
 		
 		ports.stream() 
 			.filter(port -> port.getInterfaceRealization().getRealizationMode() == RealizationMode.REQUIRED)
@@ -148,6 +143,28 @@ public class GammaStatechartSimulator extends ViewPart {
 					}));
 		        });
 	        });
+        
+        parent.layout(true, true);
+	}
+
+	private void redrawStates(List<StateNode> states) {
+    	if (activeStateGroup != null) {
+    		activeStateGroup.dispose();
+    	}
+		
+        activeStateGroup = new Group(parent, SWT.NONE);
+        activeStateGroup.setText("Active states");
+        activeStateGroup.setLayout(new RowLayout(SWT.VERTICAL));
+		
+        activeStateButtons = states.stream().map(state -> {	
+			Button button = new Button(activeStateGroup, SWT.RADIO);
+			button.setEnabled(false);
+			button.setSelection(false);
+			button.setText(state.getName());
+			return new StateContainer(state, button);			
+        }).collect(Collectors.toList());
+        
+        parent.layout(true, true);
 	}
 	
 	@Override
