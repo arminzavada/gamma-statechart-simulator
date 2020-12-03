@@ -25,6 +25,9 @@ import org.eclipse.viatra.transformation.runtime.emf.modelmanipulation.IModelMan
 import org.eclipse.viatra.transformation.runtime.emf.modelmanipulation.SimpleModelManipulations
 import org.eclipse.viatra.transformation.runtime.emf.rules.eventdriven.EventDrivenTransformationRuleFactory
 import org.eclipse.viatra.transformation.runtime.emf.transformation.eventdriven.EventDrivenTransformation
+import com.triad.school.gamma.simulator.query.util.SimulationActionEvaluator
+import hu.bme.mit.gamma.action.model.Statement
+import hu.bme.mit.gamma.statechart.statechart.State
 
 interface ActiveStateListener {
 	def void activeStateAdded(StateNode node);
@@ -42,6 +45,7 @@ class GammaStatechartSimulatorTransformation {
 	}
 	
 	val QueryUtils utils
+	var SimulationActionEvaluator actionEvaluator
 
     new(Resource resource) {    	
     	val activeStateContainer = ModelFactory.eINSTANCE.createActiveStateContainer
@@ -60,9 +64,21 @@ class GammaStatechartSimulatorTransformation {
 	    val activeState = factory.createRule(ActiveState.instance).action(CRUDActivationStateEnum.CREATED) [
 	    	println('''Entering state: «state.name»''')
 	    	activeStateListener.activeStateAdded(it.state)
+	    	
+	    	if (state instanceof State) {
+		        (state as State).entryActions.forEach [
+		        	actionEvaluator.evaluateAction(it as Statement)
+		        ]
+	        }
 	    ].action(CRUDActivationStateEnum.DELETED) [
 	    	println('''Exiting state: «state.name»''')
 	    	activeStateListener.activeStateRemoved(it.state)
+	    	
+	        if (state instanceof State) {
+			    (state as State).exitActions.forEach [
+		        	actionEvaluator.evaluateAction(it as Statement)
+		        ]
+	        }
 	    ].build
         
         transformation = EventDrivenTransformation.forEngine(engine)
@@ -70,6 +86,7 @@ class GammaStatechartSimulatorTransformation {
 	        .build
 	        
         manipulations = new SimpleModelManipulations(engine)
+		actionEvaluator = new SimulationActionEvaluator(manipulations)
     }
     
     def void initialiseTransformation(ActiveStateContainer activeStateContainer) {
@@ -189,6 +206,9 @@ class GammaStatechartSimulatorTransformation {
     	drillUp(transition.sourceState, transition.targetState)
     	
     	println('''Firing transition: «transition.sourceState.name» - «transition.targetState.name»''')   
+    	transition.effects.forEach [
+    		actionEvaluator.evaluateAction(it as Statement)
+    	]
     	
     	drillDown(transition.targetState, transition.sourceState)
     }
