@@ -123,9 +123,10 @@ class GammaStatechartSimulatorTransformation {
     }
     
     def void fireTransition(Transition transition) {
-    	println('''Firing transition: «transition.sourceState.name» - «transition.targetState.name»''')    	
-    	
     	drillUp(transition.sourceState, transition.targetState)
+    	
+    	println('''Firing transition: «transition.sourceState.name» - «transition.targetState.name»''')   
+    	
     	drillDown(transition.targetState, transition.sourceState)
     }
     
