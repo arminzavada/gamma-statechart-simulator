@@ -15,11 +15,16 @@ import org.eclipse.viatra.transformation.runtime.emf.transformation.eventdriven.
 import hu.bme.mit.gamma.statechart.statechart.Transition
 import org.eclipse.viatra.transformation.runtime.emf.modelmanipulation.IModelManipulations
 import org.eclipse.viatra.transformation.runtime.emf.modelmanipulation.SimpleModelManipulations
-import com.triad.school.gamma.simulator.model.ModelPackage
 import hu.bme.mit.gamma.statechart.statechart.Region
 import hu.bme.mit.gamma.statechart.statechart.State
 import com.triad.school.gamma.simulator.model.RegionalActiveState
 import hu.bme.mit.gamma.statechart.interface_.Port
+import hu.bme.mit.gamma.expression.model.ExpressionModelFactory
+import hu.bme.mit.gamma.expression.model.VariableDeclaration
+import hu.bme.mit.gamma.expression.model.IntegerTypeDefinition
+import java.math.BigInteger
+import hu.bme.mit.gamma.expression.model.ExpressionModelPackage
+import hu.bme.mit.gamma.expression.util.ExpressionEvaluator
 
 interface ActiveStateListener {
 	def void activeStateAdded(StateNode node);
@@ -51,7 +56,7 @@ class GammaStatechartSimulatorTransformation {
 		
         val scope = new EMFScope(resourceSet)
         engine = ViatraQueryEngine.on(scope);
-        FireableTransitions.instance.prepare(engine)
+        TransformationQueries.instance.prepare(engine)
         
 		val visitorFactory = new SequentialTopToBottomRegionVisitorFactory(
         	FireableTriggerTransition.Matcher.on(engine), 
@@ -87,7 +92,7 @@ class GammaStatechartSimulatorTransformation {
     	    	
         transformation.executionSchema.startUnscheduledExecution
     	
-    	fireEmtyTriggersContinously()
+    	fireEmptyTriggersContinously()
     }
 
     public def void sendEvent(Event event) {
@@ -95,7 +100,7 @@ class GammaStatechartSimulatorTransformation {
 			it.visit(event)
 		] 
     	
-    	fireEmtyTriggersContinously()
+    	fireEmptyTriggersContinously()
     }
     
     public def List<Port> requiredInterfaces() {
@@ -110,6 +115,23 @@ class GammaStatechartSimulatorTransformation {
     	].toList
     }
     
+    public def List<VariableDeclaration> everyVariable() {
+    	return Variables.Matcher.on(engine).allMatches.map [
+    		it.variable
+    	].toList    	
+    }
+    
+    public def changeVariableValue(VariableDeclaration variable, String value) {
+    	try {
+	    	if (variable.type instanceof IntegerTypeDefinition) {
+	    		val expression = ExpressionModelFactory.eINSTANCE.createIntegerLiteralExpression
+	    		expression.value = BigInteger.valueOf(Integer.parseInt(value))
+	    		
+				manipulations.set(variable, ExpressionModelPackage.eINSTANCE.initializableElement_Expression, expression)
+	    	}
+    	} catch (Exception e) { }    	
+    }
+    
     def void setActiveStateListener(ActiveStateListener listener) {
     	activeStateListener = listener
     }
@@ -122,7 +144,7 @@ class GammaStatechartSimulatorTransformation {
         transformation = null
     }
     
-    def void fireEmtyTriggersContinously() {
+    def void fireEmptyTriggersContinously() {
     	while (firedTransition) {
     		firedTransition = false
     	}
@@ -132,15 +154,22 @@ class GammaStatechartSimulatorTransformation {
 		] 
     }
     
+
     var firedTransition = false
-    def void fireTransition(Transition transition) {
-    	firedTransition = true
+    def void fireTransition(List<Transition> transitions) {
+    	val transition = transitions.findFirst[
+    		SimulationExpressionEvaluator.INSTANCE.evaluateGuard(it.guard)
+    	]
     	
-    	drillUp(transition.sourceState, transition.targetState)
-    	
-    	println('''Firing transition: «transition.sourceState.name» - «transition.targetState.name»''')   
-    	
-    	drillDown(transition.targetState, transition.sourceState)
+    	if (transition !== null) {
+	    	firedTransition = true
+	    	
+	    	drillUp(transition.sourceState, transition.targetState)
+	    	
+	    	println('''Firing transition: «transition.sourceState.name» - «transition.targetState.name»''')   
+	    	
+	    	drillDown(transition.targetState, transition.sourceState)
+    	}
     }
     
     def void drillUp(StateNode state, StateNode target) {

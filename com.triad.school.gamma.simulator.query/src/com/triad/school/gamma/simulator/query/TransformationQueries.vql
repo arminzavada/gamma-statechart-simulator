@@ -1,6 +1,7 @@
 package com.triad.school.gamma.simulator.query
 
 import "http://www.mit.bme.hu/gamma/statechart/Model/Statechart"
+import "http://www.mit.bme.hu/gamma/expression/Model"
 import "http://www.mit.bme.hu/gamma/statechart/Model/Interface"
 import "http://www.triad.com/school/gamma/simulator/model"
 
@@ -30,6 +31,10 @@ pattern statechartInputPort(port: Port) {
 	StatechartDefinition.ports(_, port);
 	Port.interfaceRealization(port, interfaceRealization);
 	InterfaceRealization.realizationMode(interfaceRealization, ::REQUIRED);
+}
+
+pattern variables(variable: VariableDeclaration) {
+	StatechartDefinition.variableDeclarations(_, variable);
 }
 
 pattern allStates(node: StateNode) {

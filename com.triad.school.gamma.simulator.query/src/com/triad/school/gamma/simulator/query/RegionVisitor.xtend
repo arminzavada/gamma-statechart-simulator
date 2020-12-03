@@ -10,7 +10,7 @@ import com.triad.school.gamma.simulator.model.ModelFactory
 
 @FunctionalInterface
 interface TransitionFireHandler {
-	def void fire(Transition transition)
+	def void fire(List<Transition> transition)
 }
 
 abstract class RegionVisitorFactory {
@@ -64,7 +64,11 @@ abstract class RegionVisitorFactory {
 		val matches = fireableTriggerTransitionMatcher.getAllMatches(region, null, event)
 		
 		if (!matches.empty) {
-			transitionFireHandler.fire(matches.get(0).transition)
+			transitionFireHandler.fire(
+				matches.map [
+					it.transition
+				].toList
+			)
 			
 			return true
 		}
@@ -76,7 +80,11 @@ abstract class RegionVisitorFactory {
 		val matches = fireableEmptyTransitionMatcher.getAllMatches(region, null)
 		
 		if (!matches.empty) {
-			transitionFireHandler.fire(matches.get(0).transition)
+			transitionFireHandler.fire(
+				matches.map [
+					it.transition
+				].toList
+			)
 			
 			return true
 		}

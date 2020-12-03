@@ -7,20 +7,32 @@ import java.util.stream.Collectors;
 import javax.inject.Inject;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.MouseListener;
 import org.eclipse.swt.events.SelectionListener;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
+import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.part.ViewPart;
+import org.eclipse.viatra.query.runtime.matchers.psystem.basicdeferred.ExpressionEvaluation;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.ui.editor.XtextEditor;
 import org.eclipse.xtext.ui.editor.model.IXtextDocument;
 import org.eclipse.xtext.ui.editor.utils.EditorUtils;
 import com.triad.school.gamma.simulator.query.ActiveStateListener;
 import com.triad.school.gamma.simulator.query.GammaStatechartSimulatorTransformation;
+import com.triad.school.gamma.simulator.query.SimulationExpressionEvaluator;
+
+import hu.bme.mit.gamma.expression.model.IntegerTypeDefinition;
+import hu.bme.mit.gamma.expression.model.Type;
+import hu.bme.mit.gamma.expression.model.VariableDeclaration;
+import hu.bme.mit.gamma.expression.util.ExpressionEvaluator;
 import hu.bme.mit.gamma.statechart.interface_.Event;
 import hu.bme.mit.gamma.statechart.interface_.Port;
 import hu.bme.mit.gamma.statechart.interface_.RealizationMode;
@@ -52,6 +64,16 @@ public class GammaStatechartSimulator extends ViewPart {
     		this.button = button;
     	}
     }
+
+    class VariableContainer {
+    	public final VariableDeclaration variable;
+    	public final Text text;
+    	
+    	public VariableContainer(VariableDeclaration variable, Text text) {
+    		this.variable = variable;
+    		this.text = text;
+    	}
+    }
     
     Composite parent;
     
@@ -60,6 +82,9 @@ public class GammaStatechartSimulator extends ViewPart {
 
     Group activeStateGroup;
     List<StateContainer> activeStateButtons = new ArrayList<>();
+
+    Group variablesGroup;
+    List<VariableContainer> variablesList = new ArrayList<>();
 
 	@Override
 	public void createPartControl(Composite parent) {
@@ -115,6 +140,7 @@ public class GammaStatechartSimulator extends ViewPart {
         selectedEvent = null;
         redrawStates(transformation.everyState());
         redrawEvents(transformation.requiredInterfaces());
+        redrawVariables(transformation.everyVariable());
         
         transformation.execute();
     }
@@ -162,6 +188,38 @@ public class GammaStatechartSimulator extends ViewPart {
 			button.setSelection(false);
 			button.setText(state.getName());
 			return new StateContainer(state, button);			
+        }).collect(Collectors.toList());
+        
+        parent.layout(true, true);
+	}
+
+	private void redrawVariables(List<VariableDeclaration> variables) {
+    	if (variablesGroup != null) {
+    		variablesGroup.dispose();
+    	}
+		
+    	variablesGroup = new Group(parent, SWT.NONE);
+    	variablesGroup.setText("Variables");
+    	variablesGroup.setLayout(new RowLayout(SWT.VERTICAL));
+		
+    	variablesList = variables.stream().map(variable -> {	
+    		Composite baseComposite = new Composite(variablesGroup, SWT.NONE);
+            
+            GridLayout baseCompositeGridLayout = new GridLayout(2, false);
+            baseCompositeGridLayout.marginHeight = 0;
+            baseCompositeGridLayout.marginWidth = 0;
+            baseComposite.setLayout(baseCompositeGridLayout);
+    		
+            Label label = new Label(baseComposite, SWT.NONE);
+            label.setText(variable.getName());
+    		
+			Text text = new Text(baseComposite, SWT.SINGLE | SWT.BORDER);
+			text.setText(Integer.toString(SimulationExpressionEvaluator.INSTANCE.evaluateInteger(variable.getExpression())));
+			text.addModifyListener(x -> {
+				transformation.changeVariableValue(variable, text.getText());
+			});
+			
+			return new VariableContainer(variable, text);			
         }).collect(Collectors.toList());
         
         parent.layout(true, true);

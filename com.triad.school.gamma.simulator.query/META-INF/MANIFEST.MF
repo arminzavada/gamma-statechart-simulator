@@ -4,7 +4,8 @@ Bundle-Name: com.triad.school.gamma.simulator.query
 Bundle-SymbolicName: com.triad.school.gamma.simulator.query;singleton:=true
 Bundle-Version: 0.0.1.qualifier
 Export-Package: com.triad.school.gamma.simulator.query
-Require-Bundle: org.eclipse.viatra.transformation.runtime.emf,
+Require-Bundle: hu.bme.mit.gamma.expression.model,
+ org.eclipse.viatra.transformation.runtime.emf,
  org.eclipse.viatra.transformation.evm,
  hu.bme.mit.gamma.statechart.model,
  org.eclipse.emf.ecore,
