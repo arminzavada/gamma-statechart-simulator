@@ -19,6 +19,10 @@ import hu.bme.mit.gamma.statechart.statechart.StateNode
 import java.util.List
 import org.eclipse.viatra.query.runtime.api.ViatraQueryEngine
 import java.util.stream.Collectors
+import com.triad.school.gamma.simulator.query.SubRegion
+import com.triad.school.gamma.simulator.query.FireableTriggerTransition
+import com.triad.school.gamma.simulator.query.FireableEmptyTransition
+import hu.bme.mit.gamma.statechart.interface_.Event
 
 class QueryUtils {
 	val EntryState.Matcher entryStateMatcher
@@ -30,6 +34,9 @@ class QueryUtils {
 	val StatechartInputPort.Matcher statechartInputPortMatcher
 	val AllStates.Matcher allStatesMatcher
 	val Variables.Matcher variablesMatcher
+	val SubRegion.Matcher subRegionMatcher
+	val FireableTriggerTransition.Matcher fireableTriggerTransitionMatcher
+	val FireableEmptyTransition.Matcher fireableEmptyTransitionMatcher
 	
 	new (ViatraQueryEngine engine) {
 		TransformationQueries.instance.prepare(engine)
@@ -43,6 +50,9 @@ class QueryUtils {
 		statechartInputPortMatcher = StatechartInputPort.Matcher.on(engine)
 		allStatesMatcher = AllStates.Matcher.on(engine)
 		variablesMatcher = Variables.Matcher.on(engine)
+		subRegionMatcher = SubRegion.Matcher.on(engine)
+		fireableTriggerTransitionMatcher = FireableTriggerTransition.Matcher.on(engine)
+		fireableEmptyTransitionMatcher = FireableEmptyTransition.Matcher.on(engine)
 	}
 	
 	def State parentState(StateNode state) {
@@ -98,6 +108,32 @@ class QueryUtils {
 		}
 		
 		regionalState(state).state = null
+	}
+	
+	def fireableTriggerTransitions(Region region, Event event) {
+		fireableTriggerTransitionMatcher.streamAllMatches(region, null, event).map [
+			it.transition
+		].collect(Collectors.toList)
+	}
+	
+	def fireableEmptyTransitions(Region region) {
+		fireableEmptyTransitionMatcher.streamAllMatches(region, null).map [
+			it.transition
+		].collect(Collectors.toList)
+	}
+	
+	def visit((Region) => boolean visitor) {
+		rootRegionMatcher.streamAllMatches.forEach [
+			visitTopDown(it.region, visitor)
+		]
+	}
+	
+	private def void visitTopDown(Region region, (Region) => boolean visitor) {
+		if (visitor.apply(region)) {
+			subRegionMatcher.streamAllMatches(region, null).forEach [			
+				visitTopDown(it.region, visitor)
+			]
+		}
 	}
 	
 	def RegionalActiveState regionalState(StateNode state) {

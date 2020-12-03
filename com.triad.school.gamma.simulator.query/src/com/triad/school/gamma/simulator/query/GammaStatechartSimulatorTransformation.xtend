@@ -1,10 +1,9 @@
 package com.triad.school.gamma.simulator.query
 
+import com.triad.school.gamma.simulator.model.ActiveStateContainer
 import com.triad.school.gamma.simulator.model.ModelFactory
 import com.triad.school.gamma.simulator.query.util.QueryUtils
 import com.triad.school.gamma.simulator.query.util.SimulationExpressionEvaluator
-import com.triad.school.gamma.simulator.query.visitors.RegionVisitor
-import com.triad.school.gamma.simulator.query.visitors.SequentialTopToBottomRegionVisitorFactory
 import hu.bme.mit.gamma.expression.model.BooleanTypeDefinition
 import hu.bme.mit.gamma.expression.model.ExpressionModelFactory
 import hu.bme.mit.gamma.expression.model.ExpressionModelPackage
@@ -42,15 +41,12 @@ class GammaStatechartSimulatorTransformation {
 		override activeStateRemoved(StateNode node) {}
 	}
 	
-	val List<RegionVisitor> visitors
 	val QueryUtils utils
 
     new(Resource resource) {    	
     	val activeStateContainer = ModelFactory.eINSTANCE.createActiveStateContainer
-    	
 		val resourceSet = new ResourceSetImpl()
 		resourceSet.resources.add(resource)
-		
 		val modelResource = resourceSet.createResource(URI.createURI(""))
 		modelResource.contents.add(activeStateContainer)
 		
@@ -58,19 +54,9 @@ class GammaStatechartSimulatorTransformation {
         val engine = ViatraQueryEngine.on(scope);
 
 		utils = new QueryUtils(engine)
-        
-		val visitorFactory = new SequentialTopToBottomRegionVisitorFactory(
-        	FireableTriggerTransition.Matcher.on(engine), 
-        	FireableEmptyTransition.Matcher.on(engine),
-        	RootRegion.Matcher.on(engine),
-        	SubRegion.Matcher.on(engine),
-        	activeStateContainer
-        ) [
-        	fireTransition(it)
-        ]
-        
-        visitors = visitorFactory.rootVisitors()
-	    
+		
+		initialiseTransformation(activeStateContainer)
+              
 	    val activeState = factory.createRule(ActiveState.instance).action(CRUDActivationStateEnum.CREATED) [
 	    	println('''Entering state: «state.name»''')
 	    	activeStateListener.activeStateAdded(it.state)
@@ -85,19 +71,35 @@ class GammaStatechartSimulatorTransformation {
 	        
         manipulations = new SimpleModelManipulations(engine)
     }
+    
+    def void initialiseTransformation(ActiveStateContainer activeStateContainer) {
+    	createActiveStates(activeStateContainer)
+    	utils.initialiseRootRegions()
+    }
+    
+    def void createActiveStates(ActiveStateContainer activeStateContainer) {
+    	utils.visit [
+    		val activeState = ModelFactory.eINSTANCE.createRegionalActiveState
+			activeState.region = it
+			activeState.state = null
+			activeStateContainer.activeStates.add(activeState)
+    		
+    		true
+    	]
+    }
 
     def void execute() {
-    	utils.initialiseRootRegions()
-    	    	
         transformation.executionSchema.startUnscheduledExecution
     	
     	fireEmptyTriggersContinously()
     }
 
     def void sendEvent(Event event) {
-		visitors.forEach[
-			it.visit(event)
-		] 
+		utils.visit [
+			checkFireTransitions(utils.fireableTriggerTransitions(it, event))
+			
+			!firedTransition
+		]
     	
     	fireEmptyTriggersContinously()
     }
@@ -157,14 +159,14 @@ class GammaStatechartSimulatorTransformation {
     		firedTransition = false
     	}
     	
-    	visitors.forEach[
-			it.visit()
-		] 
+    	utils.visit [
+			checkFireTransitions(utils.fireableEmptyTransitions(it))
+			
+			!firedTransition
+		]
     }
     
-
-    var firedTransition = false
-    def void fireTransition(List<Transition> transitions) {
+    def checkFireTransitions(List<Transition> transitions) {
     	val transition = transitions.stream.sorted[ a, b|
     		if (a.guard === null) {
     			-1
@@ -175,15 +177,20 @@ class GammaStatechartSimulatorTransformation {
     		SimulationExpressionEvaluator.INSTANCE.evaluateGuard(it.guard)
     	].findFirst
     	
-    	if (!transition.empty) {
-	    	firedTransition = true
-	    	
-	    	drillUp(transition.get.sourceState, transition.get.targetState)
-	    	
-	    	println('''Firing transition: «transition.get.sourceState.name» - «transition.get.targetState.name»''')   
-	    	
-	    	drillDown(transition.get.targetState, transition.get.sourceState)
+    	if (transition.present) {
+    		fireTransition(transition.get)
     	}
+    }
+
+    var firedTransition = false
+    def void fireTransition(Transition transition) {
+    	firedTransition = true
+    	
+    	drillUp(transition.sourceState, transition.targetState)
+    	
+    	println('''Firing transition: «transition.sourceState.name» - «transition.targetState.name»''')   
+    	
+    	drillDown(transition.targetState, transition.sourceState)
     }
     
     def void drillUp(StateNode state, StateNode target) {
@@ -203,6 +210,5 @@ class GammaStatechartSimulatorTransformation {
     	
     	utils.activateState(state)
     }
-    
     
 }
