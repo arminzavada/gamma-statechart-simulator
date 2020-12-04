@@ -1,7 +1,7 @@
 package com.triad.school.gamma.simulator.query.util
 
+import hu.bme.mit.gamma.action.model.Action
 import hu.bme.mit.gamma.action.model.AssignmentStatement
-import hu.bme.mit.gamma.action.model.Statement
 import hu.bme.mit.gamma.expression.model.ExpressionModelFactory
 import hu.bme.mit.gamma.expression.model.ExpressionModelPackage
 import hu.bme.mit.gamma.expression.model.IntegerTypeDefinition
@@ -9,16 +9,16 @@ import hu.bme.mit.gamma.expression.model.VariableDeclaration
 import java.math.BigInteger
 import org.eclipse.viatra.transformation.runtime.emf.modelmanipulation.IModelManipulations
 
-class SimulationActionEvaluator {
+class SimulationActionExecutor {
 	IModelManipulations manipulations
 	
 	new (IModelManipulations manipulations) {
 		this.manipulations = manipulations
 	}
 	
-	def evaluateAction(Statement statement) {
-		if (statement instanceof AssignmentStatement) {
-			executeAssignment(statement)
+	def executeAction(Action action) {
+		if (action instanceof AssignmentStatement) {
+			executeAssignment(action)
 		}
 	}
 	
