@@ -20,22 +20,16 @@
       point="org.eclipse.ui.views">
    <category
          id="com.triad.school.gamma.simulator.ui"
-         name="GammaStatechartSimulator">
+         name="Gamma">
    </category>
    <view
          category="com.triad.school.gamma.simulator.ui"
          class="com.triad.school.gamma.simulator.ui.views.GammaStatechartSimulator"
-         icon="icons/sample.png"
+         icon="icons/gamma-simulator-icon-16.png"
          id="com.triad.school.gamma.simulator.ui.views.GammaStatechartSimulator"
          inject="true"
          name="GammaStatechart Simulator">
    </view>
-</extension>
-<extension
-      point="org.eclipse.help.contexts">
-   <contexts
-         file="contexts.xml">
-   </contexts>
 </extension>
 
 </plugin>
