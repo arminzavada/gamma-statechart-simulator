@@ -23,9 +23,11 @@ import com.triad.school.gamma.simulator.query.SubRegion
 import com.triad.school.gamma.simulator.query.FireableTriggerTransition
 import com.triad.school.gamma.simulator.query.FireableEmptyTransition
 import hu.bme.mit.gamma.statechart.interface_.Event
+import com.triad.school.gamma.simulator.query.HistoryEntryState
 
 class QueryUtils {
 	val EntryState.Matcher entryStateMatcher
+	val HistoryEntryState.Matcher historyEntryStateMatcher
 	val CompositeState.Matcher compositeStateMatcher
 	val DescendantState.Matcher descendantStateMatcher
 	val AssociatedRegionalActiveState.Matcher associatedRegionalActiveStateMatcher
@@ -41,6 +43,7 @@ class QueryUtils {
 	new (ViatraQueryEngine engine) {
 		TransformationQueries.instance.prepare(engine)
 		
+		historyEntryStateMatcher = HistoryEntryState.Matcher.on(engine)
 		entryStateMatcher = EntryState.Matcher.on(engine)
 		compositeStateMatcher = CompositeState.Matcher.on(engine)
 		descendantStateMatcher = DescendantState.Matcher.on(engine)
@@ -91,7 +94,9 @@ class QueryUtils {
     }
 
 	def void activateState(StateNode state) {		
-		regionalState(state).state = state
+		val regionalState = regionalState(state)
+		regionalState.state = state
+		regionalState.last = state
 		
 		if (state instanceof State) {
 			state.regions.forEach[
@@ -144,7 +149,14 @@ class QueryUtils {
 	}
     
     def void initialiseRegion(Region region) {
-    	activateState(entryStateMatcher.getOneArbitraryMatch(region, null).get.state)
+    	val historyEntryState = historyEntryStateMatcher.getOneArbitraryMatch(region, null)
+    	
+    	if (historyEntryState.isPresent) {
+    		activateState(historyEntryState.get.state)    		
+    	} else {
+    		activateState(entryStateMatcher.getOneArbitraryMatch(region, null).get.state)
+    	}
+    	
     }
     def void resetRegion(Region region) {
     	deactivateState(regionalState(region).state)
