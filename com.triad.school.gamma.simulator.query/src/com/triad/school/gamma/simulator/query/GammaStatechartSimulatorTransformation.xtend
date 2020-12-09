@@ -193,7 +193,7 @@ class GammaStatechartSimulatorTransformation {
     		fireTransition(transition.get)
     	}
     	
-    	return transition.present
+    	return transition.empty
     }
 
 	var firedTransition = true
