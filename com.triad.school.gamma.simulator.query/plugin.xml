@@ -9,6 +9,9 @@
       <query-specification fqn="com.triad.school.gamma.simulator.query.statechartInputPort"/>
       <query-specification fqn="com.triad.school.gamma.simulator.query.variables"/>
       <query-specification fqn="com.triad.school.gamma.simulator.query.allStates"/>
+      <query-specification fqn="com.triad.school.gamma.simulator.query.parentRegion"/>
+      <query-specification fqn="com.triad.school.gamma.simulator.query.historyRegion"/>
+      <query-specification fqn="com.triad.school.gamma.simulator.query.historyEntryState"/>
       <query-specification fqn="com.triad.school.gamma.simulator.query.entryState"/>
       <query-specification fqn="com.triad.school.gamma.simulator.query.compositeState"/>
       <query-specification fqn="com.triad.school.gamma.simulator.query.descendantState"/>
