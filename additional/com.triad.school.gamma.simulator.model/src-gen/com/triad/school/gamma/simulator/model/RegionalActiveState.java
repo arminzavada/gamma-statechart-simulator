@@ -18,6 +18,7 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link com.triad.school.gamma.simulator.model.RegionalActiveState#getState <em>State</em>}</li>
  *   <li>{@link com.triad.school.gamma.simulator.model.RegionalActiveState#getRegion <em>Region</em>}</li>
+ *   <li>{@link com.triad.school.gamma.simulator.model.RegionalActiveState#getLast <em>Last</em>}</li>
  * </ul>
  *
  * @see com.triad.school.gamma.simulator.model.ModelPackage#getRegionalActiveState()
@@ -68,5 +69,27 @@ public interface RegionalActiveState extends EObject {
 	 * @generated
 	 */
 	void setRegion(Region value);
+
+	/**
+	 * Returns the value of the '<em><b>Last</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Last</em>' reference.
+	 * @see #setLast(StateNode)
+	 * @see com.triad.school.gamma.simulator.model.ModelPackage#getRegionalActiveState_Last()
+	 * @model
+	 * @generated
+	 */
+	StateNode getLast();
+
+	/**
+	 * Sets the value of the '{@link com.triad.school.gamma.simulator.model.RegionalActiveState#getLast <em>Last</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Last</em>' reference.
+	 * @see #getLast()
+	 * @generated
+	 */
+	void setLast(StateNode value);
 
 } // RegionalActiveState

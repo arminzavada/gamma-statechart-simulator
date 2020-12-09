@@ -26,6 +26,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * <ul>
  *   <li>{@link com.triad.school.gamma.simulator.model.impl.RegionalActiveStateImpl#getState <em>State</em>}</li>
  *   <li>{@link com.triad.school.gamma.simulator.model.impl.RegionalActiveStateImpl#getRegion <em>Region</em>}</li>
+ *   <li>{@link com.triad.school.gamma.simulator.model.impl.RegionalActiveStateImpl#getLast <em>Last</em>}</li>
  * </ul>
  *
  * @generated
@@ -50,6 +51,16 @@ public class RegionalActiveStateImpl extends MinimalEObjectImpl.Container implem
 	 * @ordered
 	 */
 	protected Region region;
+
+	/**
+	 * The cached value of the '{@link #getLast() <em>Last</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getLast()
+	 * @generated
+	 * @ordered
+	 */
+	protected StateNode last;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -155,6 +166,46 @@ public class RegionalActiveStateImpl extends MinimalEObjectImpl.Container implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public StateNode getLast() {
+		if (last != null && last.eIsProxy()) {
+			InternalEObject oldLast = (InternalEObject) last;
+			last = (StateNode) eResolveProxy(oldLast);
+			if (last != oldLast) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ModelPackage.REGIONAL_ACTIVE_STATE__LAST,
+							oldLast, last));
+			}
+		}
+		return last;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public StateNode basicGetLast() {
+		return last;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setLast(StateNode newLast) {
+		StateNode oldLast = last;
+		last = newLast;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.REGIONAL_ACTIVE_STATE__LAST, oldLast,
+					last));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -166,6 +217,10 @@ public class RegionalActiveStateImpl extends MinimalEObjectImpl.Container implem
 			if (resolve)
 				return getRegion();
 			return basicGetRegion();
+		case ModelPackage.REGIONAL_ACTIVE_STATE__LAST:
+			if (resolve)
+				return getLast();
+			return basicGetLast();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -183,6 +238,9 @@ public class RegionalActiveStateImpl extends MinimalEObjectImpl.Container implem
 			return;
 		case ModelPackage.REGIONAL_ACTIVE_STATE__REGION:
 			setRegion((Region) newValue);
+			return;
+		case ModelPackage.REGIONAL_ACTIVE_STATE__LAST:
+			setLast((StateNode) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -202,6 +260,9 @@ public class RegionalActiveStateImpl extends MinimalEObjectImpl.Container implem
 		case ModelPackage.REGIONAL_ACTIVE_STATE__REGION:
 			setRegion((Region) null);
 			return;
+		case ModelPackage.REGIONAL_ACTIVE_STATE__LAST:
+			setLast((StateNode) null);
+			return;
 		}
 		super.eUnset(featureID);
 	}
@@ -218,6 +279,8 @@ public class RegionalActiveStateImpl extends MinimalEObjectImpl.Container implem
 			return state != null;
 		case ModelPackage.REGIONAL_ACTIVE_STATE__REGION:
 			return region != null;
+		case ModelPackage.REGIONAL_ACTIVE_STATE__LAST:
+			return last != null;
 		}
 		return super.eIsSet(featureID);
 	}
