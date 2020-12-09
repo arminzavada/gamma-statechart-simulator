@@ -3,6 +3,7 @@ package com.triad.school.gamma.simulator.query
 import com.triad.school.gamma.simulator.model.ActiveStateContainer
 import com.triad.school.gamma.simulator.model.ModelFactory
 import com.triad.school.gamma.simulator.query.util.QueryUtils
+import com.triad.school.gamma.simulator.query.util.SimulationActionExecutor
 import com.triad.school.gamma.simulator.query.util.SimulationExpressionEvaluator
 import hu.bme.mit.gamma.expression.model.BooleanTypeDefinition
 import hu.bme.mit.gamma.expression.model.ExpressionModelFactory
@@ -11,6 +12,7 @@ import hu.bme.mit.gamma.expression.model.IntegerTypeDefinition
 import hu.bme.mit.gamma.expression.model.VariableDeclaration
 import hu.bme.mit.gamma.statechart.interface_.Event
 import hu.bme.mit.gamma.statechart.interface_.Port
+import hu.bme.mit.gamma.statechart.statechart.State
 import hu.bme.mit.gamma.statechart.statechart.StateNode
 import hu.bme.mit.gamma.statechart.statechart.Transition
 import java.math.BigInteger
@@ -25,9 +27,6 @@ import org.eclipse.viatra.transformation.runtime.emf.modelmanipulation.IModelMan
 import org.eclipse.viatra.transformation.runtime.emf.modelmanipulation.SimpleModelManipulations
 import org.eclipse.viatra.transformation.runtime.emf.rules.eventdriven.EventDrivenTransformationRuleFactory
 import org.eclipse.viatra.transformation.runtime.emf.transformation.eventdriven.EventDrivenTransformation
-import hu.bme.mit.gamma.action.model.Statement
-import hu.bme.mit.gamma.statechart.statechart.State
-import com.triad.school.gamma.simulator.query.util.SimulationActionExecutor
 
 interface ActiveStateListener {
 	def void activeStateAdded(StateNode node);
@@ -174,13 +173,13 @@ class GammaStatechartSimulatorTransformation {
     def void fireEmptyTriggersContinously() {
     	while (firedTransition) {
     		firedTransition = false
-    	}
     	
-    	utils.visit [
-			checkFireTransitions(utils.fireableEmptyTransitions(it))
-			
-			!firedTransition
-		]
+	    	utils.visit [
+				checkFireTransitions(utils.fireableEmptyTransitions(it))
+				
+				!firedTransition
+			]
+    	}
     }
     
     def checkFireTransitions(List<Transition> transitions) {
@@ -199,7 +198,7 @@ class GammaStatechartSimulatorTransformation {
     	}
     }
 
-    var firedTransition = false
+    var firedTransition = true
     def void fireTransition(Transition transition) {
     	firedTransition = true
     	

@@ -41,7 +41,28 @@ pattern allStates(node: StateNode) {
 	Region.stateNodes(_, node);
 }
 
-pattern entryState(region: Region, state: InitialState) {
+pattern parentRegion(region: Region, parentRegion: Region) {
+	Region.stateNodes(region, state);
+	find compositeState(parentState, state);
+	Region.stateNodes(parentRegion, parentState);
+}
+
+pattern historyRegion(region: Region) {
+	Region.stateNodes(region, state);
+	ShallowHistoryState(state);
+} or {
+	find parentRegion*(region, parentRegion);
+	Region.stateNodes(parentRegion, state);
+	DeepHistoryState(state);	
+}
+
+pattern historyEntryState(region: Region, state: StateNode) {
+	find historyRegion(region);
+	RegionalActiveState.region(ras, region);
+	RegionalActiveState.last(ras, state);
+}
+
+pattern entryState(region: Region, state: EntryState) {
 	Region.stateNodes(region, state);
 }
 
