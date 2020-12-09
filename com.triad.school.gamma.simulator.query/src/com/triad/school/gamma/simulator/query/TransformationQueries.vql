@@ -41,13 +41,13 @@ pattern allStates(node: StateNode) {
 	Region.stateNodes(_, node);
 }
 
-pattern parentRegion(region: Region, parentRegion: Region) {
+private pattern parentRegion(region: Region, parentRegion: Region) {
 	Region.stateNodes(region, state);
 	find compositeState(parentState, state);
 	Region.stateNodes(parentRegion, parentState);
 }
 
-pattern historyRegion(region: Region) {
+private pattern historyRegion(region: Region) {
 	Region.stateNodes(region, state);
 	ShallowHistoryState(state);
 } or {
@@ -75,16 +75,15 @@ pattern descendantState(parent: State, descendant: StateNode) {
 	find compositeState+(parent, descendant);
 }
 
-pattern fireableEmptyTransition(region: Region, transition: Transition) {
+pattern fireablePseudoStateTransition(region: Region, transition: Transition) {
 	Transition.sourceState(transition, source);
+	PseudoState(source);
 	Region.stateNodes(region, source);
 	
 	find activeState(source);
-	
-	neg Transition.trigger(transition, _);
 }
 
-pattern fireableTriggerTransition(region: Region, transition: Transition, event: Event) {
+pattern fireableTransition(region: Region, transition: Transition, event: Event) {
 	Transition.sourceState(transition, source);
 	Region.stateNodes(region, source);
 	

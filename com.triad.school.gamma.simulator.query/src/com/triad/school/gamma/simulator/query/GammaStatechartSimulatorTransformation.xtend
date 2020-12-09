@@ -107,17 +107,15 @@ class GammaStatechartSimulatorTransformation {
     def void execute() {
         transformation.executionSchema.startUnscheduledExecution
     	
-    	fireEmptyTriggersContinously()
+    	firePseudoStateTransitionsContinously()
     }
 
     def void sendEvent(Event event) {
 		utils.visit [
-			checkFireTransitions(utils.fireableTriggerTransitions(it, event))
-			
-			!firedTransition
+			checkFireTransitions(utils.fireableTransitions(it, event))
 		]
     	
-    	fireEmptyTriggersContinously()
+    	firePseudoStateTransitionsContinously()
     }
     
     def List<Port> requiredInterfaces() {
@@ -170,19 +168,17 @@ class GammaStatechartSimulatorTransformation {
         transformation = null
     }
     
-    def void fireEmptyTriggersContinously() {
+    def void firePseudoStateTransitionsContinously() {
     	while (firedTransition) {
     		firedTransition = false
     	
 	    	utils.visit [
-				checkFireTransitions(utils.fireableEmptyTransitions(it))
-				
-				!firedTransition
+				checkFireTransitions(utils.fireablePseudoStateTransitions(it))
 			]
     	}
     }
     
-    def checkFireTransitions(List<Transition> transitions) {
+    def boolean checkFireTransitions(List<Transition> transitions) {
     	val transition = transitions.stream.sorted[ a, b|
     		if (a.guard === null) {
     			-1
@@ -196,12 +192,14 @@ class GammaStatechartSimulatorTransformation {
     	if (transition.present) {
     		fireTransition(transition.get)
     	}
+    	
+    	return transition.present
     }
 
-    var firedTransition = true
+	var firedTransition = true
     def void fireTransition(Transition transition) {
     	firedTransition = true
-    	
+    	    	
     	drillUp(transition.sourceState, transition.targetState)
     	
     	println('''Firing transition: «transition.sourceState.name» - «transition.targetState.name»''')   

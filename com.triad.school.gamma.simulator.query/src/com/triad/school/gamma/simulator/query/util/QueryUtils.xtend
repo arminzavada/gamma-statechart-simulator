@@ -3,7 +3,6 @@ package com.triad.school.gamma.simulator.query.util
 import com.triad.school.gamma.simulator.model.RegionalActiveState
 import com.triad.school.gamma.simulator.query.AllStates
 import com.triad.school.gamma.simulator.query.AssociatedRegionalActiveState
-import com.triad.school.gamma.simulator.query.CompositeState
 import com.triad.school.gamma.simulator.query.DescendantState
 import com.triad.school.gamma.simulator.query.EntryState
 import com.triad.school.gamma.simulator.query.RegionalState
@@ -20,14 +19,15 @@ import java.util.List
 import org.eclipse.viatra.query.runtime.api.ViatraQueryEngine
 import java.util.stream.Collectors
 import com.triad.school.gamma.simulator.query.SubRegion
-import com.triad.school.gamma.simulator.query.FireableTriggerTransition
-import com.triad.school.gamma.simulator.query.FireableEmptyTransition
+import com.triad.school.gamma.simulator.query.FireableTransition
 import hu.bme.mit.gamma.statechart.interface_.Event
 import com.triad.school.gamma.simulator.query.HistoryEntryState
+import com.triad.school.gamma.simulator.query.CompositeState
+import com.triad.school.gamma.simulator.query.FireablePseudoStateTransition
 
 class QueryUtils {
-	val EntryState.Matcher entryStateMatcher
 	val HistoryEntryState.Matcher historyEntryStateMatcher
+	val EntryState.Matcher entryStateMatcher
 	val CompositeState.Matcher compositeStateMatcher
 	val DescendantState.Matcher descendantStateMatcher
 	val AssociatedRegionalActiveState.Matcher associatedRegionalActiveStateMatcher
@@ -37,8 +37,8 @@ class QueryUtils {
 	val AllStates.Matcher allStatesMatcher
 	val Variables.Matcher variablesMatcher
 	val SubRegion.Matcher subRegionMatcher
-	val FireableTriggerTransition.Matcher fireableTriggerTransitionMatcher
-	val FireableEmptyTransition.Matcher fireableEmptyTransitionMatcher
+	val FireableTransition.Matcher fireableTransitionMatcher
+	val FireablePseudoStateTransition.Matcher fireablePseudoStateTransitionMatcher
 	
 	new (ViatraQueryEngine engine) {
 		TransformationQueries.instance.prepare(engine)
@@ -54,8 +54,8 @@ class QueryUtils {
 		allStatesMatcher = AllStates.Matcher.on(engine)
 		variablesMatcher = Variables.Matcher.on(engine)
 		subRegionMatcher = SubRegion.Matcher.on(engine)
-		fireableTriggerTransitionMatcher = FireableTriggerTransition.Matcher.on(engine)
-		fireableEmptyTransitionMatcher = FireableEmptyTransition.Matcher.on(engine)
+		fireableTransitionMatcher = FireableTransition.Matcher.on(engine)
+		fireablePseudoStateTransitionMatcher = FireablePseudoStateTransition.Matcher.on(engine)
 	}
 	
 	def State parentState(StateNode state) {
@@ -115,14 +115,14 @@ class QueryUtils {
 		regionalState(state).state = null
 	}
 	
-	def fireableTriggerTransitions(Region region, Event event) {
-		fireableTriggerTransitionMatcher.streamAllMatches(region, null, event).map [
+	def fireableTransitions(Region region, Event event) {
+		fireableTransitionMatcher.streamAllMatches(region, null, event).map [
 			it.transition
 		].collect(Collectors.toList)
 	}
 	
-	def fireableEmptyTransitions(Region region) {
-		fireableEmptyTransitionMatcher.streamAllMatches(region, null).map [
+	def fireablePseudoStateTransitions(Region region) {
+		fireablePseudoStateTransitionMatcher.streamAllMatches(region, null).map [
 			it.transition
 		].collect(Collectors.toList)
 	}
