@@ -121,13 +121,22 @@ public interface ModelPackage extends EPackage {
 	int REGIONAL_ACTIVE_STATE__REGION = 1;
 
 	/**
+	 * The feature id for the '<em><b>Last</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REGIONAL_ACTIVE_STATE__LAST = 2;
+
+	/**
 	 * The number of structural features of the '<em>Regional Active State</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int REGIONAL_ACTIVE_STATE_FEATURE_COUNT = 2;
+	int REGIONAL_ACTIVE_STATE_FEATURE_COUNT = 3;
 
 	/**
 	 * The number of operations of the '<em>Regional Active State</em>' class.
@@ -190,6 +199,17 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getRegionalActiveState_Region();
+
+	/**
+	 * Returns the meta object for the reference '{@link com.triad.school.gamma.simulator.model.RegionalActiveState#getLast <em>Last</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Last</em>'.
+	 * @see com.triad.school.gamma.simulator.model.RegionalActiveState#getLast()
+	 * @see #getRegionalActiveState()
+	 * @generated
+	 */
+	EReference getRegionalActiveState_Last();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -257,6 +277,14 @@ public interface ModelPackage extends EPackage {
 		 * @generated
 		 */
 		EReference REGIONAL_ACTIVE_STATE__REGION = eINSTANCE.getRegionalActiveState_Region();
+
+		/**
+		 * The meta object literal for the '<em><b>Last</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference REGIONAL_ACTIVE_STATE__LAST = eINSTANCE.getRegionalActiveState_Last();
 
 	}
 

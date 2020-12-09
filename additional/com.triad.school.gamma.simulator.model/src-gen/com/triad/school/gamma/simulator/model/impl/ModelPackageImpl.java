@@ -165,6 +165,15 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getRegionalActiveState_Last() {
+		return (EReference) regionalActiveStateEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public ModelFactory getModelFactory() {
 		return (ModelFactory) getEFactoryInstance();
 	}
@@ -195,6 +204,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		regionalActiveStateEClass = createEClass(REGIONAL_ACTIVE_STATE);
 		createEReference(regionalActiveStateEClass, REGIONAL_ACTIVE_STATE__STATE);
 		createEReference(regionalActiveStateEClass, REGIONAL_ACTIVE_STATE__REGION);
+		createEReference(regionalActiveStateEClass, REGIONAL_ACTIVE_STATE__LAST);
 	}
 
 	/**
@@ -244,6 +254,9 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 				1, RegionalActiveState.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
 				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getRegionalActiveState_Region(), theStatechartModelPackage.getRegion(), null, "region", null, 1,
+				1, RegionalActiveState.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
+				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getRegionalActiveState_Last(), theStatechartModelPackage.getStateNode(), null, "last", null, 0,
 				1, RegionalActiveState.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
 				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
