@@ -1,0 +1,37 @@
+ifndef::imagesdir[:imagesdir: ../images]
+ifndef::resourcesdir[:resourcesdir: ../resources]
+
+The show the simulator, you have to open it's view.
+
+image::show_view.png[width=396]
+image::gamma_view.png[width=318]
+
+= Overview
+
+image::ui-overview.png[Simulator UI overview, title="Simulator UI overview", width=800]
+
+. Gamma statechart code
+. Gamma statechart viewed in PlantUML
+. Available variables
+. Available events
+. Current active state(s)
+. Controls
+
+== Variables
+
+Variables can be viewed and edited during runtime. To edit, simply write into the textbox.
+
+== Event
+
+Shows a list of all input events of the statechart.
+
+== Active state(s)
+
+The currently active states
+
+== Controls
+
+* Refresh: reloads the simulator with the currently open gcd model
+* Send: sends the selected event to the statechart
+
+

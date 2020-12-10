@@ -1,0 +1,12 @@
+ifndef::imagesdir[:imagesdir: ../images]
+ifndef::resourcesdir[:resourcesdir: ../resources]
+
+= Required plugins
+
+This simulator needs https://inf.mit.bme.hu/en/gamma[Gamma] to function, please follow their setup guide!
+
+== Gamma Simulator Model
+
+You have to include the `Gamma Simulator Model` as a plugin.
+
+// TODO: create exported plugins, and write detailed setup guide

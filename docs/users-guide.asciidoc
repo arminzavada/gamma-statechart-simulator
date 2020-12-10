@@ -1,0 +1,21 @@
+:doctype: book
+:source-highlighter: coderay
+:imagesdir: images
+:resourcesdir: resources
+:toclevels: 2
+:toc:
+:toc2:
+:chapterdir: .
+:experimental:
+:sectlinks:
+:sectnums:
+
+= Gamma Statechart Simulator User's Guide
+
+== Plugin Setup
+
+include::sections/plugin-setup.asciidoc[leveloffset=+2]
+
+== UI overview
+
+include::sections/ui-overview.asciidoc[leveloffset=+2]
