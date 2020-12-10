@@ -1,0 +1,36 @@
+ifndef::imagesdir[:imagesdir: ../images]
+ifndef::resourcesdir[:resourcesdir: ../resources]
+
+If you want to contribute, feel free to start working on an issue, and submit a pull request!
+
+Few requirements:
+
+= Branch names
+
+Branches must follow the following naming scheme `issues/issue number/brief description`
+
+For example: `issues/6/parallel_regions`
+
+This is to easily find the related issue from github, and to prevent branch name conflicts.
+
+= PR
+
+PRs should be assigned to the same person/people who worked on the issue. The same labels and milestones should be applied, and a small description of the changes.
+
+Try making as small change as possible, if you can't, split up the PR into multiple ones.
+
+= PR merging
+
+Before you merge, I have to review and accept. Before merging, merge `main` in, and only after that merge into main.
+
+= Commits
+
+All commit must have at least a single line with the issue's number as the first work.
+
+For example
+
+....
+#6 added regions to metamodel
+....
+
+If needed, you may provide more detail in the lines after

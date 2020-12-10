@@ -1,0 +1,25 @@
+:doctype: book
+:source-highlighter: coderay
+:imagesdir: images
+:resourcesdir: resources
+:toclevels: 2
+:toc:
+:toc2:
+:chapterdir: .
+:experimental:
+:sectlinks:
+:sectnums:
+
+= Gamma Statechart Simulator Contributor's Guide
+
+== Environment setup
+
+include::sections/environment-setup.asciidoc[leveloffset=+2]
+
+== Code architecture
+
+include::sections/code-architecture.asciidoc[leveloffset=+2]
+
+== Version control
+
+include::sections/version-control.asciidoc[leveloffset=+2]

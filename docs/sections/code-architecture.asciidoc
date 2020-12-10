@@ -1,0 +1,54 @@
+ifndef::imagesdir[:imagesdir: ../images]
+ifndef::resourcesdir[:resourcesdir: ../resources]
+
+Currently, the code consists of two parts
+
+* Simulator
+* Model
+
+This is because the Model plugin can't be directly inside the same workspace.
+
+= Model
+
+This is an EMF plugin. Its purpose is to provide the simulator with runtime information, such as active states, variable values, etc.
+
+== Simulator Model
+
+image::../images/model.svg[Simulator Model, title="Simulator Model", width=800]
+
+As you can see, there are a number of custom Classes.
+
+=== ActiveStateContainer
+
+Contains all `RegionalActiveState`
+
+=== RegionalActiveState
+
+This is the heart of the simulator runtime model. All `Region` is associated with one, and contains the current active state, and the last state.
+Last state is used for history states.
+
+= Simulator
+
+This is an eclipse plugin, which exposes a `View` which can be opened in a running eclipse instance.
+
+The UI of the view is inside the `ui` package.__ See User's Guide - UI overview
+
+== Query
+
+The simulator uses `Viatra` queries to fetch simulation time data.
+
+=== UI data
+
+Available ports/event
+
+Active states
+
+Available variables
+
+=== Transition data
+
+When firing events, the simulator checks for fireable transitions.
+
+= More information
+
+For more information, see link:{resourcesdir}/slides/GammaStatechartSimulator-Demo.pdf[]
