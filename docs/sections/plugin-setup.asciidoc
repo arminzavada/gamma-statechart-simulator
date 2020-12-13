@@ -5,6 +5,17 @@ ifndef::resourcesdir[:resourcesdir: ../resources]
 
 This simulator needs https://inf.mit.bme.hu/en/gamma[Gamma] to function, please follow their setup guide!
 
+This plugin uses https://inf.mit.bme.hu/en/gamma[Gamma] to function, please follow their setup guide!
+
+This includes:
+* Gamma
+* Eclipse
+* Yakindu (you may need a license)
+* Viatra
+* EMF
+* Xtext
+* Xtend
+
 == Gamma Simulator Model
 
 You have to include the `Gamma Simulator Model` as a plugin.

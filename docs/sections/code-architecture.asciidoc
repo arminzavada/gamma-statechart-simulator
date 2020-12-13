@@ -14,7 +14,7 @@ This is an EMF plugin. Its purpose is to provide the simulator with runtime info
 
 == Simulator Model
 
-image::../images/model.svg[Simulator Model, title="Simulator Model", width=800]
+image::../images/model.svg[Simulator Model, title="Simulator Model", width=300]
 
 As you can see, there are a number of custom Classes.
 
@@ -25,7 +25,10 @@ Contains all `RegionalActiveState`
 === RegionalActiveState
 
 This is the heart of the simulator runtime model. All `Region` is associated with one, and contains the current active state, and the last state.
-Last state is used for history states.
+
+Whenever firing a transition, the source's `RegionalActiveState.state` is set to null, and the target's `RegionalActiveState.state` and `RegionalActiveState.last` is set to the target.
+
+This way the last always contains the state to travel to whenever a history state exists.
 
 = Simulator
 
@@ -35,20 +38,31 @@ The UI of the view is inside the `ui` package.__ See User's Guide - UI overview
 
 == Query
 
-The simulator uses `Viatra` queries to fetch simulation time data.
+The simulator uses `Viatra` queries to fetch simulation time data. See https://www.eclipse.org/viatra/[Viatra] for more info.
 
 === UI data
 
-Available ports/event
+==== On demand
 
-Active states
+These are collected on demand, when the View is initialised. They are only called once, as these data do not change during runtime.
 
-Available variables
+ * Available ports/events
+ * Available variables
+
+==== Event driven
+
+These are collected and sent to the UI every time they update.
+
+ * Active states
 
 === Transition data
 
-When firing events, the simulator checks for fireable transitions.
+For ease of use, `QueryUtils` contains helper functions for querying the output of Viatra queries.
+
+=== Expression and Action languages
+
+Gamma defines Expression and Action languages. The evaluators are contained in `query.util` package. These traverse the `AST`, and process every node.
 
 = More information
 
-For more information, see link:{resourcesdir}/slides/GammaStatechartSimulator-Demo.pdf[]
+For more information, see link:{resourcesdir}/slides/GammaStatechartSimulator-Demo.pdf[Gamma Statechart Simulator - Demo]

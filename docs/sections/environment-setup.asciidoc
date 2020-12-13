@@ -1,11 +1,22 @@
 ifndef::imagesdir[:imagesdir: ../images]
 ifndef::resourcesdir[:resourcesdir: ../resources]
 
-= Gamma
+= Gamma and Eclipse
 
 This plugin uses https://inf.mit.bme.hu/en/gamma[Gamma] to function, please follow their setup guide!
 
-= Peculiar bug
+This includes:
+ * Gamma
+ * Eclipse
+ * Yakindu (you may need a license)
+ * Viatra
+ * EMF
+ * Xtext
+ * Xtend
+
+This is everything you need to start developing.
+
+== Peculiar bug
 
 Because of a bug, the `Gamma Statechart Model` can't be imported to the same workspace as the rest of the plugin -> in order to use, you have to export the `Gamma Statechart Model` as a plugin, and install it into your Eclipse.
 
